@@ -1,0 +1,25 @@
+.next
+
+.vscode
+#.pio
+Back-end/node_modules
+Frontend/node_modules
+Back-end/.env
+Frontend/.env
+
+# Godot 4+ specific ignores
+Godot/integration-project-gamr/.godot/
+Godot/integration-project-gamr/.nomedia
+
+# Godot-specific ignores
+Godot/integration-project-gamr/.import/
+Godot/integration-project-gamr/export.cfg
+Godot/integration-project-gamr/export_credentials.cfg
+
+# Imported translations (automatically generated from CSV files)
+Godot/integration-project-gamr/*.translation
+
+# Mono-specific ignores
+Godot/integration-project-gamr/.mono/
+Godot/integration-project-gamr/data_*/
+Godot/integration-project-gamr/mono_crash.*.json

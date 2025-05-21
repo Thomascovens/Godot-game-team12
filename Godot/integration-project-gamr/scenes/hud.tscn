@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8xlut11rss36"]
+
+[ext_resource type="Script" uid="uid://bqno2ftey617l" path="res://scripts/hud.gd" id="1_5ysmq"]
+[ext_resource type="PackedScene" uid="uid://cr3sbkgfc7y4s" path="res://scenes/health_bar.tscn" id="2_6fi6k"]
+[ext_resource type="FontFile" uid="uid://dtx87twhejy87" path="res://fonts/Xolonium-Regular.ttf" id="3_uo2fv"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_5ysmq")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_6fi6k")]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 228.0
+offset_bottom = 51.0
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.5
+offset_right = 22.5
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_uo2fv")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverMessage" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Restart" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0

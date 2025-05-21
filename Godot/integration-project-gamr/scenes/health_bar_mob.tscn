@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://r85g3a84nmbp"]
+
+[ext_resource type="PackedScene" uid="uid://cr3sbkgfc7y4s" path="res://scenes/health_bar.tscn" id="1_hp23c"]
+
+[node name="HealthBarMob" instance=ExtResource("1_hp23c")]
+
+[node name="DamageBar" parent="." index="0"]
+max_value = 120.0
+value = 120.0

@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://des2diql21446"]
+
+[ext_resource type="Script" uid="uid://buypfu133qt25" path="res://scenes/projectile_mob_ghost_wizard.gd" id="1_pvaeq"]
+[ext_resource type="Texture2D" uid="uid://lffdpcxrrx2a" path="res://assets/Characters/mobs/Ghost wizard/ChatGPT Image 20 mei 2025, 16_46_23.png" id="2_pvaeq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pupxc"]
+radius = 3.0
+height = 28.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvaeq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cqa8h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pupxc"]
+size = Vector2(20, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvv6k"]
+atlas = ExtResource("2_pvaeq")
+region = Rect2(768, 0, 384, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikhri"]
+atlas = ExtResource("2_pvaeq")
+region = Rect2(1152, 0, 384, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni87h"]
+atlas = ExtResource("2_pvaeq")
+region = Rect2(1152, 0, 384, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o63p8"]
+atlas = ExtResource("2_pvaeq")
+region = Rect2(384, 0, 384, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_widtl"]
+atlas = ExtResource("2_pvaeq")
+region = Rect2(768, 0, 384, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ni87h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvv6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikhri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ni87h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o63p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_widtl")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 15.0
+}]
+
+[node name="Projectile mob ghost wizard" type="Area2D"]
+script = ExtResource("1_pvaeq")
+metadata/_custom_type_script = "uid://bthpr50trrn8f"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pupxc")
+debug_color = Color(0, 0.614498, 0.607276, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D"]
+position = Vector2(-4, 4)
+rotation = 0.785398
+shape = SubResource("CapsuleShape2D_pvaeq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CollisionShape2D"]
+position = Vector2(6, 5)
+rotation = -0.785398
+shape = SubResource("CapsuleShape2D_cqa8h")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CollisionShape2D"]
+position = Vector2(12, 12.5)
+shape = SubResource("RectangleShape2D_pupxc")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="CollisionShape2D"]
+position = Vector2(-13, 13)
+shape = SubResource("RectangleShape2D_pupxc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1.19209e-07)
+scale = Vector2(0.182292, 0.152344)
+sprite_frames = SubResource("SpriteFrames_ni87h")
+animation = &"fly"
+frame_progress = 0.00335358
+
+[node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

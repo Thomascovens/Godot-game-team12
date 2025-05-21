@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://xwx08qioq0lo"]
+
+[ext_resource type="Script" uid="uid://c7onkycla11hg" path="res://scenes/game_menu.gd" id="1_qdaa4"]
+[ext_resource type="Texture2D" uid="uid://qac1yr7khtxw" path="res://assets/BackGrounds/menuBackground.png" id="2_mw6r2"]
+[ext_resource type="Shader" uid="uid://cy8k2aorutxat" path="res://assets/themes/scroll.gdshader" id="3_ldg7d"]
+[ext_resource type="Texture2D" uid="uid://b1fxebn2r1a4l" path="res://assets/BackGrounds/ChatGPT_Image_May_20__2025__03_51_49_PM-removebg-preview.png" id="4_mw6r2"]
+[ext_resource type="FontFile" uid="uid://b63vivd8eeb8g" path="res://fonts/PressStart2P-Regular.ttf" id="5_ldg7d"]
+[ext_resource type="Theme" uid="uid://dkphpbtrhf53i" path="res://assets/themes/buttonThemeBlue.tres" id="6_yr8n5"]
+[ext_resource type="Theme" uid="uid://c6qpwo45w6kdv" path="res://assets/themes/buttonThemeGreen.tres" id="7_0b27c"]
+[ext_resource type="Theme" uid="uid://xk73wlmvlp1n" path="res://assets/themes/buttonThemeRed.tres" id="8_yr8n5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0b27c"]
+shader = ExtResource("3_ldg7d")
+shader_parameter/speed = 0.05
+
+[sub_resource type="Theme" id="Theme_cdnys"]
+default_font = ExtResource("5_ldg7d")
+
+[node name="gameMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_qdaa4")
+
+[node name="backgroundImg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mw6r2")
+
+[node name="stars" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_0b27c")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -956.0
+offset_top = -542.0
+offset_right = 957.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_mw6r2")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+light_mask = 0
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -116.5
+offset_right = 175.0
+offset_bottom = 116.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_cdnys")
+theme_override_constants/separation = 20
+
+[node name="preGame" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 75)
+layout_direction = 2
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitToLogin")
+theme = ExtResource("6_yr8n5")
+text = "Pre Game"
+
+[node name="cardGame" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+theme = ExtResource("7_0b27c")
+text = "Card Game"
+
+[node name="ExitToLogin" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 75)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../preGame")
+theme = ExtResource("8_yr8n5")
+text = "Exit"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[connection signal="pressed" from="VBoxContainer/preGame" to="." method="_on_game_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitToLogin" to="." method="_on_exit_to_login_pressed"]
