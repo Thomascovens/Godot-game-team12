@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://c0yuhomr0g8mc"]
+[gd_scene load_steps=20 format=4 uid="uid://c0yuhomr0g8mc"]
 
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://dtj2f7w8g75s" path="res://assets/Tilesets/Grass.png" id="2_jyhfs"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://b8xlut11rss36" path="res://scenes/hud.tscn" id="3_tipki"]
 [ext_resource type="Texture2D" uid="uid://ccobtp5i1i2he" path="res://assets/Tilesets/Tilled_Dirt.png" id="4_tefeu"]
 [ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/projectile.tscn" id="4_tipki"]
+[ext_resource type="PackedScene" uid="uid://dd6jcbovgilp3" path="res://scenes/shootermob.tscn" id="6_85g3d"]
+[ext_resource type="PackedScene" uid="uid://des2diql21446" path="res://scenes/projectile_mob_ghost_wizard.tscn" id="7_choun"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6xl0"]
 texture = ExtResource("2_jyhfs")
@@ -505,24 +507,35 @@ size = Vector2(2664, 1776)
 [node name="Main" type="Node"]
 script = ExtResource("1_o5qli")
 mob_scene = ExtResource("3_o6xl0")
+shootermob_scene = ExtResource("6_85g3d")
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 
-[node name="projectile" parent="." instance=ExtResource("4_tipki")]
-position = Vector2(781, -414)
-collision_layer = 3
-collision_mask = 3
-
 [node name="Player" parent="." instance=ExtResource("2_tefeu")]
-position = Vector2(686, -215)
-collision_layer = 3
-collision_mask = 3
+position = Vector2(728, 2466)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
-[node name="Mob" parent="." instance=ExtResource("3_o6xl0")]
-position = Vector2(882, -461)
+[node name="projectile player" parent="." instance=ExtResource("4_tipki")]
+position = Vector2(912, 2476)
+collision_layer = 3
+collision_mask = 3
+
+[node name="soldier mob" parent="." instance=ExtResource("3_o6xl0")]
+position = Vector2(563, 2496)
+collision_layer = 2
+collision_mask = 2
 player_path = NodePath("../Player")
+
+[node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
+position = Vector2(404, 2483)
+collision_layer = 2
+collision_mask = 2
+physics_material_override = null
+
+[node name="Projectile mob ghost wizard" parent="." instance=ExtResource("7_choun")]
+position = Vector2(359, 2488)
+scale = Vector2(0.06, 0.06)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -2
@@ -549,10 +562,12 @@ position = Vector2(768, 648)
 
 [node name="Mapbounds" type="StaticBody2D" parent="."]
 collision_layer = 2
+collision_mask = 2
 
 [node name="Shape" type="CollisionShape2D" parent="Mapbounds"]
 light_mask = 2
-position = Vector2(1057, 619)
+visibility_layer = 2
+position = Vector2(996, 571)
 shape = SubResource("RectangleShape2D_tipki")
 
 [node name="MultiplayerHUD" type="Control" parent="."]

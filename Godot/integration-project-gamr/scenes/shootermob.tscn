@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="1_piwqa"]
 [ext_resource type="Script" uid="uid://dvjv7qysmq5sa" path="res://scripts/shootermob.gd" id="2_niuay"]
-[ext_resource type="PackedScene" uid="uid://r85g3a84nmbp" path="res://scenes/health_bar_mob.tscn" id="3_npm8x"]
+[ext_resource type="PackedScene" uid="uid://1o5cteqe1tql" path="res://scenes/health_bar_mob.tscn" id="3_npm8x"]
 [ext_resource type="Texture2D" uid="uid://cefkmfm6q77qw" path="res://assets/Characters/mobs/Ghost wizard/F1uWk1.png" id="3_xrj1y"]
 [ext_resource type="Texture2D" uid="uid://behtixx46xd2g" path="res://assets/Characters/mobs/Ghost wizard/c+siXA.png" id="4_npm8x"]
-[ext_resource type="Script" uid="uid://gydcbl4maapq" path="res://scripts/health_bar_mob.gd" id="4_qm2nw"]
+[ext_resource type="Script" uid="uid://dsvflkntwddsf" path="res://scripts/health_bar_mob.gd" id="4_qm2nw"]
 [ext_resource type="Texture2D" uid="uid://5w765h2u3ckc" path="res://assets/Characters/mobs/Ghost wizard/5BcDD7.png" id="5_qm2nw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qm2nw"]
@@ -221,14 +221,12 @@ max_health = 120
 shoot_cooldown = 1.5
 attack_range = 600.0
 
-[node name="HealthBar" parent="." index="0" instance=ExtResource("3_npm8x")]
+[node name="HealthBarMob" parent="." index="0" instance=ExtResource("3_npm8x")]
 offset_left = -34.0
-offset_top = -72.0
-offset_right = 24.0
+offset_top = -73.0
+offset_right = 25.0
 offset_bottom = -65.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_qm2nw")
-max_value = 120.0
-value = 120.0
 script = ExtResource("4_qm2nw")
 
 [node name="AnimatedSprite2D" parent="." index="1"]

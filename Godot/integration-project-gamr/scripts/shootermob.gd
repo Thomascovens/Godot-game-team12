@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-signal hit(new_health: int)
+signal hit(new_health: int) 
 
 @export var speed: float = 100.0
 @export var player_path: NodePath
@@ -83,10 +83,7 @@ func take_damage(amount: int) -> void:
 	if is_dead:
 		return
 	health = clamp(health - amount, 0, max_health)
-	
-	# 2) Emit the hit signal so the bar updates:
 	emit_signal("hit", health)
-	
 	if health == 0:
 		die()
 

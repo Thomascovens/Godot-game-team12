@@ -9,6 +9,7 @@ signal hit(new_health: int)
 
 var health: int
 var is_attacking: bool = false
+var is_invincible: bool = false
 var map_bounds_rect: Rect2
 
 func _ready():
@@ -104,18 +105,40 @@ func _on_frame_changed() -> void:
 			is_attacking = false
 
 func _on_Hitbox_body_entered(body: Node) -> void:
-	#debugging:
-	print("Hitbox entered by:", body, "in groups:", body.get_groups())
+	if is_invincible:
+		return
 	if body.is_in_group("Mobs"):
 		take_damage(10)
 
 func take_damage(amount: int) -> void:
+	if is_invincible: # Like the famous show? [title card] 
+		return        # Like [title card]? The viltrumite?
+
 	health = clamp(health - amount, 0, max_health)
-	print("Player health is now:", health)
 	emit_signal("hit", health)
-	get_node("/root/Main/HUD/HealthBar").health = health
+
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
+	else:
+		push_warning("HealthBar node not found! Skipping health UI update.")
+
 	if health == 0:
-		get_parent().game_over()
+		var parent = get_parent()
+		if parent and parent.has_method("game_over"):
+			parent.game_over()
+		else:
+			push_error("Parent node has no 'game_over' method!")
+		return
+
+	# Start 2 sec invincibility
+	is_invincible = true
+	$AnimatedSprite2D.modulate.a = 0.3
+	await get_tree().create_timer(2.0).timeout
+	is_invincible = false
+	$AnimatedSprite2D.modulate.a = 1.0
+
+
 
 func start(pos):
 	position = pos

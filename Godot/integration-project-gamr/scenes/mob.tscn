@@ -1,9 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://wu2i20axn6bm"]
+[gd_scene load_steps=26 format=3 uid="uid://wu2i20axn6bm"]
 
 [ext_resource type="Script" uid="uid://nsykg8srsskf" path="res://scripts/mob.gd" id="1_d4cuo"]
 [ext_resource type="Texture2D" uid="uid://dxpn1ymgk8014" path="res://assets/Characters/mobs/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="2_71rcx"]
 [ext_resource type="Texture2D" uid="uid://djmwolyt30euv" path="res://assets/Characters/mobs/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="3_h8ps3"]
 [ext_resource type="Texture2D" uid="uid://dmclqaq6fs6ve" path="res://assets/Characters/mobs/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="3_xsfyf"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_71rcx"]
+friction = 0.01
+rough = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71rcx"]
 atlas = ExtResource("2_71rcx")
@@ -100,7 +104,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -149,21 +153,26 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4cuo"]
-size = Vector2(21, 35)
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsfyf"]
+radius = 11.8124
 
 [node name="soldier" type="RigidBody2D" groups=["Mobs"]]
+physics_material_override = SubResource("PhysicsMaterial_71rcx")
 gravity_scale = 0.0
+lock_rotation = true
 contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_d4cuo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_mq56s")
-animation = &"die"
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -3.5)
-shape = SubResource("RectangleShape2D_d4cuo")
+position = Vector2(0.255, -3.385)
+shape = SubResource("CircleShape2D_xsfyf")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -4)

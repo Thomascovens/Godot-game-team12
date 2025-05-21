@@ -20,7 +20,7 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Mobs"):
 		# so mob can take damage or die
 		if body.has_method("take_damage"):
-			body.take_damage(1000000)   
+			body.take_damage(30)   
 		elif body.has_method("die"):
 			body.die()
 		else:
@@ -44,4 +44,8 @@ func _trigger_impact() -> void:
 # Godot 4's AnimatedSprite2D.animation_finished emits NO args
 func _on_animation_finished() -> void:
 	# once the impact clip ends, destroy us
+	queue_free()
+	
+
+func _on_screen_exited() -> void:
 	queue_free()

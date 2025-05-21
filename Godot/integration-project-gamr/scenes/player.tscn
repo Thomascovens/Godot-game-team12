@@ -8,11 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://b1t30m5q5vfcd" path="res://assets/Characters/Fire vizard/Run.png" id="5_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://b8pjilarwlkv7" path="res://assets/Characters/Fire vizard/Walk.png" id="6_d2wvv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
-size = Vector2(18, 66)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fjrip"]
+radius = 7.185
+height = 64.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v2ag"]
-size = Vector2(18, 66)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_smehm"]
+radius = 7.0
+height = 66.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
 atlas = ExtResource("2_fjrip")
@@ -253,7 +255,7 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
-position = Vector2(155, -9)
+position = Vector2(302, 186)
 script = ExtResource("1_tuyoq")
 projectile_scene = ExtResource("2_smehm")
 metadata/_edit_group_ = true
@@ -262,12 +264,12 @@ metadata/_edit_group_ = true
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-3, 31)
-shape = SubResource("RectangleShape2D_tuyoq")
+position = Vector2(-16.185, 31.96)
+shape = SubResource("CapsuleShape2D_fjrip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 31)
-shape = SubResource("RectangleShape2D_3v2ag")
+position = Vector2(-8.2, 32.325)
+shape = SubResource("CapsuleShape2D_smehm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fdfoy")
