@@ -26,7 +26,7 @@ func _ready():
 	else:
 		push_error("Mapbounds/Shape must be a RectangleShape2D!")
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# 1) Start attack if just pressed (fires once)
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true

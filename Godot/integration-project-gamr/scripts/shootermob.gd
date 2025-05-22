@@ -25,7 +25,8 @@ func _ready() -> void:
 	health = max_health
 	if player_path != null:
 		player = get_node(player_path)
-
+	collision_layer = 0
+	collision_mask = 0
 	# start running
 	sprite.animation = "run"
 	sprite.play()
@@ -33,7 +34,7 @@ func _ready() -> void:
 	sprite.connect("animation_finished", Callable(self, "_on_animation_finished"))
 	screen_notifier.connect("screen_exited", Callable(self, "_on_screen_exited"))
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_dead or player == null:
 		linear_velocity = Vector2.ZERO
 		return

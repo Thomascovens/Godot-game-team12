@@ -1,13 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://wu2i20axn6bm"]
+[gd_scene load_steps=25 format=3 uid="uid://wu2i20axn6bm"]
 
 [ext_resource type="Script" uid="uid://nsykg8srsskf" path="res://scripts/mob.gd" id="1_d4cuo"]
 [ext_resource type="Texture2D" uid="uid://dxpn1ymgk8014" path="res://assets/Characters/mobs/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="2_71rcx"]
 [ext_resource type="Texture2D" uid="uid://djmwolyt30euv" path="res://assets/Characters/mobs/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="3_h8ps3"]
 [ext_resource type="Texture2D" uid="uid://dmclqaq6fs6ve" path="res://assets/Characters/mobs/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="3_xsfyf"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_71rcx"]
-friction = 0.01
-rough = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71rcx"]
 atlas = ExtResource("2_71rcx")
@@ -156,13 +152,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_xsfyf"]
 radius = 11.8124
 
-[node name="soldier" type="RigidBody2D" groups=["Mobs"]]
-physics_material_override = SubResource("PhysicsMaterial_71rcx")
-gravity_scale = 0.0
-lock_rotation = true
-contact_monitor = true
-max_contacts_reported = 1
+[node name="soldier" type="CharacterBody2D" groups=["Mobs"]]
 script = ExtResource("1_d4cuo")
+speed = null
+player_path = null
+max_health = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1)
@@ -177,5 +171,5 @@ shape = SubResource("CircleShape2D_xsfyf")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, -4)
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
