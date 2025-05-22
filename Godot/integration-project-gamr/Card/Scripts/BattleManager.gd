@@ -20,16 +20,16 @@ func _ready() -> void:
 	battle_timer.one_shot = true
 	battle_timer.wait_time = 1.0
 	
-	empty_card_slots.append($"../CardSlots/CardSlot11")
-	empty_card_slots.append($"../CardSlots/CardSlot12")
-	empty_card_slots.append($"../CardSlots/CardSlot13")
-	empty_card_slots.append($"../CardSlots/CardSlot14")
-	empty_card_slots.append($"../CardSlots/CardSlot15")
-	empty_card_slots.append($"../CardSlots/CardSlot16")
-	empty_card_slots.append($"../CardSlots/CardSlot17")
-	empty_card_slots.append($"../CardSlots/CardSlot18")
-	empty_card_slots.append($"../CardSlots/CardSlot19")
-	empty_card_slots.append($"../CardSlots/CardSlot20")
+	empty_card_slots.append($"../CardSlots/UnitCardSlotOpponent1")
+	empty_card_slots.append($"../CardSlots/UnitCardSlotOpponent2")
+	empty_card_slots.append($"../CardSlots/UnitCardSlotOpponent3")
+	empty_card_slots.append($"../CardSlots/UnitCardSlotOpponent4")
+	empty_card_slots.append($"../CardSlots/UnitCardSlotOpponent5")
+	empty_card_slots.append($"../CardSlots/MagicCardSlotOpponent1")
+	empty_card_slots.append($"../CardSlots/MagicCardSlotOpponent2")
+	empty_card_slots.append($"../CardSlots/MagicCardSlotOpponent3")
+	empty_card_slots.append($"../CardSlots/MagicCardSlotOpponent4")
+	empty_card_slots.append($"../CardSlots/MagicCardSlotOpponent5")
 	
 	player_health = STARTING_HEALTH
 	$"../PlayerHealth".text = str(player_health)
@@ -43,6 +43,7 @@ func _on_end_turn_button_pressed() -> void:
 	opponent_turn()
 	
 func opponent_turn() -> void:
+	$"../InputManager".inputs_disabled = true
 	await wait(1)
 	$"../EndTurnButton".disabled = true
 	$"../EndTurnButton".visible = false
@@ -212,6 +213,13 @@ func end_opponent_turn():
 	is_opponents_turn = false
 	$"../EndTurnButton".disabled = false
 	$"../EndTurnButton".visible = true
+	$"../InputManager".inputs_disabled = false
 	
-	
+func enable_end_turn_button(is_enabled):
+	if is_enabled:
+		$"../EndTurnButton".disabled = false
+		$"../EndTurnButton".visible = true
+	else:
+		$"../EndTurnButton".disabled = true
+		$"../EndTurnButton".visible = false
 	

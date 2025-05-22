@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5jwmumndhnf6"]
+[gd_scene load_steps=8 format=3 uid="uid://b5jwmumndhnf6"]
 
 [ext_resource type="Script" uid="uid://brqmh4ej4s3mh" path="res://Card/Scripts/card.gd" id="1_d3l4o"]
 [ext_resource type="Texture2D" uid="uid://p01ridpylqen" path="res://Card/Assets/Cards/Knight.png" id="2_d3l4o"]
@@ -163,12 +163,9 @@ _data = {
 &"card_flip": SubResource("Animation_elgft")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqiam"]
-size = Vector2(320, 400)
-
 [node name="Card" type="Node2D"]
 position = Vector2(140, 900)
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_d3l4o")
 
 [node name="CardImage" type="Sprite2D" parent="."]
@@ -176,6 +173,7 @@ z_index = -1
 texture = ExtResource("2_d3l4o")
 
 [node name="CardBackImage" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_sqiam")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -209,13 +207,15 @@ libraries = {
 &"": SubResource("AnimationLibrary_kblc6")
 }
 
-[node name="Area2D2" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_sqiam")
+[node name="Ability" type="RichTextLabel" parent="."]
+offset_left = -160.0
+offset_top = 110.0
+offset_right = 53.0
+offset_bottom = 170.0
+scale = Vector2(1.5, 1.5)
+text = "DEFAULT TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

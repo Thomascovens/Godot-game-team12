@@ -8,6 +8,8 @@ var health
 var attack
 var card_slot_card_is_in
 var defeated = false
+var card_type
+var ability_script
 
 func _ready() -> void:
 	get_parent().connect_card_signals(self)

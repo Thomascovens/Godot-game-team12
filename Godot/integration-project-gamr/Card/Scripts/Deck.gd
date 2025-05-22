@@ -36,11 +36,23 @@ func draw_card():
 	var card_image_path = str("res://Card/Assets/Cards/" + card_drawn_name + ".png")
 	new_card.get_node("CardImage").texture = load(card_image_path)
 	
-	new_card.attack = card_database_reference.CARDS[card_drawn_name][0]
-	new_card.get_node("Attack").text = str(new_card.attack)
+	new_card.card_type = str(card_database_reference.CARDS[card_drawn_name][2])
+	if new_card.card_type == "Unit":
+		new_card.get_node("Ability").visible = false
+		new_card.attack = card_database_reference.CARDS[card_drawn_name][0]
+		new_card.get_node("Attack").text = str(new_card.attack)
+		new_card.health = card_database_reference.CARDS[card_drawn_name][1]
+		new_card.get_node("Health").text = str(new_card.health)
+	else:
+		new_card.get_node("Attack").visible = false
+		new_card.get_node("Health").visible = false
+		new_card.get_node("Ability").text = card_database_reference.CARDS[card_drawn_name][3]
+		var new_card_ability_script_path = card_database_reference.CARDS[card_drawn_name][4]
+		if new_card_ability_script_path:
+			new_card.ability_script = load(new_card_ability_script_path).new()
+		
 	
-	new_card.health = card_database_reference.CARDS[card_drawn_name][1]
-	new_card.get_node("Health").text = str(new_card.health)
+	
 
 	$"../CardManager".add_child(new_card)
 	new_card.name = "Card"

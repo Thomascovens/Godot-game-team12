@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bby8p8bvsglss"]
+[gd_scene load_steps=8 format=3 uid="uid://bby8p8bvsglss"]
 
 [ext_resource type="Script" uid="uid://baflt7aedy7d6" path="res://Card/Scripts/OpponentCard.gd" id="1_5ipid"]
 [ext_resource type="Texture2D" uid="uid://p01ridpylqen" path="res://Card/Assets/Cards/Knight.png" id="2_x2o6u"]
@@ -160,6 +160,9 @@ _data = {
 &"card_flip": SubResource("Animation_elgft")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ipid"]
+size = Vector2(320, 400)
+
 [node name="Card" type="Node2D"]
 position = Vector2(1780, 125)
 scale = Vector2(0.4, 0.4)
@@ -196,3 +199,11 @@ text = "50
 libraries = {
 &"": SubResource("AnimationLibrary_kblc6")
 }
+
+[node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+z_index = -1
+shape = SubResource("RectangleShape2D_5ipid")

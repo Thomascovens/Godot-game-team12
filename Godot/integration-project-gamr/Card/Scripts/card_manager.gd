@@ -3,9 +3,9 @@ extends Node2D
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_SLOT = 2
 const DEFAULT_CARD_MOVE_SPEED = 0.1
-const DEFAULT_CARD_SCALE = 0.4
-const CARD_BIGGER_SCALE = 0.45
-
+const DEFAULT_CARD_SCALE = 0.6
+const CARD_BIGGER_SCALE = 0.65
+const CARD_SMALLER_SCALE = 0.4
 
 var screen_size
 var card_being_dragged
@@ -28,14 +28,18 @@ func _process(delta: float) -> void:
 
 func card_clicked(card):
 	if card.card_slot_card_is_in:
-		if $"../BattleManager".is_opponents_turn == false:
-			if $"../BattleManager".player_is_attacking == false:
-				if card not in $"../BattleManager".player_cards_that_attacked_this_turn:
-					if $"../BattleManager".opponent_cards_on_battlefield.size() == 0:
-						$"../BattleManager".direct_attack(card, "Player")
-						return
-					else:
-						select_card_for_battle(card)
+			if $"../BattleManager".is_opponents_turn:
+				return
+			if $"../BattleManager".player_is_attacking:
+				return
+			if card  in $"../BattleManager".player_cards_that_attacked_this_turn:
+				return
+			if card.card_type != "Unit":
+				return
+			if $"../BattleManager".opponent_cards_on_battlefield.size() == 0:
+				$"../BattleManager".direct_attack(card, "Player")
+			else:
+				select_card_for_battle(card)
 	else:
 		start_drag(card)
 
@@ -62,17 +66,25 @@ func start_drag(card):
 	card.scale = Vector2(DEFAULT_CARD_SCALE,DEFAULT_CARD_SCALE)
 
 func finish_drag():
-	card_being_dragged.scale = Vector2(CARD_BIGGER_SCALE,CARD_BIGGER_SCALE)
 	var card_slot_found = raycast_check_for_card_slot()
 	if card_slot_found and not card_slot_found.card_in_slot:
-		player_hand_reference.remove_card_from_hand(card_being_dragged)
-		card_being_dragged.position = card_slot_found.position
-		card_slot_found.card_in_slot = true
-		card_slot_found.get_node("Area2D/CollisionShape2D").disabled = true
-		card_being_dragged.card_slot_card_is_in = card_slot_found
-		$"../BattleManager".player_cards_on_battlefield.append(card_being_dragged)
-	else:
-		player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
+		if card_being_dragged.card_type == card_slot_found.card_slot_type:
+			is_hovering_on_card = false
+			player_hand_reference.remove_card_from_hand(card_being_dragged)
+			card_being_dragged.position = card_slot_found.position
+			card_slot_found.card_in_slot = true
+			card_slot_found.get_node("Area2D/CollisionShape2D").disabled = true
+			card_being_dragged.card_slot_card_is_in = card_slot_found
+			card_being_dragged.scale = Vector2(CARD_SMALLER_SCALE,CARD_SMALLER_SCALE)
+		if card_being_dragged.card_type == "Unit":
+			$"../BattleManager".player_cards_on_battlefield.append(card_being_dragged)
+		else:
+			card_being_dragged.ability_script.trigger_ability($"../BattleManager", $"../InputManager", card_being_dragged)
+		
+		card_being_dragged = null
+		return
+	
+	player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	card_being_dragged = null
 
 func connect_card_signals(card):
@@ -81,8 +93,9 @@ func connect_card_signals(card):
 
 func on_hovered_over_card(card):
 	if card.card_slot_card_is_in:
-		return
-	if !is_hovering_on_card:
+		card.scale = Vector2(CARD_SMALLER_SCALE,CARD_SMALLER_SCALE)
+		card.z_index = 0
+	elif !is_hovering_on_card:
 		is_hovering_on_card = true
 		highlight_card(card,true)
 
@@ -95,6 +108,9 @@ func on_hovered_off_card(card):
 				highlight_card(new_card_hovered,true)
 			else:
 				is_hovering_on_card = false
+		elif card.card_slot_card_is_in:
+			card.scale = Vector2(CARD_SMALLER_SCALE,CARD_SMALLER_SCALE)
+			card.z_index = 0
 
 func highlight_card(card, hovered):
 	if hovered:
