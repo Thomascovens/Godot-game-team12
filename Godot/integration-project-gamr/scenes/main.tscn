@@ -660,7 +660,7 @@ z_index = -1
 [node name="tree small" type="AnimatedSprite2D" parent="map/animated_objects"]
 position = Vector2(144, -264)
 sprite_frames = SubResource("SpriteFrames_tel4y")
-frame_progress = 0.700751
+frame_progress = 0.0791279
 
 [node name="tree small2" type="AnimatedSprite2D" parent="map/animated_objects"]
 position = Vector2(1152, 1240)
@@ -680,7 +680,7 @@ frame_progress = 0.12167
 [node name="tree medium" type="AnimatedSprite2D" parent="map/animated_objects"]
 position = Vector2(-192, 64)
 sprite_frames = SubResource("SpriteFrames_pibwh")
-frame_progress = 0.296844
+frame_progress = 0.675217
 
 [node name="tree medium2" type="AnimatedSprite2D" parent="map/animated_objects"]
 position = Vector2(760, 168)
@@ -695,7 +695,7 @@ frame_progress = 0.449221
 [node name="skelleton decoration medium2" type="AnimatedSprite2D" parent="map/animated_objects"]
 position = Vector2(3136, -768)
 sprite_frames = SubResource("SpriteFrames_bu4jf")
-frame_progress = 0.273188
+frame_progress = 0.65156
 
 [node name="skelleton decoration medium" type="AnimatedSprite2D" parent="map/animated_objects"]
 position = Vector2(2624, -768)
