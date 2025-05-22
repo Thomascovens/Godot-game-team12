@@ -2,7 +2,7 @@ extends CharacterBody2D
 signal hit(new_health: int)
 
 @export var walk_speed := 200
-@export var run_speed := 400  # twice as fast (tweak to taste)
+@export var run_speed := 400
 @export var max_health: int = 100
 @export var projectile_scene: PackedScene
 @export var projectile_offset: Vector2 = Vector2.ZERO
@@ -17,7 +17,7 @@ func _ready():
 	$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
 
 	# Calculate map bounds from Mapbounds/Shape (must be RectangleShape2D)
-	var shape = get_node("../Mapbounds/Shape")  # Adjust path as needed
+	var shape = get_node("../Mapbounds/Shape")
 	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
 		var rect_shape = shape.shape as RectangleShape2D
 		var center = shape.global_position
@@ -26,7 +26,7 @@ func _ready():
 	else:
 		push_error("Mapbounds/Shape must be a RectangleShape2D!")
 
-func _process(delta):
+func _physics_process(delta):
 	# 1) Start attack if just pressed (fires once)
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
@@ -58,19 +58,19 @@ func _process(delta):
 		dir.y -= 1
 		is_running = true
 
-	# 3) Apply movement
+	# 3) Apply movement using move_and_slide (handles collisions)
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
-		var speed_to_use = run_speed if is_running else walk_speed
-		velocity = dir * speed_to_use
+		var speed = run_speed if is_running else walk_speed
+		velocity = dir * speed
 	else:
 		velocity = Vector2.ZERO
 
-	position += velocity * delta
+	move_and_slide()
 
-	# Clamp position to map bounds (dynamic from Mapbounds/Shape)
-	position.x = clamp(position.x, map_bounds_rect.position.x, map_bounds_rect.position.x + map_bounds_rect.size.x)
-	position.y = clamp(position.y, map_bounds_rect.position.y, map_bounds_rect.position.y + map_bounds_rect.size.y)
+	# Clamp position to map bounds (ignores collisions beyond bounds)
+	global_position.x = clamp(global_position.x, map_bounds_rect.position.x, map_bounds_rect.position.x + map_bounds_rect.size.x)
+	global_position.y = clamp(global_position.y, map_bounds_rect.position.y, map_bounds_rect.position.y + map_bounds_rect.size.y)
 
 	# 4) Sprite animation only if NOT attacking
 	if is_attacking:
@@ -111,8 +111,8 @@ func _on_Hitbox_body_entered(body: Node) -> void:
 		take_damage(10)
 
 func take_damage(amount: int) -> void:
-	if is_invincible: # Like the famous show? [title card] 
-		return        # Like [title card]? The viltrumite?
+	if is_invincible:
+		return
 
 	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
@@ -137,8 +137,6 @@ func take_damage(amount: int) -> void:
 	await get_tree().create_timer(2.0).timeout
 	is_invincible = false
 	$AnimatedSprite2D.modulate.a = 1.0
-
-
 
 func start(pos):
 	position = pos
