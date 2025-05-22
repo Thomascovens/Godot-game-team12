@@ -10,7 +10,7 @@ const COLLISION_MASK_OPPONENT_CARD = 8
 
 var card_manager_reference
 var deck_reference
-var inputs_disabled = false
+var inputs_disabled = true
 
 func _ready() -> void:
 	card_manager_reference = $"../CardManager"
@@ -39,7 +39,7 @@ func raycast_at_cursor():
 			if card_found:
 				card_manager_reference.card_clicked(card_found)
 		elif result_collision_mask == COLLISION_MASK_DECK:
-			deck_reference.draw_card()
+			deck_reference.deck_clicked()
 		elif result_collision_mask == COLLISION_MASK_OPPONENT_CARD:
 			$"../BattleManager".enemy_card_selected(result[0].collider.get_parent())
 			
