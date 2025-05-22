@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://ou8u4a5vh2av"]
+
+[ext_resource type="Texture2D" uid="uid://snmxd7iswra2" path="res://assets/Characters/Lightning Mage/Idle.png" id="1_wpp0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkf0p"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7iko"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72io4"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvtvu"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfa06"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evmbe"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft5s6"]
+atlas = ExtResource("1_wpp0d")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bq845"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkf0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7iko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72io4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvtvu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfa06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evmbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft5s6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41l5w"]
+size = Vector2(20, 63)
+
+[node name="LightningMageCard" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bq845")
+animation = &"idle"
+autoplay = "idle"
+frame = 6
+frame_progress = 1.0
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 33)
+shape = SubResource("RectangleShape2D_41l5w")
