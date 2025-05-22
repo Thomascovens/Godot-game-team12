@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dsjnuytlk7jqp" path="res://assets/map/PNG/Animation6.png" id="17_dp3eg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
-size = Vector2(5332, 3552)
+size = Vector2(5320, 3472)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ld40"]
 atlas = ExtResource("11_a8y0u")
@@ -328,7 +328,7 @@ shootermob_scene = ExtResource("6_85g3d")
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 
 [node name="Player" parent="." instance=ExtResource("2_tefeu")]
-position = Vector2(728, 2466)
+position = Vector2(752, 2464)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
@@ -338,9 +338,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="soldier mob" parent="." instance=ExtResource("3_o6xl0")]
-position = Vector2(296, 2496)
+position = Vector2(144, 2532)
 collision_layer = 2
 collision_mask = 2
+sleeping = true
+freeze = true
 player_path = NodePath("../Player")
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
@@ -372,7 +374,7 @@ collision_mask = 2
 [node name="Shape" type="CollisionShape2D" parent="Mapbounds"]
 light_mask = 2
 visibility_layer = 2
-position = Vector2(2182, -272)
+position = Vector2(2188, -312)
 shape = SubResource("RectangleShape2D_tipki")
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
