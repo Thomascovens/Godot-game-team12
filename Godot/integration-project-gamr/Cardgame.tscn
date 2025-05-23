@@ -1,0 +1,221 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdkvd67521a4m"]
+
+[ext_resource type="Texture2D" uid="uid://bkg40qbb0ahdk" path="res://assets/Background/battleback10.png" id="1_7djfj"]
+[ext_resource type="PackedScene" uid="uid://dygwmfcygv27h" path="res://Card/Assets/Characters/fire_wizard_card.tscn" id="2_hogm8"]
+[ext_resource type="PackedScene" uid="uid://ou8u4a5vh2av" path="res://Card/Assets/Characters/lightning_mage_card.tscn" id="3_2bojo"]
+[ext_resource type="Texture2D" uid="uid://bdoi3qce6wsjf" path="res://Card/Assets/Cards/lildude.png" id="4_hm6hm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm6hm"]
+atlas = ExtResource("4_hm6hm")
+region = Rect2(0, 0, 320, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0evs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6hm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(823, 1082)
+
+[node name="Battleback10" type="Sprite2D" parent="."]
+position = Vector2(143, -543.25)
+scale = Vector2(1.74457, 1.73833)
+texture = ExtResource("1_7djfj")
+
+[node name="Camera2D" type="Camera2D" parent="Battleback10"]
+
+[node name="FireWizardCard" parent="." instance=ExtResource("2_hogm8")]
+position = Vector2(-403, -504)
+scale = Vector2(9.94883, 8.93848)
+motion_mode = 1
+
+[node name="LightningMageCard" parent="." instance=ExtResource("3_2bojo")]
+position = Vector2(745, -934)
+scale = Vector2(5.76295, 5.32707)
+motion_mode = 1
+
+[node name="Status" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -405.0
+offset_top = -506.0
+offset_right = 625.0
+offset_bottom = -285.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Status"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -7.0
+offset_right = 594.0
+offset_bottom = 62.0
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 50
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 0
+text = "Player 1"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Status"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 160.0
+offset_right = 932.0
+offset_bottom = 213.0
+color = Color(0.33024, 0.86, 0.1376, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Status/ColorRect"]
+layout_mode = 0
+offset_left = 409.0
+offset_top = -8.0
+offset_right = 529.0
+offset_bottom = 61.0
+theme_override_font_sizes/normal_font_size = 50
+text = "100
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Cost" type="Control" parent="Status"]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 66.0
+offset_right = 486.0
+offset_bottom = 153.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Status/Cost"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 31.0
+offset_right = 66.0
+offset_bottom = 71.0
+rotation = 0.785398
+color = Color(0.435294, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="Status/Cost"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 33.0
+offset_right = 256.0
+offset_bottom = 73.0
+rotation = 0.785398
+color = Color(0.435294, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="Status/Cost"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 32.0
+offset_right = 192.0
+offset_bottom = 72.0
+rotation = 0.785398
+color = Color(0.435294, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="Status/Cost"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 33.0
+offset_right = 128.0
+offset_bottom = 73.0
+rotation = 0.785398
+color = Color(0.435294, 1, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemyStatus" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 88.0
+offset_top = -1078.0
+offset_right = 1101.0
+offset_bottom = -834.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Status" type="Control" parent="EnemyStatus"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 75.0
+offset_top = -4.0
+offset_right = 1016.0
+offset_bottom = 240.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyStatus/Status"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44102
+anchor_top = -2.2623
+anchor_right = 0.44102
+anchor_bottom = -2.2623
+offset_left = -107.0
+offset_top = 638.0
+offset_right = 487.0
+offset_bottom = 707.0
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 50
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 0
+text = "Player 2
+"
+fit_content = true
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="EnemyStatus/Status"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.460149
+anchor_top = -2.2541
+anchor_right = 0.460149
+anchor_bottom = -2.2541
+offset_left = -426.0
+offset_top = 584.0
+offset_right = 493.0
+offset_bottom = 637.0
+color = Color(0.33024, 0.86, 0.1376, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyStatus/Status/ColorRect"]
+layout_mode = 0
+offset_left = 409.0
+offset_top = -8.0
+offset_right = 529.0
+offset_bottom = 61.0
+theme_override_font_sizes/normal_font_size = 50
+text = "100
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(-403, -503)
+scale = Vector2(9.94883, 8.93848)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Hand"]
+position = Vector2(10.2585, 40.8821)
+scale = Vector2(0.0577582, 0.0724821)
+sprite_frames = SubResource("SpriteFrames_g0evs")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Hand"]
+position = Vector2(34.778, 40.8347)
+scale = Vector2(0.0577582, 0.0724821)
+sprite_frames = SubResource("SpriteFrames_g0evs")
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Hand"]
+position = Vector2(59.9065, 41.1703)
+scale = Vector2(0.0577582, 0.0724821)
+sprite_frames = SubResource("SpriteFrames_g0evs")
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="Hand"]
+position = Vector2(84.9346, 41.1703)
+scale = Vector2(0.0577582, 0.0724821)
+sprite_frames = SubResource("SpriteFrames_g0evs")
