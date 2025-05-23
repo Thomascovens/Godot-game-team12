@@ -20,21 +20,29 @@ func game_over():
 	$MobTimer.stop()
 
 func _on_mob_timer_timeout():
-	# 1) Spawn the soldier
-	var mob = mob_scene.instantiate()
-	mob.player_path = $Player.get_path()
-	add_child(mob)
-	mob.global_position = _get_random_spawn_position()
+	if not multiplayer.is_server():
+		return  # Only the server should spawn enemies
 
-	# 2) Increment our soldier counter
-	_soldier_spawn_count += 1
+	var players = get_tree().get_nodes_in_group("players")
+	if players.is_empty():
+		print("No players found!")
+		return
 
-	# 3) Every 10th soldier, also spawn a ghost wizard
+	var spawn_position = _get_random_spawn_position()
+
+	# Spawn the soldier mob via MultiplayerSpawner
+	var mob = $MultiplayerSpawner.spawn(mob_scene)
+	if mob:
+		mob.global_position = spawn_position
+		mob.player_path = players[0].get_path()
+		_soldier_spawn_count += 1
+
+	# Every 10th soldier, also spawn a ghost wizard
 	if _soldier_spawn_count % 10 == 0:
-		var wiz = shootermob_scene.instantiate()
-		wiz.player_path = $Player.get_path()
-		add_child(wiz)
-		wiz.global_position = _get_random_spawn_position()
+		var wiz = $MultiplayerSpawner.spawn(shootermob_scene)
+		if wiz:
+			wiz.global_position = _get_random_spawn_position()
+			wiz.player_path = players[0].get_path()
 
 func increment_score():
 	score += 1

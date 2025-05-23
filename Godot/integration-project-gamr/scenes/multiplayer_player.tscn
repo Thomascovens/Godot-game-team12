@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dysl7ab51tup"]
+[gd_scene load_steps=41 format=3 uid="uid://dysl7ab51tup"]
 
 [ext_resource type="Script" uid="uid://unnrajec1ob3" path="res://scripts/multiplayer/multiplayer_controller.gd" id="1_xk3hh"]
 [ext_resource type="Texture2D" uid="uid://dwxib7sxdqq8v" path="res://assets/Characters/Fire vizard/Attack_1.png" id="2_m4ka2"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dxk5nrevp0w21" path="res://assets/Characters/Fire vizard/Fireball.png" id="4_8nb61"]
 [ext_resource type="Texture2D" uid="uid://b1t30m5q5vfcd" path="res://assets/Characters/Fire vizard/Run.png" id="5_4xu10"]
 [ext_resource type="Texture2D" uid="uid://b8pjilarwlkv7" path="res://assets/Characters/Fire vizard/Walk.png" id="6_0uwrm"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xk3hh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bqxs"]
 size = Vector2(18, 66)
@@ -253,6 +255,9 @@ animations = [{
 
 [node name="MultiplayerPlayer" type="CharacterBody2D"]
 script = ExtResource("1_xk3hh")
+
+[node name="InputSynchroniser" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xk3hh")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 3

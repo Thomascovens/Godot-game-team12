@@ -549,7 +549,7 @@ tile_map_data = PackedByteArray("AADr/xoAAQAKAAAAAADt/y0AAQAKAAAAAADu/xQAAQAKAAA
 tile_set = SubResource("TileSet_a8y0u")
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 4096.0
+wait_time = 0.614
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -609,9 +609,9 @@ layout_mode = 2
 text = "Join Game"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://dysl7ab51tup")
+_spawnable_scenes = PackedStringArray("uid://dysl7ab51tup", "uid://wu2i20axn6bm", "uid://dd6jcbovgilp3")
 spawn_path = NodePath("../Players")
-spawn_limit = 2
+spawn_limit = 30
 
 [node name="Players" type="Node2D" parent="."]
 
