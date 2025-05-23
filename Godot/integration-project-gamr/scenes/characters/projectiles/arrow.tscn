@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://djm8wgly13e3e"]
+
+[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/characters/projectiles/fireball.gd" id="1_idl2s"]
+[ext_resource type="Texture2D" uid="uid://dnqerwcmgmbb3" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow/arrow_.png" id="2_dobyl"]
+[ext_resource type="Texture2D" uid="uid://buy5lo0v3y77v" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_1.png" id="3_3mfsx"]
+[ext_resource type="Texture2D" uid="uid://j4a8k5jq6fea" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_2.png" id="4_q73uj"]
+[ext_resource type="Texture2D" uid="uid://cjsjkpa0vxxty" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_3.png" id="5_6etkf"]
+[ext_resource type="Texture2D" uid="uid://br8ffy65kxv1y" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_4.png" id="6_ku8bb"]
+[ext_resource type="Texture2D" uid="uid://cx21ar6iilarh" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_5.png" id="7_1yb75"]
+[ext_resource type="Texture2D" uid="uid://yco0rlrgyhfp" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_6.png" id="8_1yend"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3m7n"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uk8qw"]
+atlas = ExtResource("2_dobyl")
+region = Rect2(0, 0, 256, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l47rv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uk8qw")
+}],
+"loop": true,
+"name": &"arrow_fly",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3mfsx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_q73uj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6etkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ku8bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1yb75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1yend")
+}],
+"loop": true,
+"name": &"arrow_hit",
+"speed": 5.0
+}]
+
+[node name="projectile" type="Area2D"]
+script = ExtResource("1_idl2s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_q3m7n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, 2)
+scale = Vector2(1.09473, 2.71094)
+sprite_frames = SubResource("SpriteFrames_l47rv")
+animation = &"arrow_fly"
+
+[node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1, -0.5)
+scale = Vector2(2.2, 0.95)
