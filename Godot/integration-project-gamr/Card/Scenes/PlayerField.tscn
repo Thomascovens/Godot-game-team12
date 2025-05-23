@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bn455ati1nc51"]
+[gd_scene load_steps=13 format=3 uid="uid://bn455ati1nc51"]
 
 [ext_resource type="Script" uid="uid://nnt3ot06ory1" path="res://Card/Scripts/card_manager.gd" id="1_8g701"]
 [ext_resource type="Script" uid="uid://332io6l006y" path="res://Card/Scenes/GameSetUp.gd" id="1_mt3dj"]
 [ext_resource type="PackedScene" uid="uid://dc634hqn22010" path="res://Card/Scenes/cardSlot.tscn" id="2_mt3dj"]
+[ext_resource type="Texture2D" uid="uid://dhn8fc24hnuw8" path="res://Card/Assets/arrow/arrow_segment.png" id="3_ckasl"]
 [ext_resource type="Script" uid="uid://delv184a62mle" path="res://Card/Scripts/MagicCardSlot.gd" id="3_t8fev"]
 [ext_resource type="Script" uid="uid://bp3lp7banymyb" path="res://Card/Scripts/PlayerHand.gd" id="4_ckasl"]
 [ext_resource type="Script" uid="uid://brc2d6dp7e0u5" path="res://Card/Scripts/Deck.gd" id="5_8by1c"]
@@ -19,6 +20,15 @@ script = ExtResource("1_mt3dj")
 
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_8g701")
+
+[node name="TargetLine" type="Line2D" parent="CardManager"]
+texture_repeat = 2
+width = 32.0
+texture = ExtResource("3_ckasl")
+texture_mode = 1
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="CardSlots" type="Node2D" parent="."]
 
