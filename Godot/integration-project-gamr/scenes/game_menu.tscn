@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://xwx08qioq0lo"]
+[gd_scene load_steps=13 format=3 uid="uid://xwx08qioq0lo"]
 
-[ext_resource type="Script" uid="uid://c7onkycla11hg" path="res://scenes/game_menu.gd" id="1_qdaa4"]
+[ext_resource type="Script" uid="uid://c7onkycla11hg" path="res://scripts/game_menu.gd" id="1_qdaa4"]
 [ext_resource type="Texture2D" uid="uid://qac1yr7khtxw" path="res://assets/BackGrounds/menuBackground.png" id="2_mw6r2"]
 [ext_resource type="Shader" uid="uid://cy8k2aorutxat" path="res://assets/themes/scroll.gdshader" id="3_ldg7d"]
 [ext_resource type="Texture2D" uid="uid://b1fxebn2r1a4l" path="res://assets/BackGrounds/ChatGPT_Image_May_20__2025__03_51_49_PM-removebg-preview.png" id="4_mw6r2"]
 [ext_resource type="FontFile" uid="uid://b63vivd8eeb8g" path="res://fonts/PressStart2P-Regular.ttf" id="5_ldg7d"]
 [ext_resource type="Theme" uid="uid://dkphpbtrhf53i" path="res://assets/themes/buttonThemeBlue.tres" id="6_yr8n5"]
 [ext_resource type="Theme" uid="uid://c6qpwo45w6kdv" path="res://assets/themes/buttonThemeGreen.tres" id="7_0b27c"]
+[ext_resource type="Script" uid="uid://bodjjjh7payvc" path="res://scripts/login.gd" id="7_u3xmg"]
+[ext_resource type="Script" uid="uid://ovveggo3m164" path="res://scripts/logout.gd" id="8_qoecg"]
 [ext_resource type="Theme" uid="uid://xk73wlmvlp1n" path="res://assets/themes/buttonThemeRed.tres" id="8_yr8n5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0b27c"]
@@ -75,6 +77,25 @@ grow_vertical = 2
 theme = SubResource("Theme_cdnys")
 theme_override_constants/separation = 20
 
+[node name="Login" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 75)
+layout_direction = 2
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitToLogin")
+theme = ExtResource("6_yr8n5")
+text = "Log in"
+script = ExtResource("7_u3xmg")
+
+[node name="Logout" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 75)
+layout_direction = 2
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitToLogin")
+theme = ExtResource("6_yr8n5")
+text = "Log out
+"
+script = ExtResource("8_qoecg")
+
 [node name="preGame" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(350, 75)
 layout_direction = 2
@@ -115,6 +136,20 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Username" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = -351.0
+offset_top = 365.0
+offset_right = 6.0
+offset_bottom = 388.0
+scale = Vector2(2, 2)
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Login" to="VBoxContainer/Login" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/Logout" to="VBoxContainer/Logout" method="_on_pressed"]
 [connection signal="pressed" from="VBoxContainer/preGame" to="." method="_on_game_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/cardGame" to="." method="_on_card_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitToLogin" to="." method="_on_exit_to_login_pressed"]
 [connection signal="pressed" from="VBoxContainer/Scan" to="." method="_scan_pressed"]

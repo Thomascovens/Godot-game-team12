@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bn455ati1nc51"]
 
 [ext_resource type="Script" uid="uid://nnt3ot06ory1" path="res://Card/Scripts/card_manager.gd" id="1_8g701"]
-[ext_resource type="Script" uid="uid://332io6l006y" path="res://Card/Scenes/GameSetUp.gd" id="1_mt3dj"]
+[ext_resource type="Script" uid="uid://332io6l006y" path="res://scripts/GameSetUp.gd" id="1_mt3dj"]
 [ext_resource type="PackedScene" uid="uid://dc634hqn22010" path="res://Card/Scenes/cardSlot.tscn" id="2_mt3dj"]
 [ext_resource type="Script" uid="uid://delv184a62mle" path="res://Card/Scripts/MagicCardSlot.gd" id="3_t8fev"]
 [ext_resource type="Script" uid="uid://bp3lp7banymyb" path="res://Card/Scripts/PlayerHand.gd" id="4_ckasl"]

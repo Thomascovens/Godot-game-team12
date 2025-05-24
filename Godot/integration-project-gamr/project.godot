@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Integration project gamr"
-run/main_scene="uid://chqgq3261bgco"
+run/main_scene="uid://xwx08qioq0lo"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 MultiplayerManager="*res://scripts/multiplayer/multiplayer_manager.gd"
+Global="*res://scripts/Global.gd"
 
 [display]
 
