@@ -67,9 +67,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -175.0
-offset_top = -116.5
-offset_right = 175.0
-offset_bottom = 116.5
+offset_top = -190.0
+offset_right = 182.0
+offset_bottom = 527.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_cdnys")
@@ -96,7 +96,25 @@ focus_neighbor_bottom = NodePath("../preGame")
 theme = ExtResource("8_yr8n5")
 text = "Exit"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Scan" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(350, 75)
+layout_direction = 2
+layout_mode = 2
+focus_neighbor_top = NodePath("../ExitToLogin")
+theme = ExtResource("6_yr8n5")
+text = "Scan"
+
+[node name="StatusMessage" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = -351.0
+offset_top = 427.0
+offset_right = 6.0
+offset_bottom = 450.0
+scale = Vector2(2, 2)
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/preGame" to="." method="_on_game_1_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitToLogin" to="." method="_on_exit_to_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/Scan" to="." method="_scan_pressed"]
