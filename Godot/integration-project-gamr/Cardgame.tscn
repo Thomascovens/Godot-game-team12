@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cdkvd67521a4m"]
 
-[ext_resource type="Texture2D" uid="uid://bkg40qbb0ahdk" path="res://assets/Background/battleback10.png" id="1_7djfj"]
+[ext_resource type="Texture2D" uid="uid://bkg40qbb0ahdk" path="res://assets/battleback10.png" id="1_7djfj"]
 [ext_resource type="PackedScene" uid="uid://dygwmfcygv27h" path="res://Card/Assets/Characters/fire_wizard_card.tscn" id="2_hogm8"]
 [ext_resource type="PackedScene" uid="uid://ou8u4a5vh2av" path="res://Card/Assets/Characters/lightning_mage_card.tscn" id="3_2bojo"]
 [ext_resource type="Texture2D" uid="uid://bdoi3qce6wsjf" path="res://Card/Assets/Cards/lildude.png" id="4_hm6hm"]

@@ -329,7 +329,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -419,15 +419,27 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvquw"]
 size = Vector2(23, 64)
 
-[node name="Mage" type="CharacterBody2D"]
-position = Vector2(-2, 0)
+[node name="Character" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(21, -65)
+position = Vector2(44, -132)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_gvquw")
 animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(11.5, -32)
+position = Vector2(-3.625, -1)
+scale = Vector2(4, 4)
 shape = SubResource("RectangleShape2D_gvquw")
+disabled = true
+
+[node name="username" type="RichTextLabel" parent="."]
+offset_left = -100.0
+offset_top = -178.0
+offset_bottom = -155.0
+scale = Vector2(2, 2)
+size_flags_vertical = 4
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

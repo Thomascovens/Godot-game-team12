@@ -69,20 +69,29 @@ func direct_attack_here_and_replicate_client_opponent(player_id,attacking_card_n
 	var tween = get_tree().create_tween()
 	tween.tween_property(attacking_card, "position", new_pos, 0.2)
 	await wait(0.15)
-	
+	var victor
 	if multiplayer.get_unique_id() == player_id:
 		opponent_health = max(0,opponent_health - attacking_card.attack)
 		get_parent().get_parent().get_node("OpponentField/OpponentHealth").text = str(opponent_health)
+		if opponent_health == 0 :
+			$"../InputManager".inputs_disabled = true
+			$"../EndTurnButton".disabled = true
+			victor = Global.username
 	else:
 		player_health = max(0, player_health - attacking_card.attack)
 		$"../PlayerHealth".text = str(player_health)
-
-	
+		if player_health == 0:
+			victor = get_parent().get_parent().get_node("OpponentField/Character/username").text
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(attacking_card, "position", attacking_card.card_slot_card_is_in.position, 0.2)
 	
 	attacking_card.z_index = 0
 	await wait(1)
+	if victor:
+		Global.victor = victor
+		get_tree().change_scene_to_file("res://Card/Scenes/PostGame.tscn")
+	
+
 
 func attack(attacking_card, defending_card):
 	$"../InputManager".inputs_disabled = true

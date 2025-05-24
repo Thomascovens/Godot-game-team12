@@ -18,7 +18,7 @@ func handle_message(message):
 		Global.username = username
 		Global.loggedin = true
 		$"../../StatusMessage".text = data.payload.message
-		$"../../Username".text = Global.username
+		$"../..".get_username()
 		visible = false
 		disabled = true
 		$"../Logout".visible = true

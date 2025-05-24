@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnwnxclxugwoi"]
+
+[ext_resource type="Texture2D" uid="uid://ctbmsc0d027ug" path="res://Card/Assets/Abilities/tornado.png" id="1_1to43"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4jh5"]
+atlas = ExtResource("1_1to43")
+region = Rect2(0, 0, 102, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r4ca"]
+atlas = ExtResource("1_1to43")
+region = Rect2(102, 0, 102, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66h7f"]
+atlas = ExtResource("1_1to43")
+region = Rect2(204, 0, 102, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1pv0"]
+atlas = ExtResource("1_1to43")
+region = Rect2(306, 0, 102, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wr4f"]
+atlas = ExtResource("1_1to43")
+region = Rect2(408, 0, 102, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0orm"]
+atlas = ExtResource("1_1to43")
+region = Rect2(510, 0, 102, 121)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xc1u1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4jh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0r4ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66h7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1pv0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wr4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0orm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2evm"]
+size = Vector2(94.5, 121)
+
+[node name="Tornado" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xc1u1")
+autoplay = "default"
+frame_progress = 0.922668
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, -0.5)
+shape = SubResource("RectangleShape2D_y2evm")

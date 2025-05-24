@@ -23,27 +23,7 @@ script = ExtResource("1_8g701")
 [node name="CardSlots" type="Node2D" parent="."]
 
 [node name="CardSlot1" parent="CardSlots" instance=ExtResource("2_mt3dj")]
-position = Vector2(960, 720)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("3_t8fev")
-
-[node name="CardSlot2" parent="CardSlots" instance=ExtResource("2_mt3dj")]
-position = Vector2(820, 720)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("3_t8fev")
-
-[node name="CardSlot3" parent="CardSlots" instance=ExtResource("2_mt3dj")]
-position = Vector2(680, 720)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("3_t8fev")
-
-[node name="CardSlot4" parent="CardSlots" instance=ExtResource("2_mt3dj")]
-position = Vector2(1100, 720)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("3_t8fev")
-
-[node name="CardSlot5" parent="CardSlots" instance=ExtResource("2_mt3dj")]
-position = Vector2(1240, 720)
+position = Vector2(678, 742)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("3_t8fev")
 
@@ -103,11 +83,10 @@ text = "0"
 script = ExtResource("7_yn2xr")
 
 [node name="EndTurnButton" type="Button" parent="."]
-visible = false
-offset_left = 300.0
-offset_top = 570.0
-offset_right = 378.0
-offset_bottom = 601.0
+offset_left = 100.0
+offset_top = 740.0
+offset_right = 178.0
+offset_bottom = 771.0
 disabled = true
 text = "End Turn"
 

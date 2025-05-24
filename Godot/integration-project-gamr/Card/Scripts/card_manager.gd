@@ -91,7 +91,7 @@ func player_card_here_and_for_clients_opponents(player_id, card_name, card_slot_
 		card_slot.get_node("Area2D/CollisionShape2D").disabled = true
 		$"../BattleManager".player_cards_on_battlefield.append(card)
 		if card.card_type == "Magic":
-			card.ability_script.trigger_ability($"../BattleManager", $"../InputManager", card)
+			card.ability_script.trigger_ability($"..", get_parent().get_parent().get_node("OpponentField") ,$"../BattleManager", $"../InputManager", card)
 		
 	else:
 		var opponent_field_ref = get_parent().get_parent().get_node("OpponentField")
@@ -103,8 +103,7 @@ func player_card_here_and_for_clients_opponents(player_id, card_name, card_slot_
 		card.get_node("AnimationPlayer").play("card_flip")
 		$"../BattleManager".opponent_cards_on_battlefield.append(card)
 		if card.card_type == "Magic":
-			
-			card.ability_script.trigger_opponent_ability($"../BattleManager", card)
+			card.ability_script.trigger_opponent_ability($"..",get_parent().get_parent().get_node("OpponentField"),$"../BattleManager", card)
 	
 	
 	card.scale = Vector2(CARD_SMALLER_SCALE,CARD_SMALLER_SCALE)
