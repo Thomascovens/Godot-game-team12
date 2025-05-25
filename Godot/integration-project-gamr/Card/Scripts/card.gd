@@ -10,13 +10,17 @@ var card_slot_card_is_in
 var defeated = false
 var card_type
 var ability_script
+var defence = false
+var focus = false
+var rage = false
+var cost: int
 
 func _ready() -> void:
 	get_parent().connect_card_signals(self)
 
 func _process(delta: float) -> void:
-	pass
-
+	$Health.text = str(health)
+	$Attack.text = str(attack)
 
 func _on_area_2d_mouse_entered() -> void:
 	emit_signal("hovered", self)

@@ -2,9 +2,10 @@ extends Node2D
 
 const CARD_SCENE_PATH = "res://Card/Scenes/card.tscn"
 const CARD_DRAW_SPEED = 0.2
-const STARTING_HAND_SIZE = 4
+const STARTING_HAND_SIZE = 6
+const DRAW_CARD_COST = 1
 
-var player_deck = ["Knight", "Mage", "Priest","Tornado","Knight","Knight","Knight"]
+var player_deck = ["Knight", "Mage","Mage","Assassin","Assassin" , "General","Knight", "Mage","Mage","Assassin","Assassin" , "General","Knight", "Mage","Mage","Assassin","Assassin" , "General","Knight", "Mage","Mage","Assassin","Assassin" , "General","Tornado","Tornado","Tornado","Knight","Knight","Knight", "Lightning","Lightning","Sword","Sword","Sword","Fireball","Fireball","Fireball","Fireball","Knight", "Mage","Mage","Assassin","Assassin" , "General","Tornado","Tornado","Tornado","Knight","Knight","Knight", "Lightning","Lightning","Sword","Sword","Sword","Fireball","Fireball","Fireball","Fireball","Knight", "Mage","Mage","Assassin","Assassin" , "General","Tornado","Tornado","Tornado","Knight","Knight","Knight", "Lightning","Lightning","Sword","Sword","Sword","Fireball","Fireball","Fireball","Fireball"]
 var card_database_reference
 var drawn_card_this_turn = false
 var deck_timer
@@ -45,8 +46,9 @@ func draw_here_and_for_clients_opponent(player_id, card_drawn_name):
 	
 
 func deck_clicked():
-	if drawn_card_this_turn:
+	if drawn_card_this_turn or $"../BattleManager".energy < DRAW_CARD_COST:
 		return
+	$"../BattleManager".reduce_energy(DRAW_CARD_COST)
 	var card_drawn_name = player_deck[0]
 	var player_id = multiplayer.get_unique_id()
 	draw_here_and_for_clients_opponent(player_id,card_drawn_name)
@@ -55,7 +57,7 @@ func deck_clicked():
 func draw_card(card_drawn_name):
 
 	drawn_card_this_turn = true
-
+	
 	player_deck.erase(card_drawn_name)
 	
 	if player_deck.size() == 0:
@@ -68,19 +70,31 @@ func draw_card(card_drawn_name):
 	var card_image_path = str("res://Card/Assets/Cards/" + card_drawn_name + ".png")
 	new_card.get_node("CardImage").texture = load(card_image_path)
 	
-	new_card.card_type = str(card_database_reference.CARDS[card_drawn_name][2])
+	new_card.card_type = str(card_database_reference.CARDS[card_drawn_name][3])
+	new_card.cost = card_database_reference.CARDS[card_drawn_name][2]
+	new_card.get_node("Cost").text = str(new_card.cost)
 	if new_card.card_type == "Unit":
 		new_card.get_node("Ability").visible = false
 		new_card.attack = card_database_reference.CARDS[card_drawn_name][0]
 		new_card.get_node("Attack").text = str(new_card.attack)
 		new_card.health = card_database_reference.CARDS[card_drawn_name][1]
 		new_card.get_node("Health").text = str(new_card.health)
+		
+		if card_database_reference.CARDS[card_drawn_name][4] != null:
+			new_card.get_node("Ability").text = card_database_reference.CARDS[card_drawn_name][4]
+			new_card.get_node("Ability").visible = true
+		new_card.defence = card_database_reference.CARDS[card_drawn_name][6]
+		new_card.focus = card_database_reference.CARDS[card_drawn_name][7]
+		new_card.rage = card_database_reference.CARDS[card_drawn_name][8]
+		var new_card_ability_script_path = card_database_reference.CARDS[card_drawn_name][5]
+		if new_card_ability_script_path:
+			new_card.ability_script = load(new_card_ability_script_path).new()
 	else:
 		new_card.get_node("Ability").visible = true
 		new_card.get_node("Attack").visible = false
 		new_card.get_node("Health").visible = false
-		new_card.get_node("Ability").text = card_database_reference.CARDS[card_drawn_name][3]
-		var new_card_ability_script_path = card_database_reference.CARDS[card_drawn_name][4]
+		new_card.get_node("Ability").text = card_database_reference.CARDS[card_drawn_name][4]
+		var new_card_ability_script_path = card_database_reference.CARDS[card_drawn_name][5]
 		if new_card_ability_script_path:
 			new_card.ability_script = load(new_card_ability_script_path).new()
 		

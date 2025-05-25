@@ -10,8 +10,8 @@ func host_set_up():
 	
 	$CardSlots/CardSlot1.get_node("CardSlotImage").texture = ImageTexture.create_from_image(Image.load_from_file("res://Card/magicCardSlot.png"))
 	
-	get_parent().get_node("OpponentField/OpponentDeck").deck_size = 8
-	get_parent().get_node("OpponentField/OpponentDeck/RichTextLabel").text = "8"
+	get_parent().get_node("OpponentField/OpponentDeck").deck_size = $Deck.player_deck.size()
+	get_parent().get_node("OpponentField/OpponentDeck/RichTextLabel").text = str($Deck.player_deck.size())
 	
 	var player_id = multiplayer.get_unique_id()
 	
@@ -30,6 +30,8 @@ func client_set_up():
 	get_parent().get_node("OpponentField/OpponentHealth").text = str(STARTING_HEALTH)
 	$BattleManager.player_health = STARTING_HEALTH
 	$BattleManager.opponent_health = STARTING_HEALTH
+	
+	
 	
 	get_parent().get_node("OpponentField/OpponentDeck").deck_size = 8
 	get_parent().get_node("OpponentField/OpponentDeck/RichTextLabel").text = "8"

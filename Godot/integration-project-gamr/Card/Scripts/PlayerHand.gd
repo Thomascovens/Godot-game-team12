@@ -1,6 +1,7 @@
 extends Node2D
 
 const CARD_WIDTH = 200
+const CARD_SPACING = 200
 const HAND_Y_POSITION = 950
 const DEFAULT_CARD_MOVE_SPEED = 0.1
 
@@ -8,7 +9,8 @@ var player_hand = []
 var center_screen_x
 
 func _ready() -> void:
-	center_screen_x = get_viewport().size.x / 2
+	center_screen_x = 1920 / 2
+	
 	
 
 
@@ -28,9 +30,10 @@ func update_hand_positions(speed):
 		animate_card_to_position(card, new_postition, speed)
 
 func calculate_card_position(index):
-	var total_width = (player_hand.size() -1) * CARD_WIDTH
-	var x_offset = center_screen_x + index * CARD_WIDTH - total_width / 2
-	return x_offset 
+	var total_width = (player_hand.size() - 1) * CARD_SPACING + CARD_WIDTH
+	var start_x = center_screen_x - (total_width / 2)
+	var x_offset = start_x + (index * CARD_SPACING)
+	return x_offset
 
 func animate_card_to_position(card, new_position, speed):
 	var tween = get_tree().create_tween()

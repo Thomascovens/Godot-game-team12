@@ -1,6 +1,6 @@
 extends Node
 
-const TORNADO_DAMAGE = 1
+const TORNADO_DAMAGE = 2
 const NODE_NAME = "Character/AnimatedSprite2D"
 const ANIMATION_NODE = "res://Card/Assets/Abilities/Tornado.tscn"
 
@@ -35,7 +35,7 @@ func trigger_ability(player_field_manager, opponent_field_manager, battle_manage
 	opponent_field_manager.remove_child(tornado)
 	await battle_manager_reference.wait(1)
 	battle_manager_reference.enable_end_turn_button(true)
-	input_manager_reference.inputs_disabled = true
+	input_manager_reference.inputs_disabled = false
 	
 
 func trigger_opponent_ability(player_field_manager, opponent_field_manager, battle_manager_reference, card_with_ability):

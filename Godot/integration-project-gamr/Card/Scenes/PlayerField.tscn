@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bn455ati1nc51"]
+[gd_scene load_steps=14 format=3 uid="uid://bn455ati1nc51"]
 
 [ext_resource type="Script" uid="uid://nnt3ot06ory1" path="res://Card/Scripts/card_manager.gd" id="1_8g701"]
 [ext_resource type="Script" uid="uid://332io6l006y" path="res://scripts/GameSetUp.gd" id="1_mt3dj"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://b1ne12tgvllrx" path="res://Card/Scripts/InputManager.gd" id="7_yn2xr"]
 [ext_resource type="Script" uid="uid://drwe5fvs4r0v3" path="res://Card/Scripts/BattleManager.gd" id="8_6gxx7"]
 [ext_resource type="Texture2D" uid="uid://blu18nl6kxprl" path="res://Card/Assets/Cards/AddCard.png" id="9_ga3lq"]
+[ext_resource type="Script" uid="uid://di5hkpjmclxrx" path="res://Card/Scripts/playerHealth.gd" id="10_ckasl"]
+[ext_resource type="Script" uid="uid://ci4i4ho6l3ahw" path="res://Card/Scripts/playerEnergy.gd" id="10_t8fev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jb6x5"]
 size = Vector2(314, 395)
@@ -102,6 +104,16 @@ offset_right = 170.0
 offset_bottom = 470.0
 scale = Vector2(2, 2)
 text = "0"
+script = ExtResource("10_ckasl")
+
+[node name="PlayerEnergy" type="RichTextLabel" parent="."]
+offset_left = 127.0
+offset_top = 660.0
+offset_right = 167.0
+offset_bottom = 700.0
+scale = Vector2(2, 2)
+text = "0"
+script = ExtResource("10_t8fev")
 
 [node name="PlayerDiscard" type="Node2D" parent="."]
 position = Vector2(1500, 660)

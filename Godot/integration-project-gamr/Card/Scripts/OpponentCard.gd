@@ -7,3 +7,11 @@ var health
 var card_type
 var defeated
 var ability_script
+var defence = false
+var focus = false
+var rage = false
+var cost: int
+
+func _process(delta: float) -> void:
+	$Health.text = str(health)
+	$Attack.text = str(attack)
