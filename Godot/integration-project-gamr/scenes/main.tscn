@@ -348,12 +348,15 @@ collision_mask = 3
 position = Vector2(296, 2496)
 collision_layer = 2
 collision_mask = 2
+speed = null
+max_health = null
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
 position = Vector2(404, 2483)
 collision_layer = 2
 collision_mask = 2
 physics_material_override = null
+player_path = NodePath("")
 
 [node name="Projectile mob ghost wizard" parent="." instance=ExtResource("7_choun")]
 position = Vector2(359, 2488)
@@ -397,14 +400,17 @@ shape = SubResource("RectangleShape2D_tipki")
 [node name="Camera2D" type="Camera2D" parent="Fighter"]
 
 [node name="firewiz" parent="." instance=ExtResource("10_jkv2x")]
+projectile_scene = null
 
 [node name="Camera2D" type="Camera2D" parent="firewiz"]
 
 [node name="Knight" parent="." instance=ExtResource("11_jbj1t")]
+position = Vector2(11, 58)
 
 [node name="Camera2D" type="Camera2D" parent="Knight"]
 
 [node name="Mage" parent="." instance=ExtResource("12_muem4")]
+position = Vector2(43, 121)
 
 [node name="Camera2D" type="Camera2D" parent="Mage"]
 
