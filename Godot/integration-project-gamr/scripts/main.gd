@@ -86,12 +86,6 @@ func _on_start_timer_timeout():
 
 func _ready():
 	
-	if OS.has_feature("dedicated_server"):
-		print("Starting dedicated server...")
-		MultiplayerManager.become_host()
-	
-	
-	
 	randomize()      # so randi() is different each run
 	hide_all_characters()
 	switch_character(start_character_index)  # ✅ eerst instellen
@@ -134,16 +128,3 @@ func _get_random_camera_corner() -> Vector2:
 	]
 	# return one at random
 	return corners[randi() % corners.size()]
-
-# /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
-#/-/-/-/-/-/-/-/-/Multiplayer/-/-/-/-/-/-/-/-/
-#/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/--/-/-/
-func become_host():
-	print("Become host pressed")
-	%MultiplayerHUD.hide()
-	MultiplayerManager.become_host()
-	
-func join_as_player_2():
-	print("Join as player 2")
-	%MultiplayerHUD.hide()
-	MultiplayerManager.join_as_player_2()

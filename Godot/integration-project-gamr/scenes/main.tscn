@@ -496,51 +496,6 @@ polygon = PackedVector2Array(1034, -1833, 1051, -1848, 1067, -1849, 1077, -1835,
 [node name="CollisionPolygon2D27" type="CollisionPolygon2D" parent="Boundaries"]
 polygon = PackedVector2Array(1832, -1838, 1846, -1821, 1847, -1834, 1868, -1846, 1898, -1820, 1896, -1803, 1904, -1802, 1904, -1787, 1897, -1780, 1889, -1761, 1881, -1767, 1881, -1749, 1852, -1736, 1836, -1748, 1844, -1758, 1824, -1756, 1811, -1770, 1810, -1793, 1802, -1802, 1808, -1815, 1817, -1807, 1816, -1822)
 
-[node name="MultiplayerHUD" type="Control" parent="."]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = -20.5
-offset_right = 56.0
-offset_bottom = 20.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="MultiplayerHUD"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -18.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerHUD/Panel"]
-layout_mode = 0
-offset_right = 91.0
-offset_bottom = 66.0
-
-[node name="HostGame" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Host game"
-
-[node name="JoinGame" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Join Game"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://dysl7ab51tup")
-spawn_path = NodePath("../Players")
-spawn_limit = 2
-
-[node name="Players" type="Node2D" parent="."]
-
 [node name="map" type="Node2D" parent="."]
 script = ExtResource("8_eb6dy")
 
@@ -838,5 +793,3 @@ sprite_frames = SubResource("SpriteFrames_e755i")
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/HostGame" to="." method="become_host"]
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/JoinGame" to="." method="join_as_player_2"]
