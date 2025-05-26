@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cmuwdu7b3wclf" path="res://scenes/knight.tscn" id="11_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://co58ddew151bo" path="res://assets/map/PNG/Animation3.png" id="12_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://bmws30xtwj2ck" path="res://scenes/lightning_mage.tscn" id="12_muem4"]
-[ext_resource type="PackedScene" uid="uid://cneb20346a5f" path="res://scenes/Magician.tscn" id="13_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://cneb20346a5f" path="res://scenes/magician.tscn" id="13_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://cn4r2finmj4gi" path="res://assets/map/PNG/Animation2.png" id="13_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://bcu5l0j4ctpc8" path="res://assets/map/PNG/Animation4.png" id="15_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://r4hy6ohhj4gr" path="res://assets/map/PNG/Animation5.png" id="16_muem4"]

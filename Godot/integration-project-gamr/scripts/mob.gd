@@ -18,9 +18,11 @@ func _ready() -> void:
 	collision_mask = 1 << 0  # only “see” layer 1 (Player)
 	health = max_health
 
-	if player_path != null:
+	if player_path != null and has_node(player_path):
 		player = get_node(player_path)
 		agent.target_position = player.global_position
+	else:
+		push_error("Enemy: Invalid or missing player_path. Make sure it's set in the Inspector.")
 
 	sprite.animation = "run"
 	sprite.play()

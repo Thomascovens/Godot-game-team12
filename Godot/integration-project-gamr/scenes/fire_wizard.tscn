@@ -1,6 +1,6 @@
 [gd_scene load_steps=39 format=3 uid="uid://c26ofioqch6r1"]
 
-[ext_resource type="Script" uid="uid://do2yxlj1pe5uo" path="res://scripts/fire_wizard.gd" id="1_qumep"]
+[ext_resource type="Script" uid="uid://do2yxlj1pe5uo" path="res://scripts/player.gd" id="1_qumep"]
 [ext_resource type="Texture2D" uid="uid://dwxib7sxdqq8v" path="res://assets/Characters/Fire wizard/Attack_1.png" id="2_jbl8y"]
 [ext_resource type="Texture2D" uid="uid://d28ug8d2u1lkr" path="res://assets/Characters/Fire wizard/Attack_2.png" id="3_j8sci"]
 [ext_resource type="Texture2D" uid="uid://dxk5nrevp0w21" path="res://assets/Characters/Fire wizard/Fireball.png" id="4_s0pfy"]

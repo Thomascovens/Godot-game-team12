@@ -1,5 +1,3 @@
 extends Node
 
-var username = "player"
-var character = "magician"
-var loggedin = false
+var active_player: Node2D = null
