@@ -11,19 +11,29 @@ config_version=5
 [application]
 
 config/name="Integration project gamr"
-run/main_scene="uid://c0yuhomr0g8mc"
+run/main_scene="uid://xwx08qioq0lo"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 MultiplayerManager="*res://scripts/multiplayer/multiplayer_manager.gd"
+Global="*res://scripts/Global.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
+
+[editor]
+
+naming/scene_name_casing=1
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [input]
 
@@ -60,4 +70,5 @@ run={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 environment/defaults/default_clear_color=Color(0.478431, 0.729412, 0.490196, 1)

@@ -421,6 +421,7 @@ animations = [{
 size = Vector2(23, 64)
 
 [node name="Mage" type="CharacterBody2D"]
+position = Vector2(43, 121)
 script = ExtResource("9_5vv1e")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

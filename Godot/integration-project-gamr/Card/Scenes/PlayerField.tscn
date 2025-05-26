@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=3 uid="uid://bn455ati1nc51"]
+
+[ext_resource type="Script" uid="uid://nnt3ot06ory1" path="res://Card/Scripts/card_manager.gd" id="1_8g701"]
+[ext_resource type="Script" uid="uid://332io6l006y" path="res://scripts/GameSetUp.gd" id="1_mt3dj"]
+[ext_resource type="PackedScene" uid="uid://dc634hqn22010" path="res://Card/Scenes/cardSlot.tscn" id="2_mt3dj"]
+[ext_resource type="Script" uid="uid://delv184a62mle" path="res://Card/Scripts/MagicCardSlot.gd" id="3_t8fev"]
+[ext_resource type="Script" uid="uid://bp3lp7banymyb" path="res://Card/Scripts/PlayerHand.gd" id="4_ckasl"]
+[ext_resource type="Script" uid="uid://brc2d6dp7e0u5" path="res://Card/Scripts/Deck.gd" id="5_8by1c"]
+[ext_resource type="Texture2D" uid="uid://dw3mmuyhxxjyl" path="res://Card/Assets/Cards/BackOfCard.png" id="6_7g47n"]
+[ext_resource type="Script" uid="uid://b1ne12tgvllrx" path="res://Card/Scripts/InputManager.gd" id="7_yn2xr"]
+[ext_resource type="Script" uid="uid://drwe5fvs4r0v3" path="res://Card/Scripts/BattleManager.gd" id="8_6gxx7"]
+[ext_resource type="Texture2D" uid="uid://blu18nl6kxprl" path="res://Card/Assets/Cards/AddCard.png" id="9_ga3lq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jb6x5"]
+size = Vector2(314, 395)
+
+[node name="PlayerField" type="Node2D"]
+script = ExtResource("1_mt3dj")
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("1_8g701")
+
+[node name="CardSlots" type="Node2D" parent="."]
+
+[node name="CardSlot1" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(960, 720)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("3_t8fev")
+
+[node name="CardSlot2" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(820, 720)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("3_t8fev")
+
+[node name="CardSlot3" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(680, 720)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("3_t8fev")
+
+[node name="CardSlot4" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(1100, 720)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("3_t8fev")
+
+[node name="CardSlot5" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(1240, 720)
+scale = Vector2(0.4, 0.4)
+script = ExtResource("3_t8fev")
+
+[node name="CardSlot6" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(960, 550)
+scale = Vector2(0.4, 0.4)
+
+[node name="CardSlot7" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(820, 550)
+scale = Vector2(0.4, 0.4)
+
+[node name="CardSlot8" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(680, 550)
+scale = Vector2(0.4, 0.4)
+
+[node name="CardSlot9" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(1100, 550)
+scale = Vector2(0.4, 0.4)
+
+[node name="CardSlot10" parent="CardSlots" instance=ExtResource("2_mt3dj")]
+position = Vector2(1240, 550)
+scale = Vector2(0.4, 0.4)
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("4_ckasl")
+
+[node name="Deck" type="Node2D" parent="."]
+z_index = -2
+position = Vector2(140, 900)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("5_8by1c")
+
+[node name="Area2D" type="Area2D" parent="Deck"]
+z_index = -3
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deck/Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_jb6x5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Deck"]
+texture = ExtResource("6_7g47n")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Deck"]
+z_index = -2
+offset_left = -10.0
+offset_top = 200.0
+offset_right = 30.0
+offset_bottom = 240.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="DeckTimer" type="Timer" parent="Deck"]
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("7_yn2xr")
+
+[node name="EndTurnButton" type="Button" parent="."]
+visible = false
+offset_left = 300.0
+offset_top = 570.0
+offset_right = 378.0
+offset_bottom = 601.0
+disabled = true
+text = "End Turn"
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("8_6gxx7")
+
+[node name="BattleTimer" type="Timer" parent="."]
+
+[node name="PlayerHealth" type="RichTextLabel" parent="."]
+offset_left = 130.0
+offset_top = 430.0
+offset_right = 170.0
+offset_bottom = 470.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="PlayerDiscard" type="Node2D" parent="."]
+position = Vector2(1500, 660)
+scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerDiscard"]
+texture = ExtResource("9_ga3lq")
+
+[connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]

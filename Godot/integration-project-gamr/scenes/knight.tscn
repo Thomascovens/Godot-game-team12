@@ -497,10 +497,11 @@ animations = [{
 size = Vector2(38, 54.0625)
 
 [node name="Knight" type="CharacterBody2D"]
+position = Vector2(11, 58)
 script = ExtResource("1_3cm67")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(15, -30)
+position = Vector2(14, -31)
 scale = Vector2(1.44792, 1.51786)
 sprite_frames = SubResource("SpriteFrames_14u3r")
 animation = &"hurt"

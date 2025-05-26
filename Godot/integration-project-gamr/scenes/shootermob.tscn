@@ -238,3 +238,6 @@ shape = SubResource("CapsuleShape2D_xrj1y")
 
 [node name="shootlocation" type="Marker2D" parent="." index="4"]
 position = Vector2(-34, 9)
+
+[node name="NavigationAgent2D" parent="." index="5"]
+avoidance_enabled = false
