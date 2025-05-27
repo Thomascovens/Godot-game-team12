@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://4ul3cj2g2asn"]
 
-[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/characters/projectiles/fireball.gd" id="1_gx1df"]
+[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/projectile.gd" id="1_gx1df"]
 [ext_resource type="Texture2D" uid="uid://oghq6jk0tv2y" path="res://assets/Characters/Fire wizard/Charge.png" id="2_crjjh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3m7n"]
@@ -105,6 +105,9 @@ animations = [{
 }]
 
 [node name="projectile" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+priority = 1
 script = ExtResource("1_gx1df")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -15,6 +15,7 @@ func _physics_process(delta: float) -> void:
 		position += velocity * delta
 
 func _on_body_entered(body: Node) -> void:
+	print("Projectile hit:", body.name)  # 👀 DEBUG
 	if impacted:
 		return
 	if body.is_in_group("Mobs"):

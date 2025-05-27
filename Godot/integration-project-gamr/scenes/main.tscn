@@ -1,9 +1,8 @@
-[gd_scene load_steps=67 format=4 uid="uid://c0yuhomr0g8mc"]
+[gd_scene load_steps=68 format=4 uid="uid://c0yuhomr0g8mc"]
 
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b8xlut11rss36" path="res://scenes/hud.tscn" id="3_tipki"]
-[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/projectile.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://dd6jcbovgilp3" path="res://scenes/shootermob.tscn" id="6_85g3d"]
 [ext_resource type="PackedScene" uid="uid://des2diql21446" path="res://scenes/projectile_mob_ghost_wizard.tscn" id="7_choun"]
 [ext_resource type="Script" uid="uid://dcp5rwecniiru" path="res://scripts/map.gd" id="8_eb6dy"]
@@ -15,10 +14,12 @@
 [ext_resource type="PackedScene" uid="uid://c1tye5h3ar8dr" path="res://scenes/knight.tscn" id="11_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://co58ddew151bo" path="res://assets/map/PNG/Animation3.png" id="12_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://batne4kdal6he" path="res://scenes/lightning_mage.tscn" id="12_muem4"]
+[ext_resource type="PackedScene" uid="uid://djm8wgly13e3e" path="res://scenes/Characters/projectiles/arrow.tscn" id="12_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://0de6jg1wel1l" path="res://scenes/Characters/fire_wizard.tscn" id="12_yc10j"]
 [ext_resource type="PackedScene" uid="uid://cneb20346a5f" path="res://scenes/Characters/magician.tscn" id="13_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://cn4r2finmj4gi" path="res://assets/map/PNG/Animation2.png" id="13_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/Characters/projectiles/fireball.tscn" id="13_jscy8"]
+[ext_resource type="PackedScene" uid="uid://b7du4ueuroic7" path="res://scenes/Characters/projectiles/lightning_ball.tscn" id="14_y6deb"]
 [ext_resource type="Texture2D" uid="uid://bcu5l0j4ctpc8" path="res://assets/map/PNG/Animation4.png" id="15_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://r4hy6ohhj4gr" path="res://assets/map/PNG/Animation5.png" id="16_muem4"]
 [ext_resource type="Texture2D" uid="uid://dsjnuytlk7jqp" path="res://assets/map/PNG/Animation6.png" id="17_dp3eg"]
@@ -339,20 +340,11 @@ character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 
-[node name="projectile player" parent="." instance=ExtResource("4_tipki")]
-position = Vector2(912, 2476)
-collision_layer = 3
-collision_mask = 3
-
 [node name="soldier mob" parent="." instance=ExtResource("3_o6xl0")]
 position = Vector2(296, 2496)
-collision_layer = 2
-collision_mask = 2
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
 position = Vector2(404, 2483)
-collision_layer = 2
-collision_mask = 2
 physics_material_override = null
 
 [node name="Projectile mob ghost wizard" parent="." instance=ExtResource("7_choun")]
@@ -411,9 +403,18 @@ position = Vector2(14, 204)
 [node name="Camera2D" type="Camera2D" parent="Magician"]
 
 [node name="Fire wizard" parent="." instance=ExtResource("12_yc10j")]
-projectile_scene = ExtResource("13_jscy8")
 
 [node name="Camera2D" type="Camera2D" parent="Fire wizard"]
+
+[node name="projectiles players" type="Node2D" parent="."]
+
+[node name="arrow" parent="projectiles players" instance=ExtResource("12_pm3ni")]
+position = Vector2(40, 11)
+
+[node name="fireball" parent="projectiles players" instance=ExtResource("13_jscy8")]
+position = Vector2(75, 6)
+
+[node name="lighning_ball" parent="projectiles players" instance=ExtResource("14_y6deb")]
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
 

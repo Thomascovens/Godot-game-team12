@@ -265,7 +265,7 @@ position = Vector2(-24, -15)
 sprite_frames = SubResource("SpriteFrames_qumep")
 animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.0704162
+frame_progress = 0.151333
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-39, 18)

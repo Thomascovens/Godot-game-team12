@@ -40,6 +40,10 @@ animations = [{
 }]
 
 [node name="projectile" type="Area2D"]
+position = Vector2(46, 44)
+collision_layer = 3
+collision_mask = 3
+priority = 1
 script = ExtResource("1_o2mfb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

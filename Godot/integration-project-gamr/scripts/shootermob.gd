@@ -80,6 +80,7 @@ func _on_animation_finished() -> void:
 			queue_free()
 
 func take_damage(amount: int) -> void:
+	print("Ghost Wizard taking damage:", amount)  # 🪵 Debug log
 	if is_dead:
 		return
 	health = clamp(health - amount, 0, max_health)
