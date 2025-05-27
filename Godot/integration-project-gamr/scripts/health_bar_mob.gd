@@ -8,10 +8,18 @@ var mob  # the Mob this bar is tracking
 
 func _ready() -> void:
 	mob = get_parent()
-	mob.connect("hit", Callable(self, "_on_mob_health_changed"))
-	timer.connect("timeout", Callable(self, "_on_timer_timeout"))
-	# wait until next idle frame, then do the real init:
+
+	# Connect mob's "hit" signal if not already connected
+	if mob and not mob.is_connected("hit", Callable(self, "_on_mob_health_changed")):
+		mob.connect("hit", Callable(self, "_on_mob_health_changed"))
+
+	# Connect the timer's "timeout" signal safely
+	if not timer.is_connected("timeout", Callable(self, "_on_timer_timeout")):
+		timer.connect("timeout", Callable(self, "_on_timer_timeout"))
+
+	# Wait until the next idle frame to initialize health values safely
 	call_deferred("_init_bar")
+
 
 func _init_bar() -> void:
 	# Now mob.health has been set in the mob’s _ready()

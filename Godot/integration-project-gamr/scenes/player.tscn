@@ -1,12 +1,137 @@
-[gd_scene load_steps=41 format=3 uid="uid://cy16v76l2duxb"]
+[gd_scene load_steps=41 format=3 uid="uid://btxckd1x26iuq"]
 
-[ext_resource type="Script" uid="uid://do2yxlj1pe5uo" path="res://scripts/player.gd" id="1_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://dwxib7sxdqq8v" path="res://assets/Characters/Fire vizard/Attack_1.png" id="2_fjrip"]
-[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/projectile.tscn" id="2_smehm"]
-[ext_resource type="Texture2D" uid="uid://d28ug8d2u1lkr" path="res://assets/Characters/Fire vizard/Attack_2.png" id="3_smehm"]
-[ext_resource type="Texture2D" uid="uid://dxk5nrevp0w21" path="res://assets/Characters/Fire vizard/Fireball.png" id="4_ur7pv"]
-[ext_resource type="Texture2D" uid="uid://b1t30m5q5vfcd" path="res://assets/Characters/Fire vizard/Run.png" id="5_y4r1p"]
-[ext_resource type="Texture2D" uid="uid://b8pjilarwlkv7" path="res://assets/Characters/Fire vizard/Walk.png" id="6_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/characters/projectiles/fireball.tscn" id="2_smehm"]
+
+[sub_resource type="GDScript" id="GDScript_3vyb7"]
+script/source = "extends CharacterBody2D
+signal hit(new_health: int)
+
+@export var walk_speed := 200
+@export var run_speed := 400  # twice as fast (tweak to taste)
+@export var max_health: int = 100
+@export var projectile_scene: PackedScene
+@export var projectile_offset: Vector2 = Vector2.ZERO
+
+var health: int
+var is_attacking: bool = false
+var map_bounds_rect: Rect2
+
+func _ready():
+	health = max_health
+	$AnimatedSprite2D.frame_changed.connect(Callable(self, \"_on_frame_changed\"))
+
+	# Calculate map bounds from Mapbounds/Shape (must be RectangleShape2D)
+	var shape = get_node(\"../Mapbounds/Shape\")  # Adjust path as needed
+	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
+		var rect_shape = shape.shape as RectangleShape2D
+		var center = shape.global_position
+		var size = rect_shape.extents * 2
+		map_bounds_rect = Rect2(center - rect_shape.extents, size)
+	else:
+		push_error(\"Mapbounds/Shape must be a RectangleShape2D!\")
+
+func _process(delta):
+	# 1) Start attack if just pressed (fires once)
+	if Input.is_action_just_pressed(\"attack\") and not is_attacking:
+		is_attacking = true
+		$AnimatedSprite2D.play(\"fireball\")
+
+	# 2) Gather movement input
+	var dir := Vector2.ZERO
+	var is_running := false
+
+	if Input.is_action_pressed(\"walk_right\"):
+		dir.x += 1
+	if Input.is_action_pressed(\"walk_left\"):
+		dir.x -= 1
+	if Input.is_action_pressed(\"walk_down\"):
+		dir.y += 1
+	if Input.is_action_pressed(\"walk_up\"):
+		dir.y -= 1
+
+	if Input.is_action_pressed(\"run_right\"):
+		dir.x += 1
+		is_running = true
+	if Input.is_action_pressed(\"run_left\"):
+		dir.x -= 1
+		is_running = true
+	if Input.is_action_pressed(\"run_down\"):
+		dir.y += 1
+		is_running = true
+	if Input.is_action_pressed(\"run_up\"):
+		dir.y -= 1
+		is_running = true
+
+	# 3) Apply movement
+	if dir != Vector2.ZERO:
+		dir = dir.normalized()
+		var speed_to_use = run_speed if is_running else walk_speed
+		velocity = dir * speed_to_use
+	else:
+		velocity = Vector2.ZERO
+
+	position += velocity * delta
+
+	# Clamp position to map bounds (dynamic from Mapbounds/Shape)
+	position.x = clamp(position.x, map_bounds_rect.position.x, map_bounds_rect.position.x + map_bounds_rect.size.x)
+	position.y = clamp(position.y, map_bounds_rect.position.y, map_bounds_rect.position.y + map_bounds_rect.size.y)
+
+	# 4) Sprite animation only if NOT attacking
+	if is_attacking:
+		return
+
+	if velocity != Vector2.ZERO:
+		$AnimatedSprite2D.animation = \"run\" if is_running else \"walk\"
+		$AnimatedSprite2D.flip_h = dir.x < 0
+		$AnimatedSprite2D.flip_v = false
+		$AnimatedSprite2D.play()
+	else:
+		$AnimatedSprite2D.stop()
+
+func shoot_fireball() -> void:
+	var proj = projectile_scene.instantiate() as Area2D
+	proj.global_position = global_position + projectile_offset
+
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var dir: Vector2 = (mouse_pos - proj.global_position).normalized()
+
+	proj.velocity = dir * proj.speed
+	proj.rotation = dir.angle()
+
+	get_tree().get_current_scene().add_child(proj)
+
+func _on_frame_changed() -> void:
+	print(\"🌀 frame changed\")
+	var sprite = $AnimatedSprite2D
+	if sprite.animation == \"fireball\":
+		var last = sprite.sprite_frames.get_frame_count(\"fireball\") - 1
+		if sprite.frame == last:
+			shoot_fireball()
+			is_attacking = false
+
+func _on_Hitbox_body_entered(body: Node) -> void:
+	#debugging:
+	print(\"Hitbox entered by:\", body, \"in groups:\", body.get_groups())
+	if body.is_in_group(\"Mobs\"):
+		take_damage(10)
+
+func take_damage(amount: int) -> void:
+	health = clamp(health - amount, 0, max_health)
+	print(\"Player health is now:\", health)
+	emit_signal(\"hit\", health)
+	get_node(\"/root/Main/HUD/HealthBar\").health = health
+	if health == 0:
+		get_parent().game_over()
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0b27c"]
+shader = ExtResource("3_ldg7d")
+shader_parameter/speed = 0.05
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fjrip"]
 radius = 7.185
@@ -16,124 +141,146 @@ height = 64.0
 radius = 7.0
 height = 66.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v3csk"]
+load_path = "res://.godot/imported/Attack_1.png-64c467dcda23d6ee0306d9c62ee6ed62.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
-atlas = ExtResource("2_fjrip")
+atlas = SubResource("CompressedTexture2D_v3csk")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
-atlas = ExtResource("2_fjrip")
+atlas = SubResource("CompressedTexture2D_v3csk")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
-atlas = ExtResource("2_fjrip")
+atlas = SubResource("CompressedTexture2D_v3csk")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
-atlas = ExtResource("2_fjrip")
+atlas = SubResource("CompressedTexture2D_v3csk")
 region = Rect2(384, 0, 128, 128)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s6ko1"]
+load_path = "res://.godot/imported/Attack_2.png-1b677106db304bd4952bdaac87587101.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
-atlas = ExtResource("3_smehm")
+atlas = SubResource("CompressedTexture2D_s6ko1")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
-atlas = ExtResource("3_smehm")
+atlas = SubResource("CompressedTexture2D_s6ko1")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
-atlas = ExtResource("3_smehm")
+atlas = SubResource("CompressedTexture2D_s6ko1")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
-atlas = ExtResource("3_smehm")
+atlas = SubResource("CompressedTexture2D_s6ko1")
 region = Rect2(384, 0, 128, 128)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j242n"]
+load_path = "res://.godot/imported/Fireball.png-47bbf56cbc8836c3792f2a525c409711.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ujl30"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
-atlas = ExtResource("4_ur7pv")
+atlas = SubResource("CompressedTexture2D_j242n")
 region = Rect2(896, 0, 128, 128)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q71mw"]
+load_path = "res://.godot/imported/Run.png-62b0f2b066ba9dc21a7f8fcca34d8e03.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jc3p3"]
-atlas = ExtResource("5_y4r1p")
+atlas = SubResource("CompressedTexture2D_q71mw")
 region = Rect2(896, 0, 128, 128)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lcy51"]
+load_path = "res://.godot/imported/Walk.png-3c20bac76c443e2ee5ac9aa67b60484d.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
-atlas = ExtResource("6_d2wvv")
+atlas = SubResource("CompressedTexture2D_lcy51")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t4otl"]
-atlas = ExtResource("6_d2wvv")
+atlas = SubResource("CompressedTexture2D_lcy51")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j2b1d"]
-atlas = ExtResource("6_d2wvv")
+atlas = SubResource("CompressedTexture2D_lcy51")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
-atlas = ExtResource("6_d2wvv")
+atlas = SubResource("CompressedTexture2D_lcy51")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
-atlas = ExtResource("6_d2wvv")
+atlas = SubResource("CompressedTexture2D_lcy51")
 region = Rect2(640, 0, 128, 128)
 
+
+
+
+
+
+
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
-atlas = ExtResource("6_d2wvv")
+atlas = SubResource("CompressedTexture2D_lcy51")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fdfoy"]
@@ -256,7 +403,7 @@ animations = [{
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(302, 186)
-script = ExtResource("1_tuyoq")
+script = SubResource("GDScript_3vyb7")
 projectile_scene = ExtResource("2_smehm")
 metadata/_edit_group_ = true
 

@@ -1,10 +1,9 @@
 extends RigidBody2D
 
 @export var speed: float = 100.0
-@export var player_path: NodePath
 @export var max_health: int = 30
 
-var player: Node2D
+var player = Global.get_player()
 var health: int
 var is_dead := false
 var is_attacking: bool = false
@@ -15,12 +14,17 @@ var is_attacking: bool = false
 @onready var agent: NavigationAgent2D = $NavigationAgent2D
 
 func _ready() -> void:
-	collision_mask = 1 << 0  # only “see” layer 1 (Player)
+	collision_mask = 1 << 0
 	health = max_health
 
-	if player_path != null:
-		player = get_node(player_path)
-		agent.target_position = player.global_position
+	await get_tree().process_frame  # Wait one frame for Global to be set
+
+	player = Global.get_player()
+	if player == null:
+		push_error("Enemy: No current player found in Global after delay.")
+		return
+
+	agent.target_position = player.global_position
 
 	sprite.animation = "run"
 	sprite.play()

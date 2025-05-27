@@ -1,17 +1,22 @@
-[gd_scene load_steps=61 format=4 uid="uid://c0yuhomr0g8mc"]
+[gd_scene load_steps=66 format=4 uid="uid://c0yuhomr0g8mc"]
 
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://cy16v76l2duxb" path="res://scenes/player.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b8xlut11rss36" path="res://scenes/hud.tscn" id="3_tipki"]
 [ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/projectile.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://dd6jcbovgilp3" path="res://scenes/shootermob.tscn" id="6_85g3d"]
 [ext_resource type="PackedScene" uid="uid://des2diql21446" path="res://scenes/projectile_mob_ghost_wizard.tscn" id="7_choun"]
 [ext_resource type="Script" uid="uid://dcp5rwecniiru" path="res://scripts/map.gd" id="8_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://4qkq5avv8xe7" path="res://scenes/element_bow.tscn" id="8_trceg"]
+[ext_resource type="PackedScene" uid="uid://cgj0u3ahbburo" path="res://scenes/Characters/fighter_silver_male_blade.tscn" id="9_a8y0u"]
 [ext_resource type="TileSet" uid="uid://cbe4alg58qe53" path="res://tilesets/main_tileset_dp3eg.tres" id="9_ya4ey"]
 [ext_resource type="TileSet" uid="uid://cng6jib5n5m8b" path="res://tilesets/main_tileset_pm3ni.tres" id="10_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://cqqqfhsst0pd1" path="res://assets/map/Tiled_files/water_detilazation_v2.png" id="11_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://c1tye5h3ar8dr" path="res://scenes/knight.tscn" id="11_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://co58ddew151bo" path="res://assets/map/PNG/Animation3.png" id="12_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://batne4kdal6he" path="res://scenes/lightning_mage.tscn" id="12_muem4"]
+[ext_resource type="PackedScene" uid="uid://0de6jg1wel1l" path="res://scenes/Characters/fire_wizard.tscn" id="12_yc10j"]
+[ext_resource type="PackedScene" uid="uid://cneb20346a5f" path="res://scenes/Characters/magician.tscn" id="13_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://cn4r2finmj4gi" path="res://assets/map/PNG/Animation2.png" id="13_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://bcu5l0j4ctpc8" path="res://assets/map/PNG/Animation4.png" id="15_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://r4hy6ohhj4gr" path="res://assets/map/PNG/Animation5.png" id="16_muem4"]
@@ -329,13 +334,10 @@ animations = [{
 script = ExtResource("1_o5qli")
 mob_scene = ExtResource("3_o6xl0")
 shootermob_scene = ExtResource("6_85g3d")
+character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow"), NodePath("Fighter"), NodePath("Knight"), NodePath("Mage"), NodePath("Magician")])
+start_character_index = 4
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
-
-[node name="Player" parent="." instance=ExtResource("2_tefeu")]
-position = Vector2(728, 2466)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="projectile player" parent="." instance=ExtResource("4_tipki")]
 position = Vector2(912, 2476)
@@ -346,7 +348,6 @@ collision_mask = 3
 position = Vector2(296, 2496)
 collision_layer = 2
 collision_mask = 2
-player_path = NodePath("../Player")
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
 position = Vector2(404, 2483)
@@ -386,6 +387,32 @@ light_mask = 2
 visibility_layer = 2
 position = Vector2(2182, -272)
 shape = SubResource("RectangleShape2D_tipki")
+
+[node name="Archer_bow" parent="." instance=ExtResource("8_trceg")]
+
+[node name="Camera2D" type="Camera2D" parent="Archer_bow"]
+
+[node name="Fighter" parent="." instance=ExtResource("9_a8y0u")]
+
+[node name="Camera2D" type="Camera2D" parent="Fighter"]
+
+[node name="Knight" parent="." instance=ExtResource("11_jbj1t")]
+position = Vector2(11, 58)
+
+[node name="Camera2D" type="Camera2D" parent="Knight"]
+
+[node name="Mage" parent="." instance=ExtResource("12_muem4")]
+position = Vector2(14, 204)
+
+[node name="Camera2D" type="Camera2D" parent="Mage"]
+
+[node name="Magician" parent="." instance=ExtResource("13_dp3eg")]
+
+[node name="Camera2D" type="Camera2D" parent="Magician"]
+
+[node name="Fire wizard" parent="." instance=ExtResource("12_yc10j")]
+
+[node name="Camera2D" type="Camera2D" parent="Fire wizard"]
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
 
@@ -470,51 +497,6 @@ polygon = PackedVector2Array(1034, -1833, 1051, -1848, 1067, -1849, 1077, -1835,
 
 [node name="CollisionPolygon2D27" type="CollisionPolygon2D" parent="Boundaries"]
 polygon = PackedVector2Array(1832, -1838, 1846, -1821, 1847, -1834, 1868, -1846, 1898, -1820, 1896, -1803, 1904, -1802, 1904, -1787, 1897, -1780, 1889, -1761, 1881, -1767, 1881, -1749, 1852, -1736, 1836, -1748, 1844, -1758, 1824, -1756, 1811, -1770, 1810, -1793, 1802, -1802, 1808, -1815, 1817, -1807, 1816, -1822)
-
-[node name="MultiplayerHUD" type="Control" parent="."]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -56.0
-offset_top = -20.5
-offset_right = 56.0
-offset_bottom = 20.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="MultiplayerHUD"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -18.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerHUD/Panel"]
-layout_mode = 0
-offset_right = 91.0
-offset_bottom = 66.0
-
-[node name="HostGame" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Host game"
-
-[node name="JoinGame" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
-layout_mode = 2
-text = "Join Game"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://dysl7ab51tup")
-spawn_path = NodePath("../Players")
-spawn_limit = 2
-
-[node name="Players" type="Node2D" parent="."]
 
 [node name="map" type="Node2D" parent="."]
 script = ExtResource("8_eb6dy")
@@ -813,5 +795,3 @@ sprite_frames = SubResource("SpriteFrames_e755i")
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/HostGame" to="." method="become_host"]
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/JoinGame" to="." method="join_as_player_2"]

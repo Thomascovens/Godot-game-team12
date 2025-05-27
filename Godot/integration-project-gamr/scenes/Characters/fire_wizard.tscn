@@ -1,10 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://0de6jg1wel1l"]
+[gd_scene load_steps=39 format=3 uid="uid://0de6jg1wel1l"]
 
-[ext_resource type="Texture2D" uid="uid://dwxib7sxdqq8v" path="res://assets/Characters/Fire vizard/Attack_1.png" id="2_pjyli"]
-[ext_resource type="Texture2D" uid="uid://d28ug8d2u1lkr" path="res://assets/Characters/Fire vizard/Attack_2.png" id="3_jenw6"]
-[ext_resource type="Texture2D" uid="uid://dxk5nrevp0w21" path="res://assets/Characters/Fire vizard/Fireball.png" id="4_pr6v7"]
-[ext_resource type="Texture2D" uid="uid://b8pjilarwlkv7" path="res://assets/Characters/Fire vizard/Walk.png" id="5_7jhu1"]
-[ext_resource type="Texture2D" uid="uid://b1t30m5q5vfcd" path="res://assets/Characters/Fire vizard/Run.png" id="6_sqy4x"]
+[ext_resource type="Script" uid="uid://do2yxlj1pe5uo" path="res://scripts/fire_wizard.gd" id="1_xi7g8"]
+[ext_resource type="Texture2D" uid="uid://dwxib7sxdqq8v" path="res://assets/Characters/Fire wizard/Attack_1.png" id="2_pjyli"]
+[ext_resource type="Texture2D" uid="uid://d28ug8d2u1lkr" path="res://assets/Characters/Fire wizard/Attack_2.png" id="3_jenw6"]
+[ext_resource type="Texture2D" uid="uid://dxk5nrevp0w21" path="res://assets/Characters/Fire wizard/Fireball.png" id="4_pr6v7"]
+[ext_resource type="Texture2D" uid="uid://b8pjilarwlkv7" path="res://assets/Characters/Fire wizard/Walk.png" id="5_7jhu1"]
+[ext_resource type="Texture2D" uid="uid://b1t30m5q5vfcd" path="res://assets/Characters/Fire wizard/Run.png" id="6_sqy4x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
 atlas = ExtResource("2_pjyli")
@@ -255,8 +256,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qumep"]
 size = Vector2(25, 68)
 
-[node name="Character" type="CharacterBody2D"]
-position = Vector2(5, -14)
+[node name="Fire wizard" type="CharacterBody2D"]
+script = ExtResource("1_xi7g8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(6, -109)

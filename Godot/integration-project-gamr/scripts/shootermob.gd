@@ -1,17 +1,15 @@
 extends RigidBody2D
 
-signal hit(new_health: int) 
+signal hit(new_health: int)
 
 @export var speed: float = 100.0
-@export var player_path: NodePath
 @export var max_health: int = 120
 @export var shoot_cooldown: float = 1.5
 @export var attack_range: float = 600
 
-# ← Preload your mob‐projectile scene here:
 const ProjectileScene: PackedScene = preload("res://scenes/Projectile_mob_ghost_wizard.tscn")
 
-var player: Node2D
+var player: Node2D = null
 var health: int
 var is_dead: bool = false
 var can_shoot: bool = true
@@ -23,11 +21,16 @@ var can_shoot: bool = true
 
 func _ready() -> void:
 	health = max_health
-	if player_path != null:
-		player = get_node(player_path)
+	await get_tree().process_frame  # 🕒 Delay to ensure Global is set
+	player = Global.get_player()
+
+	if player == null:
+		push_error("Ghost Wizard: No player found in Global.")
+		return
+
 	collision_layer = 0
 	collision_mask = 0
-	# start running
+
 	sprite.animation = "run"
 	sprite.play()
 
@@ -53,22 +56,18 @@ func _physics_process(_delta: float) -> void:
 func _shoot_at(target_pos: Vector2) -> void:
 	can_shoot = false
 
-	# play attack anim
 	sprite.sprite_frames.set_animation_loop("attack", false)
 	sprite.animation = "attack"
 	sprite.frame = 0
 	sprite.play()
 
-	# ← instance the preloaded scene
 	var proj = ProjectileScene.instantiate()
 	proj.global_position = muzzle.global_position
 	var dir = (target_pos - proj.global_position).normalized()
-	# assumes your projectile script has `velocity` & `speed`
 	proj.velocity = dir * proj.speed
 	proj.rotation = dir.angle()
 	get_tree().get_current_scene().add_child(proj)
 
-	# cooldown
 	await get_tree().create_timer(shoot_cooldown).timeout
 	can_shoot = true
 

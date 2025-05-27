@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7du4ueuroic7"]
+
+[ext_resource type="Script" uid="uid://67j8mrk37a0m" path="res://scripts/characters/projectiles/lighting_ball.gd" id="1_o2mfb"]
+[ext_resource type="Texture2D" uid="uid://bjxpsiu1s7g6y" path="res://assets/Characters/lightning/VFX3/Frames/lightning_skill3_frame1.png" id="2_o2mfb"]
+[ext_resource type="Texture2D" uid="uid://bgtchc8ilhm3" path="res://assets/Characters/lightning/VFX3/Frames/lightning_skill3_frame2.png" id="3_pr5fq"]
+[ext_resource type="Texture2D" uid="uid://bk1jd7nkf8oa1" path="res://assets/Characters/lightning/VFX3/Frames/lightning_skill3_frame3.png" id="4_ewpgn"]
+[ext_resource type="Texture2D" uid="uid://cvvnbfc77r4a1" path="res://assets/Characters/lightning/VFX3/Frames/lightning_skill3_frame4.png" id="5_rkm71"]
+[ext_resource type="Texture2D" uid="uid://co4salsyynfo6" path="res://assets/Characters/lightning/VFX3/Frames/lightning_skill3_frame5.png" id="6_e36uq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3m7n"]
+radius = 8.0
+height = 26.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l47rv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_o2mfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pr5fq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ewpgn")
+}],
+"loop": true,
+"name": &"lightning_fly",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rkm71")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_e36uq")
+}],
+"loop": true,
+"name": &"lightning_on_impact",
+"speed": 6.0
+}]
+
+[node name="projectile" type="Area2D"]
+script = ExtResource("1_o2mfb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_q3m7n")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1.19209e-07)
+rotation = -1.5708
+scale = Vector2(0.222456, 0.195574)
+sprite_frames = SubResource("SpriteFrames_l47rv")
+animation = &"lightning_fly"
+
+[node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.14577e-06, -8.34465e-07)
+scale = Vector2(2.5, 1.4)
