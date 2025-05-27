@@ -1,36 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://chqgq3261bgco"]
+[gd_scene load_steps=10 format=3 uid="uid://chqgq3261bgco"]
 
 [ext_resource type="Script" uid="uid://dt4yycqwb5k4x" path="res://Card/Multiplayer.gd" id="1_w8sj2"]
 [ext_resource type="PackedScene" uid="uid://bn455ati1nc51" path="res://Card/Scenes/PlayerField.tscn" id="2_gicbm"]
 [ext_resource type="PackedScene" uid="uid://bxlh6xocuj65" path="res://Card/Scenes/OpponentField.tscn" id="3_187s6"]
 [ext_resource type="Texture2D" uid="uid://bkg40qbb0ahdk" path="res://assets/battleback10.png" id="4_losid"]
+[ext_resource type="FontFile" uid="uid://b63vivd8eeb8g" path="res://fonts/PressStart2P-Regular.ttf" id="5_28f2r"]
+[ext_resource type="FontFile" uid="uid://dtx87twhejy87" path="res://fonts/Xolonium-Regular.ttf" id="6_imx43"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ajyj2"]
+bg_color = Color(0.164706, 0.180392, 0.211765, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.107073, 0.121204, 0.146644, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_losid"]
+bg_color = Color(0.109804, 0.121569, 0.14902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.172549, 0.192157, 0.227451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_28f2r"]
+bg_color = Color(0.109804, 0.121569, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.227451, 0.243137, 0.290196, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w8sj2")
 player_field_scene = ExtResource("2_gicbm")
 opponent_field_scene = ExtResource("3_187s6")
-
-[node name="HostButton" type="Button" parent="."]
-offset_left = 527.0
-offset_top = 238.0
-offset_right = 705.0
-offset_bottom = 298.0
-text = "Host"
-
-[node name="JoinButton" type="Button" parent="."]
-offset_left = 699.0
-offset_top = 351.0
-offset_right = 876.0
-offset_bottom = 419.0
-text = "Join
-"
-
-[node name="AddressField" type="TextEdit" parent="."]
-offset_left = 531.0
-offset_top = 357.0
-offset_right = 694.0
-offset_bottom = 415.0
-text = "localhost"
 
 [node name="Battleback10" type="Sprite2D" parent="."]
 z_index = -10
@@ -38,6 +54,66 @@ position = Vector2(965, 537)
 scale = Vector2(1.74457, 1.73833)
 texture = ExtResource("4_losid")
 
-[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
-[connection signal="text_changed" from="AddressField" to="." method="_on_address_field_text_changed"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+light_mask = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -217.5
+offset_top = -118.0
+offset_right = 217.5
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="HostButton" type="Button" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.623529, 0.901961, 0.878431, 1)
+theme_override_colors/font_color = Color(0.862745, 0.92549, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_28f2r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ajyj2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_losid")
+text = "Host Game"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.623529, 0.901961, 0.878431, 1)
+theme_override_colors/font_color = Color(0.862745, 0.92549, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_28f2r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_losid")
+theme_override_styles/normal = SubResource("StyleBoxFlat_losid")
+text = "Join Game
+"
+
+[node name="AddressField" type="TextEdit" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/selection_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_imx43")
+theme_override_styles/normal = SubResource("StyleBoxFlat_28f2r")
+text = "localhost"
+
+[connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="text_changed" from="CanvasLayer/UI/VBoxContainer/AddressField" to="." method="_on_address_field_text_changed"]
