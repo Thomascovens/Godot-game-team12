@@ -4,7 +4,7 @@ signal hit(new_health: int)
 @export var walk_speed := 200
 @export var run_speed := 400
 @export var max_health: int = 100
-@export var projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
+@export var projectile_scene: PackedScene = preload("res://scenes/Characters/projectiles/lightning_ball.tscn")
 @export var projectile_offset: Vector2 = Vector2(0, -30)
 
 var health: int
