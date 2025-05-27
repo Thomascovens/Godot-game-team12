@@ -24,7 +24,7 @@ func _process(delta):
 	handle_input(delta)
 	handle_animation()
 
-func handle_input(delta):
+func handle_input(_delta):
 	if is_attacking:
 		return
 

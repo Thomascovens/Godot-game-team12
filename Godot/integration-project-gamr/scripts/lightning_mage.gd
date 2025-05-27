@@ -29,7 +29,7 @@ func _ready():
 	set_process_input(false)
 	set_process_unhandled_input(false)
 
-func _process(delta):
+func _process(_delta):
 	if is_attacking:
 		return
 

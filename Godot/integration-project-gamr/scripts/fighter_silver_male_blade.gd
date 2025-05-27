@@ -24,7 +24,7 @@ func _ready():
 	hitbox_shape.disabled = true
 
 
-func _process(delta):
+func _process(_delta):
 	if is_attacking:
 		return
 
