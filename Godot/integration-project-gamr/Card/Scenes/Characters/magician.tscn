@@ -279,7 +279,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_mcdb7")
 }],
 "loop": true,
-"name": &"attack1",
+"name": &"attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -499,9 +499,8 @@ size = Vector2(38, 74)
 position = Vector2(15.125, -129.5)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_i58of")
-animation = &"attack1"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.255616
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, -0.25)

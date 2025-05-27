@@ -60,8 +60,7 @@ func direct_attack(attacking_card):
 	$"../InputManager".inputs_disabled = false
 
 @rpc("any_peer")
-func direct_attack_here_and_replicate_client_opponent(player_id,attacking_card_name):
-	
+func direct_attack_here_and_replicate_client_opponent(player_id, attacking_card_name):
 	var attacking_card
 	var attack_pos_y
 	var new_pos
@@ -79,30 +78,41 @@ func direct_attack_here_and_replicate_client_opponent(player_id,attacking_card_n
 	var tween = get_tree().create_tween()
 	tween.tween_property(attacking_card, "position", new_pos, 0.2)
 	await wait(0.15)
-	var victor
+	
+	# Apply damage
 	if multiplayer.get_unique_id() == player_id:
-		opponent_health = max(0,opponent_health - attacking_card.attack)
+		opponent_health = max(0, opponent_health - attacking_card.attack)
 		get_parent().get_parent().get_node("OpponentField/OpponentHealth").text = str(opponent_health)
-		if opponent_health == 0 :
-			$"../InputManager".inputs_disabled = true
-			$"../EndTurnButton".disabled = true
-			victor = Global.username
 	else:
 		player_health = max(0, player_health - attacking_card.attack)
 		$"../PlayerHealth".text = str(player_health)
-		if player_health == 0:
-			victor = get_parent().get_parent().get_node("OpponentField/Character/username").text
-			print(get_parent().get_parent().get_node("OpponentField/Character/username").text)
+	
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(attacking_card, "position", attacking_card.card_slot_card_is_in.position, 0.2)
 	
 	attacking_card.z_index = 0
 	await wait(0.15)
-	if victor:
-		print(victor)
-		Global.victor = victor
-		get_tree().change_scene_to_file("res://Card/Scenes/PostGame.tscn")
 	
+	# Check for game over condition
+	check_game_over()
+
+# Add this new RPC function to handle game over for all players
+@rpc("any_peer")
+func game_over(victor_name):
+	# Disable all inputs to prevent further actions
+	$"../InputManager".inputs_disabled = true
+	if $"../EndTurnButton":
+		$"../EndTurnButton".disabled = true
+	
+	# Set the global victor variable
+	Global.victor = victor_name
+	
+	# Add a small delay to ensure animations complete
+	await get_tree().create_timer(0.5).timeout
+	
+	# Change scene to post-game screen for all clients
+	get_tree().change_scene_to_file("res://Card/Scenes/PostGame.tscn")
+
 func get_shield_cards(battlefield_cards):
 	var shield_cards = []
 	for card in battlefield_cards:
@@ -250,7 +260,6 @@ func destroy_card(card, card_owner):
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_pos, 0.2)
 
-
 func wait(wait_time):
 	battle_timer.wait_time = wait_time
 	battle_timer.start()
@@ -265,4 +274,28 @@ func enable_end_turn_button(is_enabled):
 	else:
 		$"../EndTurnButton".disabled = true
 		$"../EndTurnButton".visible = false
+
+# Add this new function that checks for game over conditions
+func check_game_over():
+	var victor = null
 	
+	# Check if either player has 0 health
+	if player_health <= 0:
+		player_health = 0
+		$"../PlayerHealth".text = str(player_health)
+		victor = get_parent().get_parent().get_node("OpponentField/Character/username").text
+	elif opponent_health <= 0:
+		opponent_health = 0
+		get_parent().get_parent().get_node("OpponentField/OpponentHealth").text = str(opponent_health)
+		victor = Global.username
+	
+	# If we have a victor, trigger game over
+	if victor:
+		# Only one client needs to trigger the RPC
+		var player_id = multiplayer.get_unique_id()
+		if get_tree().get_multiplayer().is_server() or player_id == 1:
+			rpc("game_over", victor)
+			game_over(victor)
+		return true
+	
+	return false

@@ -9,7 +9,7 @@ func trigger_ability(player_field_manager, opponent_field_manager, battle_manage
 	input_manager_reference.inputs_disabled = true
 	battle_manager_reference.enable_end_turn_button(false)
 	
-	player_field_manager.get_node(NODE_NAME).play("attack1")
+	player_field_manager.get_node(NODE_NAME).play("attack")
 	var tornado = load(ANIMATION_NODE).instantiate()
 	opponent_field_manager.add_child(tornado)
 	tornado.position = opponent_field_manager.get_node("CardSlots/CardSlot10").position
@@ -42,7 +42,7 @@ func trigger_opponent_ability(player_field_manager, opponent_field_manager, batt
 	await battle_manager_reference.wait(.3)
 	var cards_to_destroy = []
 	
-	opponent_field_manager.get_node(NODE_NAME).play("attack1")
+	opponent_field_manager.get_node(NODE_NAME).play("attack")
 	var tornado = load(ANIMATION_NODE).instantiate()
 	player_field_manager.add_child(tornado)
 	tornado.position = player_field_manager.get_node("CardSlots/CardSlot10").position

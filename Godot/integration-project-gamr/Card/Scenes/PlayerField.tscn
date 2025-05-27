@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://b1ne12tgvllrx" path="res://Card/Scripts/InputManager.gd" id="7_yn2xr"]
 [ext_resource type="Script" uid="uid://drwe5fvs4r0v3" path="res://Card/Scripts/BattleManager.gd" id="8_6gxx7"]
 [ext_resource type="Texture2D" uid="uid://blu18nl6kxprl" path="res://Card/Assets/Cards/AddCard.png" id="9_ga3lq"]
-[ext_resource type="Script" uid="uid://di5hkpjmclxrx" path="res://Card/Scripts/playerHealth.gd" id="10_ckasl"]
-[ext_resource type="Script" uid="uid://ci4i4ho6l3ahw" path="res://Card/Scripts/playerEnergy.gd" id="10_t8fev"]
+[ext_resource type="Script" path="res://Card/Scripts/playerHealth.gd" id="10_ckasl"]
+[ext_resource type="Script" path="res://Card/Scripts/playerEnergy.gd" id="10_t8fev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jb6x5"]
 size = Vector2(314, 395)
@@ -92,6 +92,14 @@ offset_bottom = 771.0
 disabled = true
 text = "End Turn"
 
+[node name="ScanDeck" type="Button" parent="."]
+offset_left = 78.0
+offset_top = 1047.0
+offset_right = 197.0
+offset_bottom = 1078.0
+disabled = true
+text = "ScanDeckCard"
+
 [node name="BattleManager" type="Node" parent="."]
 script = ExtResource("8_6gxx7")
 
@@ -123,3 +131,4 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("9_ga3lq")
 
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="ScanDeck" to="." method="_on_scan_deck_pressed"]

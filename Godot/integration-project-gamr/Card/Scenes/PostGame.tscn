@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dihqo5fihwuhr"]
+[gd_scene load_steps=5 format=3 uid="uid://dihqo5fihwuhr"]
 
-[ext_resource type="Script" uid="uid://bapx0maf7vrh0" path="res://scripts/post_game.gd" id="1_gvwey"]
+[ext_resource type="Script" uid="uid://bapx0maf7vrh0" path="res://scenes/scripts/post_game.gd" id="1_gvwey"]
 [ext_resource type="Texture2D" uid="uid://qac1yr7khtxw" path="res://assets/BackGrounds/menuBackground.png" id="2_viewa"]
+[ext_resource type="Theme" uid="uid://dkphpbtrhf53i" path="res://assets/themes/buttonThemeBlue.tres" id="3_y064s"]
 
 [sub_resource type="Theme" id="Theme_4b0nv"]
 
@@ -41,3 +42,16 @@ color = Color(0.505882, 0.505882, 0.505882, 0.490196)
 [node name="MenuBackground" type="Sprite2D" parent="."]
 position = Vector2(965, 539)
 texture = ExtResource("2_viewa")
+
+[node name="MainMenuButton" type="Button" parent="."]
+custom_minimum_size = Vector2(350, 75)
+layout_direction = 2
+offset_left = 779.0
+offset_top = 549.0
+offset_right = 1129.0
+offset_bottom = 624.0
+focus_neighbor_top = NodePath("../ExitToLogin")
+theme = ExtResource("3_y064s")
+text = "Main menu"
+
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]

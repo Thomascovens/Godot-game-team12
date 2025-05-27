@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_5vw27"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="2_kek77"]
 [ext_resource type="PackedScene" uid="uid://b8xlut11rss36" path="res://scenes/hud.tscn" id="3_4c57u"]
-[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/projectile.tscn" id="4_efxa6"]
+[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://Card/Scenes/projectile.tscn" id="4_efxa6"]
 [ext_resource type="PackedScene" uid="uid://cy16v76l2duxb" path="res://scenes/player.tscn" id="5_dg77c"]
 [ext_resource type="Texture2D" uid="uid://dtj2f7w8g75s" path="res://assets/Tilesets/Grass.png" id="6_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://bsi8ypr8qhjo0" path="res://assets/Tilesets/Hills.png" id="7_w48qg"]

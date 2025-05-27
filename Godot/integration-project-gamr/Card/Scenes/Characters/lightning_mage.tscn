@@ -251,7 +251,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ykky2")
 }],
 "loop": true,
-"name": &"attack1",
+"name": &"attack",
 "speed": 5.0
 }, {
 "frames": [{
@@ -425,7 +425,7 @@ size = Vector2(23, 64)
 position = Vector2(44, -132)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_gvquw")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

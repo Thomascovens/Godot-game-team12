@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cy16v76l2duxb" path="res://scenes/player.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b8xlut11rss36" path="res://scenes/hud.tscn" id="3_tipki"]
-[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/projectile.tscn" id="4_tipki"]
+[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://Card/Scenes/projectile.tscn" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://dd6jcbovgilp3" path="res://scenes/shootermob.tscn" id="6_85g3d"]
 [ext_resource type="PackedScene" uid="uid://des2diql21446" path="res://scenes/projectile_mob_ghost_wizard.tscn" id="7_choun"]
 [ext_resource type="Script" uid="uid://dcp5rwecniiru" path="res://scripts/map.gd" id="8_eb6dy"]
