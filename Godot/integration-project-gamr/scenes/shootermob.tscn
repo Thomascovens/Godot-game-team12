@@ -217,7 +217,6 @@ height = 90.82
 
 [node name="Ghost wizard" instance=ExtResource("1_piwqa")]
 script = ExtResource("2_niuay")
-player_path = NodePath("")
 max_health = 120
 shoot_cooldown = 1.5
 attack_range = 600.0

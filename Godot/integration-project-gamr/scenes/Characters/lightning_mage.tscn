@@ -425,7 +425,7 @@ position = Vector2(-2, 0)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(21, -65)
 sprite_frames = SubResource("SpriteFrames_gvquw")
-animation = &"idle"
+animation = &"attack1"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
