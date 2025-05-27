@@ -24,7 +24,7 @@ func _ready():
 	hitbox.monitoring = false
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 
-func _process(delta):
+func _process(_delta):
 	if is_attacking:
 		return
 
