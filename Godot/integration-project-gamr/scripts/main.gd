@@ -64,7 +64,6 @@ func switch_character(index: int):
 func _on_mob_timer_timeout():
 	# 1) Spawn the soldier
 	var mob = mob_scene.instantiate()
-	mob.player_path = active_player
 	add_child(mob)
 	mob.global_position = _get_random_spawn_position()
 
@@ -74,7 +73,6 @@ func _on_mob_timer_timeout():
 	# 3) Every 10th soldier, also spawn a ghost wizard
 	if _soldier_spawn_count % 10 == 0:
 		var wiz = shootermob_scene.instantiate()
-		wiz.player_path = active_player
 		add_child(wiz)
 		wiz.global_position = _get_random_spawn_position()
 
