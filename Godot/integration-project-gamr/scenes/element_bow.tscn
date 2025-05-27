@@ -423,16 +423,18 @@ script = ExtResource("1_mnk3v")
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-3, 31)
+position = Vector2(-28, 20)
 shape = SubResource("RectangleShape2D_mnk3v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(22, -88)
+position = Vector2(-29, -41)
 scale = Vector2(1.15799, 1.40039)
 sprite_frames = SubResource("SpriteFrames_nny6h")
 animation = &"attack"
+frame = 14
+frame_progress = 1.0
 speed_scale = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20.25, -35)
+position = Vector2(-31, 19)
 shape = SubResource("RectangleShape2D_lx27s")

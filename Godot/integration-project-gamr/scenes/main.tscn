@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://c0yuhomr0g8mc"]
+[gd_scene load_steps=67 format=4 uid="uid://c0yuhomr0g8mc"]
 
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="3_o6xl0"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://0de6jg1wel1l" path="res://scenes/Characters/fire_wizard.tscn" id="12_yc10j"]
 [ext_resource type="PackedScene" uid="uid://cneb20346a5f" path="res://scenes/Characters/magician.tscn" id="13_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://cn4r2finmj4gi" path="res://assets/map/PNG/Animation2.png" id="13_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://4ul3cj2g2asn" path="res://scenes/Characters/projectiles/fireball.tscn" id="13_jscy8"]
 [ext_resource type="Texture2D" uid="uid://bcu5l0j4ctpc8" path="res://assets/map/PNG/Animation4.png" id="15_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://r4hy6ohhj4gr" path="res://assets/map/PNG/Animation5.png" id="16_muem4"]
 [ext_resource type="Texture2D" uid="uid://dsjnuytlk7jqp" path="res://assets/map/PNG/Animation6.png" id="17_dp3eg"]
@@ -335,7 +336,6 @@ script = ExtResource("1_o5qli")
 mob_scene = ExtResource("3_o6xl0")
 shootermob_scene = ExtResource("6_85g3d")
 character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow"), NodePath("Fighter"), NodePath("Knight"), NodePath("Mage"), NodePath("Magician")])
-start_character_index = 5
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 
@@ -411,6 +411,7 @@ position = Vector2(14, 204)
 [node name="Camera2D" type="Camera2D" parent="Magician"]
 
 [node name="Fire wizard" parent="." instance=ExtResource("12_yc10j")]
+projectile_scene = ExtResource("13_jscy8")
 
 [node name="Camera2D" type="Camera2D" parent="Fire wizard"]
 

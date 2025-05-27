@@ -418,11 +418,11 @@ position = Vector2(21, -30)
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(41.25, -0.25)
+position = Vector2(-20, 39)
 shape = SubResource("RectangleShape2D_jg4sg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(19, -39)
+position = Vector2(-5, 1)
 scale = Vector2(1.83687, 1.9256)
 sprite_frames = SubResource("SpriteFrames_14u3r")
 animation = &"attack"
@@ -430,5 +430,5 @@ frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(16, -30)
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_3cm67")

@@ -336,7 +336,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"fireball",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -406,11 +406,12 @@ size = Vector2(25, 68)
 script = SubResource("GDScript_cthax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(12, -64)
+position = Vector2(-24, -15)
 sprite_frames = SubResource("SpriteFrames_qumep")
-animation = &"idle"
+animation = &"fireball"
 autoplay = "idle"
+frame_progress = 0.0400229
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8.5, -34)
+position = Vector2(-39, 18)
 shape = SubResource("RectangleShape2D_qumep")
