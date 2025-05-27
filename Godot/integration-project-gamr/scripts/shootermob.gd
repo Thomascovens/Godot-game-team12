@@ -23,8 +23,12 @@ var can_shoot: bool = true
 
 func _ready() -> void:
 	health = max_health
-	if player_path != null:
+	if player_path != null and not player_path.is_empty() and has_node(player_path):
 		player = get_node(player_path)
+	else:
+		push_error("Invalid or empty player_path in Ghost Wizard mob!")
+		return
+
 	collision_layer = 0
 	collision_mask = 0
 	# start running

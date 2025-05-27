@@ -25,13 +25,14 @@ func new_game():
 
 func hide_all_characters():
 	for path in character_nodes:
-		var ch := get_node(path)
-		ch.hide()
-		ch.set_physics_process(false)
-		ch.set_process(false)
-		var cam := ch.get_node_or_null("Camera2D")
-		if cam:
-			cam.enabled = false
+		if not path.is_empty() and has_node(path):
+			var ch := get_node(path)
+			ch.hide()
+			ch.set_physics_process(false)
+			ch.set_process(false)
+			var cam := ch.get_node_or_null("Camera2D")
+			if cam:
+				cam.enabled = false
 
 func game_over():
 	$ScoreTimer.stop()
