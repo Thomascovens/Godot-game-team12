@@ -24,10 +24,12 @@ func hide_all_characters():
 		if not path.is_empty() and has_node(path):
 			var ch := get_node(path)
 			ch.hide()
-			ch.set_physics_process(false)
 			ch.set_process(false)
+			ch.set_physics_process(false)
 			ch.set_process_input(false)
-			ch.set_process_unhandled_input(false)  # important!
+			ch.set_process_unhandled_input(false)
+
+			# 🔧 Disabling all cameras
 			var cam := ch.get_node_or_null("Camera2D")
 			if cam:
 				cam.enabled = false
@@ -40,6 +42,7 @@ func game_over():
 func switch_character(index: int):
 	if index < 0 or index >= character_nodes.size():
 		return
+
 	if not active_player.is_empty():
 		var old := get_node(active_player)
 		old.hide()
@@ -47,24 +50,34 @@ func switch_character(index: int):
 		old.set_process(false)
 		old.set_process_input(false)
 		old.set_process_unhandled_input(false)
+
 		var old_cam := old.get_node_or_null("Camera2D")
 		if old_cam:
 			old_cam.enabled = false
 
 	active_player = character_nodes[index]
 	var new := get_node(active_player)
+
+	# ✅ now that "new" exists, we can safely use it
+	var sprite := new.get_node_or_null("AnimatedSprite2D")
+	if sprite:
+		sprite.visible = true
+
 	new.show()
 	new.set_physics_process(true)
 	new.set_process(true)
 	new.set_process_input(true)
 	new.set_process_unhandled_input(true)
+
 	if new.has_method("start"):
 		new.start($StartPosition.position)
+
 	var cam := new.get_node("Camera2D")
 	cam.enabled = true
 
 	Global.set_player(new)
 	print("Activated character: ", new.name)
+
 
 
 

@@ -23,6 +23,11 @@ func _ready():
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox_shape.disabled = true
 	hitbox.monitoring = false
+	
+	set_process(false)
+	set_physics_process(false)
+	set_process_input(false)
+	set_process_unhandled_input(false)
 
 func _process(delta):
 	if is_attacking:

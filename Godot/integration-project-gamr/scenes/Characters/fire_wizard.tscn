@@ -256,7 +256,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qumep"]
 size = Vector2(25, 68)
 
-[node name="character2d" type="CharacterBody2D"]
+[node name="Fire wizard" type="CharacterBody2D"]
 script = ExtResource("1_xi7g8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

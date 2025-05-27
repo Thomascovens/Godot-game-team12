@@ -15,7 +15,12 @@ var map_bounds_rect: Rect2
 func _ready():
 	health = max_health
 	$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
-
+	
+	set_process(false)
+	set_physics_process(false)
+	set_process_input(false)
+	set_process_unhandled_input(false)
+	
 	var shape = get_node("../Mapbounds/Shape")
 	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
 		var rect_shape = shape.shape as RectangleShape2D
