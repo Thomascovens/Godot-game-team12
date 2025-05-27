@@ -325,14 +325,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvquw"]
 size = Vector2(23, 64)
 
-[node name="Mage" type="CharacterBody2D"]
+[node name="Mage" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_0wcqb")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(12, -32)
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Player"]]
 position = Vector2(40, -1)
 shape = SubResource("RectangleShape2D_tlq86")
 

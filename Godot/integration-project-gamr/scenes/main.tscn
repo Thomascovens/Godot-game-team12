@@ -345,6 +345,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="soldier mob" parent="." instance=ExtResource("3_o6xl0")]
+physics_interpolation_mode = 1
 position = Vector2(296, 2496)
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
@@ -385,6 +386,7 @@ position = Vector2(2182, -272)
 shape = SubResource("RectangleShape2D_tipki")
 
 [node name="Archer_bow" parent="." instance=ExtResource("8_trceg")]
+physics_interpolation_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="Archer_bow"]
 

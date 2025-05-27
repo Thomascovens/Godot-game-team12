@@ -256,7 +256,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qumep"]
 size = Vector2(25, 68)
 
-[node name="Fire wizard" type="CharacterBody2D"]
+[node name="Fire wizard" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_xi7g8")
 projectile_offset = Vector2(0, 0)
 
@@ -267,6 +267,6 @@ animation = &"attack"
 autoplay = "idle"
 frame_progress = 0.151333
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(-39, 18)
 shape = SubResource("RectangleShape2D_qumep")
