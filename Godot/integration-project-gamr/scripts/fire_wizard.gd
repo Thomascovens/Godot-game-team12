@@ -35,22 +35,17 @@ func _process(delta):
 	handle_animation()
 
 func handle_input(delta):
-	if Input.is_action_just_pressed("attack") and not is_attacking:
-		is_attacking = true
-		$AnimatedSprite2D.play("attack")
+	if is_attacking:
+		return
 
 	var dir := Vector2.ZERO
-	var is_running := false
 
 	if Input.is_action_pressed("walk_right"): dir.x += 1
-	if Input.is_action_pressed("walk_left"): dir.x -= 1
-	if Input.is_action_pressed("walk_down"): dir.y += 1
-	if Input.is_action_pressed("walk_up"): dir.y -= 1
+	if Input.is_action_pressed("walk_left"):  dir.x -= 1
+	if Input.is_action_pressed("walk_down"):  dir.y += 1
+	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	if Input.is_action_pressed("run_right"): dir.x += 1; is_running = true
-	if Input.is_action_pressed("run_left"): dir.x -= 1; is_running = true
-	if Input.is_action_pressed("run_down"): dir.y += 1; is_running = true
-	if Input.is_action_pressed("run_up"): dir.y -= 1; is_running = true
+	var is_running := Input.is_action_pressed("run")
 
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
@@ -60,8 +55,13 @@ func handle_input(delta):
 		velocity = Vector2.ZERO
 
 	position += velocity * delta
-	position.x = clamp(position.x, map_bounds_rect.position.x, map_bounds_rect.end.x)
-	position.y = clamp(position.y, map_bounds_rect.position.y, map_bounds_rect.end.y)
+
+	if Input.is_action_just_pressed("attack"):
+		is_attacking = true
+		var aim_direction = (get_global_mouse_position() - global_position).normalized()
+		$AnimatedSprite2D.flip_h = aim_direction.x < 0
+		$AnimatedSprite2D.play("attack")
+
 
 func handle_animation():
 	if is_attacking:

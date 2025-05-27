@@ -29,17 +29,13 @@ func _process(delta):
 		return
 
 	var dir := Vector2.ZERO
-	var is_running := false
 
 	if Input.is_action_pressed("walk_right"): dir.x += 1
-	if Input.is_action_pressed("walk_left"): dir.x -= 1
-	if Input.is_action_pressed("walk_down"): dir.y += 1
-	if Input.is_action_pressed("walk_up"): dir.y -= 1
+	if Input.is_action_pressed("walk_left"):  dir.x -= 1
+	if Input.is_action_pressed("walk_down"):  dir.y += 1
+	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	if Input.is_action_pressed("run_right"): dir.x += 1; is_running = true
-	if Input.is_action_pressed("run_left"): dir.x -= 1; is_running = true
-	if Input.is_action_pressed("run_down"): dir.y += 1; is_running = true
-	if Input.is_action_pressed("run_up"): dir.y -= 1; is_running = true
+	var is_running := Input.is_action_pressed("run")  # Just Shift
 
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
@@ -54,9 +50,10 @@ func _process(delta):
 		sprite.flip_h = dir_to_mouse.x < 0
 		$Hitbox.rotation = dir_to_mouse.angle()
 		sprite.play("attack")
-	
+
 	position += velocity * delta
-	handle_animation() 
+	handle_animation()
+
 
 func handle_animation():
 	if is_attacking:

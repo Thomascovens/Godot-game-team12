@@ -29,33 +29,31 @@ func _process(delta):
 		return
 
 	var dir := Vector2.ZERO
-	var is_running := false
 
 	if Input.is_action_pressed("walk_right"): dir.x += 1
-	if Input.is_action_pressed("walk_left"): dir.x -= 1
-	if Input.is_action_pressed("walk_down"): dir.y += 1
-	if Input.is_action_pressed("walk_up"): dir.y -= 1
+	if Input.is_action_pressed("walk_left"):  dir.x -= 1
+	if Input.is_action_pressed("walk_down"):  dir.y += 1
+	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	if Input.is_action_pressed("run_right"): dir.x += 1; is_running = true
-	if Input.is_action_pressed("run_left"): dir.x -= 1; is_running = true
-	if Input.is_action_pressed("run_down"): dir.y += 1; is_running = true
-	if Input.is_action_pressed("run_up"): dir.y -= 1; is_running = true
+	var is_running := Input.is_action_pressed("run")  # Just Shift
 
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
-		velocity = dir * (run_speed if is_running else walk_speed)
+		var speed = run_speed if is_running else walk_speed
+		velocity = dir * speed
 	else:
 		velocity = Vector2.ZERO
+
+	if Input.is_action_just_pressed("attack") and not is_attacking:
+		is_attacking = true
+		var dir_to_mouse = get_global_mouse_position() - global_position
+		sprite.flip_h = dir_to_mouse.x < 0
+		$Hitbox.rotation = dir_to_mouse.angle()
+		sprite.play("attack")
 
 	position += velocity * delta
 	handle_animation()
 
-	if Input.is_action_just_pressed("attack") and not is_attacking:
-		is_attacking = true
-		var aim_direction = (get_global_mouse_position() - global_position).normalized()
-		sprite.flip_h = aim_direction.x < 0
-		hitbox.rotation = aim_direction.angle()
-		sprite.play("attack")
 
 func handle_animation():
 	if is_attacking:

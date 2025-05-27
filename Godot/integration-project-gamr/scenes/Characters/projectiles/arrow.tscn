@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://djm8wgly13e3e"]
 
-[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/characters/projectiles/fireball.gd" id="1_idl2s"]
+[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/projectile.gd" id="1_idl2s"]
 [ext_resource type="Texture2D" uid="uid://dnqerwcmgmbb3" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow/arrow_.png" id="2_dobyl"]
 [ext_resource type="Texture2D" uid="uid://buy5lo0v3y77v" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_1.png" id="3_3mfsx"]
 [ext_resource type="Texture2D" uid="uid://j4a8k5jq6fea" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_2.png" id="4_q73uj"]
