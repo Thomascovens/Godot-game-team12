@@ -104,6 +104,18 @@ focus_neighbor_top = NodePath("../ExitToLogin")
 theme = ExtResource("6_yr8n5")
 text = "Pre Game"
 
+[node name="username" type="RichTextLabel" parent="VBoxContainer/preGame"]
+layout_mode = 0
+offset_left = -125.0
+offset_top = -337.0
+offset_right = -85.0
+offset_bottom = -314.0
+scale = Vector2(5.96758, 3.34375)
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="cardGame" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(350, 75)
 layout_mode = 2
@@ -111,6 +123,7 @@ theme = ExtResource("7_0b27c")
 text = "Card Game"
 
 [node name="ExitToLogin" type="Button" parent="VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(350, 75)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../preGame")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://dihqo5fihwuhr"]
+
+[ext_resource type="Script" uid="uid://bapx0maf7vrh0" path="res://scripts/post_game.gd" id="1_gvwey"]
+[ext_resource type="Texture2D" uid="uid://qac1yr7khtxw" path="res://assets/BackGrounds/menuBackground.png" id="2_viewa"]
+
+[sub_resource type="Theme" id="Theme_4b0nv"]
+
+[node name="PostGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gvwey")
+
+[node name="Victory" type="RichTextLabel" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 327.0
+offset_right = -960.0
+offset_bottom = -647.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "default text"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1923.0
+offset_bottom = 1081.0
+theme = SubResource("Theme_4b0nv")
+color = Color(0.505882, 0.505882, 0.505882, 0.490196)
+
+[node name="MenuBackground" type="Sprite2D" parent="."]
+position = Vector2(965, 539)
+texture = ExtResource("2_viewa")

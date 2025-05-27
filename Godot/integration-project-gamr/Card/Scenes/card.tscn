@@ -81,6 +81,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Cost:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_elgft"]
 resource_name = "card_flip"
@@ -156,6 +168,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.1, 1), Vector2(1, 1)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Cost:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.150038, 0.201152),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kblc6"]
 _data = {
@@ -214,6 +238,18 @@ offset_right = 53.0
 offset_bottom = 170.0
 scale = Vector2(1.5, 1.5)
 text = "DEFAULT TEXT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cost" type="RichTextLabel" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -36.6667
+offset_top = 55.0
+offset_right = 3.33334
+offset_bottom = 95.0
+scale = Vector2(2, 2)
+text = "10
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 

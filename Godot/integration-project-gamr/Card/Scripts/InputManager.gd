@@ -42,5 +42,6 @@ func raycast_at_cursor():
 			deck_reference.deck_clicked()
 		elif result_collision_mask == COLLISION_MASK_OPPONENT_CARD:
 			$"../BattleManager".enemy_card_selected(result[0].collider.get_parent())
+		
 			
 			

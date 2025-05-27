@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s3p2uggp7v5r"
-path="res://.godot/imported/Priest.png-76f3d1e2d5eba35ac880d5e2d2711d3b.ctex"
+uid="uid://b5mi7kd7s6do7"
+path="res://.godot/imported/magicCardSlot.png-76ed402ac191734acc847b8e45758bf6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Card/Assets/Cards/Priest.png"
-dest_files=["res://.godot/imported/Priest.png-76f3d1e2d5eba35ac880d5e2d2711d3b.ctex"]
+source_file="res://Card/magicCardSlot.png"
+dest_files=["res://.godot/imported/magicCardSlot.png-76ed402ac191734acc847b8e45758bf6.ctex"]
 
 [params]
 
