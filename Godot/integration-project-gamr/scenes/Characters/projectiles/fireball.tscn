@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://4ul3cj2g2asn"]
 
-[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/projectile.gd" id="1_gx1df"]
+[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/characters/projectiles/fireball.gd" id="1_lx5m5"]
 [ext_resource type="Texture2D" uid="uid://oghq6jk0tv2y" path="res://assets/Characters/Fire wizard/Charge.png" id="2_crjjh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3m7n"]
@@ -74,7 +74,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_rimnf")
 }],
 "loop": true,
-"name": &"fireball_fly",
+"name": &"fly",
 "speed": 20.0
 }, {
 "frames": [{
@@ -100,7 +100,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_pl1gp")
 }],
 "loop": false,
-"name": &"fireball_on_impact",
+"name": &"impact",
 "speed": 20.0
 }]
 
@@ -108,7 +108,7 @@ animations = [{
 collision_layer = 3
 collision_mask = 3
 priority = 1
-script = ExtResource("1_gx1df")
+script = ExtResource("1_lx5m5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -117,6 +117,6 @@ shape = SubResource("CapsuleShape2D_q3m7n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-21, -2)
 sprite_frames = SubResource("SpriteFrames_l47rv")
-animation = &"fireball_fly"
+animation = &"impact"
 
 [node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
