@@ -28,9 +28,6 @@ func _ready() -> void:
 		push_error("Ghost Wizard: No player found in Global.")
 		return
 
-	collision_layer = 0
-	collision_mask = 0
-
 	sprite.animation = "run"
 	sprite.play()
 
