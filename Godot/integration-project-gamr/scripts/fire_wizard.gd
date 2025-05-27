@@ -34,7 +34,7 @@ func _process(delta):
 	handle_input(delta)
 	handle_animation()
 
-func handle_input(delta):
+func handle_input(_delta):
 	if is_attacking:
 		return
 
@@ -47,15 +47,15 @@ func handle_input(delta):
 
 	var is_running := Input.is_action_pressed("run")
 
+	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
-	else:
-		velocity = Vector2.ZERO
 
-	position += velocity * delta
-
+	#position += velocity * delta
+	# In _physics_process:
+	move_and_slide()
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
 		var aim_direction = (get_global_mouse_position() - global_position).normalized()

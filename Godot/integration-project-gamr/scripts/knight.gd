@@ -37,12 +37,13 @@ func _process(delta):
 
 	var is_running := Input.is_action_pressed("run")  # Just Shift
 
+	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
-	else:
-		velocity = Vector2.ZERO
+
+	move_and_slide()
 
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
@@ -51,7 +52,6 @@ func _process(delta):
 		$Hitbox.rotation = dir_to_mouse.angle()
 		sprite.play("attack")
 
-	position += velocity * delta
 	handle_animation()
 
 

@@ -37,14 +37,13 @@ func handle_input(delta):
 
 	var is_running := Input.is_action_pressed("run")
 
+	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
-	else:
-		velocity = Vector2.ZERO
 
-	position += velocity * delta
+	move_and_slide()
 
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
