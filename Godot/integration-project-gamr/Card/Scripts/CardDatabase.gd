@@ -1,5 +1,7 @@
 const CARDS = { #attack,health,cost,cardType,abilityText,abilityScript,defence,focus,rage
 	"Knight": [2,3,3, "Unit","Defend",null,true,false,false],
+	"Soldier": [4,2,1, "Unit","",null,true,false,false],
+	"MageSoldier":[4,1,2, "Unit","",false,false,false,false],
 	"Mage": [7,2,2, "Unit","3 damage to 2 random enemies","res://Card/Scripts/Abilities/Mage.gd",false,false,false],
 	"General": [5,7,4, "Unit","Rage",null,false,false,true],
 	"Tornado": [null, null,4, "Magic","Deal 2 damage to all enemy cards","res://Card/Scripts/Abilities/Tornado.gd",false,false,false],

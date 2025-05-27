@@ -2,26 +2,53 @@ extends Node2D
 
 const CARD_SCENE_PATH = "res://Card/Scenes/card.tscn"
 const CARD_DRAW_SPEED = 0.2
-const STARTING_HAND_SIZE = 6
+const STARTING_HAND_SIZE = 4
 const DRAW_CARD_COST = 1
 
-var player_deck = ["Knight", "Mage","Mage","Assassin","Assassin" , "General","Knight", "Mage","Mage","Assassin","Assassin" , "General","Knight", "Mage","Mage","Assassin","Assassin" , "General","Knight", "Mage","Mage","Assassin","Assassin" , "General","Tornado","Tornado","Tornado","Knight","Knight","Knight", "Lightning","Lightning","Sword","Sword","Sword","Fireball","Fireball","Fireball","Fireball","Knight", "Mage","Mage","Assassin","Assassin" , "General","Tornado","Tornado","Tornado","Knight","Knight","Knight", "Lightning","Lightning","Sword","Sword","Sword","Fireball","Fireball","Fireball","Fireball","Knight", "Mage","Mage","Assassin","Assassin" , "General","Tornado","Tornado","Tornado","Knight","Knight","Knight", "Lightning","Lightning","Sword","Sword","Sword","Fireball","Fireball","Fireball","Fireball"]
+var player_deck = []
 var card_database_reference
+var character_decks_reference
 var drawn_card_this_turn = false
 var deck_timer
+var deck_seed = 0
 
 
 func _ready() -> void:
 	player_deck.shuffle()
 	#$RichTextLabel.text = str(player_deck.size())
 	card_database_reference = preload("res://Card/Scripts/CardDatabase.gd")
+	character_decks_reference = preload("res://Card/Scripts/CharacterDecks.gd")
 	#for i in range(STARTING_HAND_SIZE):
 		#draw_card()
 		#drawn_card_this_turn = false
 	deck_timer = $DeckTimer
 	deck_timer.one_shot = true
 	deck_timer.wait_time = 1.0
+
+	initialize_deck(Global.character)
 	
+func initialize_deck(character_name, shared_seed = null):
+	# Use the deck for the selected character
+	if character_decks_reference.CHARACTER_DECKS.has(character_name):
+		player_deck = character_decks_reference.CHARACTER_DECKS[character_name].duplicate()
+	else:
+		# Fallback to a default deck if character not found
+		player_deck = character_decks_reference.CHARACTER_DECKS["knight"].duplicate()
+	
+	# If we received a seed, use it for deterministic shuffling
+	if shared_seed != null:
+		seed(shared_seed)
+		deck_seed = shared_seed
+	else:
+		# Generate a new random seed
+		randomize()
+		deck_seed = randi()
+		seed(deck_seed)
+	
+	# Shuffle the deck with this seed
+	player_deck.shuffle()
+	$RichTextLabel.text = str(player_deck.size())
+
 func draw_initial_hand():
 	deck_timer.start()
 	await deck_timer.timeout
