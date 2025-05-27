@@ -11,7 +11,7 @@ signal hit(new_health: int)
 # ← Preload your mob‐projectile scene here:
 const ProjectileScene: PackedScene = preload("res://scenes/Projectile_mob_ghost_wizard.tscn")
 
-var player: Node2D
+var player = Global.get_player()
 var health: int
 var is_dead: bool = false
 var can_shoot: bool = true

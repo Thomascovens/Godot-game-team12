@@ -57,6 +57,8 @@ func switch_character(index: int):
 		new.start($StartPosition.position)
 	var cam := new.get_node("Camera2D")
 	cam.enabled = true
+	
+	Global.set_player(new) 
 
 func _on_mob_timer_timeout():
 	# 1) Spawn the soldier
@@ -85,11 +87,16 @@ func _on_start_timer_timeout():
 	$HUD.update_score(score)
 
 func _ready():
-	
-	randomize()      # so randi() is different each run
+	randomize()
+
 	hide_all_characters()
-	switch_character(start_character_index)  # ✅ eerst instellen
-	# Get the world bounds rectangle from Mapbounds/Shape node
+	switch_character(start_character_index)  # ✅ Must come first
+	Global.set_player(get_node(active_player))  # 🔒 Redundant but safe if switch_character doesn't work
+
+	# ✅ Now it's safe to begin spawning enemies
+	new_game()
+
+	# World bounds setup
 	var shape = get_node("Mapbounds/Shape")
 	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
 		var rect_shape = shape.shape as RectangleShape2D
@@ -99,7 +106,6 @@ func _ready():
 	else:
 		push_error("Mapbounds/Shape must be a RectangleShape2D!")
 
-	new_game()
 
 # Helper function to pick a random spawn position inside the map bounds
 func _get_random_spawn_position() -> Vector2:
