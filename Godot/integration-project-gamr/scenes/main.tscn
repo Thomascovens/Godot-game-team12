@@ -356,7 +356,6 @@ position = Vector2(404, 2483)
 collision_layer = 2
 collision_mask = 2
 physics_material_override = null
-player_path = NodePath("")
 
 [node name="Projectile mob ghost wizard" parent="." instance=ExtResource("7_choun")]
 position = Vector2(359, 2488)
