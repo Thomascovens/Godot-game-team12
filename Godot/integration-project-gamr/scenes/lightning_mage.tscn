@@ -1,13 +1,6 @@
 [gd_scene load_steps=49 format=3 uid="uid://batne4kdal6he"]
 
-[sub_resource type="GDScript" id="GDScript_4h3uj"]
-script/source = "extends \"res://scripts/base_character.gd\"
-
-func _ready():
-	walk_speed = 200
-	run_speed = 350
-	health = 65
-"
+[ext_resource type="Script" uid="uid://bhcwpsjsacobx" path="res://scripts/lightning_mage.gd" id="1_0wcqb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tlq86"]
 size = Vector2(56, 66)
@@ -333,7 +326,7 @@ animations = [{
 size = Vector2(23, 64)
 
 [node name="Mage" type="CharacterBody2D"]
-script = SubResource("GDScript_4h3uj")
+script = ExtResource("1_0wcqb")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(12, -32)

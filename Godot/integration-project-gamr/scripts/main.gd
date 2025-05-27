@@ -13,15 +13,11 @@ var map_bounds_rect: Rect2  # Store world bounds rectangle here
 
 func new_game():
 	score = 0
-	var player := get_node(active_player)
 	_soldier_spawn_count = 0
-	
-	player.show()
-	player.set_physics_process(true)
-	player.set_process(true)
-	
+
 	$StartTimer.start()
 	$HUD.update_score(score)
+
 
 func hide_all_characters():
 	for path in character_nodes:
@@ -30,9 +26,12 @@ func hide_all_characters():
 			ch.hide()
 			ch.set_physics_process(false)
 			ch.set_process(false)
+			ch.set_process_input(false)
+			ch.set_process_unhandled_input(false)  # important!
 			var cam := ch.get_node_or_null("Camera2D")
 			if cam:
 				cam.enabled = false
+
 
 func game_over():
 	$ScoreTimer.stop()
@@ -46,20 +45,28 @@ func switch_character(index: int):
 		old.hide()
 		old.set_physics_process(false)
 		old.set_process(false)
+		old.set_process_input(false)
+		old.set_process_unhandled_input(false)
 		var old_cam := old.get_node_or_null("Camera2D")
 		if old_cam:
 			old_cam.enabled = false
+
 	active_player = character_nodes[index]
 	var new := get_node(active_player)
 	new.show()
 	new.set_physics_process(true)
 	new.set_process(true)
+	new.set_process_input(true)
+	new.set_process_unhandled_input(true)
 	if new.has_method("start"):
 		new.start($StartPosition.position)
 	var cam := new.get_node("Camera2D")
 	cam.enabled = true
-	
-	Global.set_player(new) 
+
+	Global.set_player(new)
+	print("Activated character: ", new.name)
+
+
 
 func _on_mob_timer_timeout():
 	# 1) Spawn the soldier
