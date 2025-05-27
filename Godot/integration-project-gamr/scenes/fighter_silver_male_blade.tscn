@@ -1,11 +1,19 @@
-[gd_scene load_steps=58 format=3 uid="uid://cgj0u3ahbburo"]
+[gd_scene load_steps=58 format=3 uid="uid://418of51vhgjm"]
 
-[ext_resource type="Script" uid="uid://dtrk0a21hdjug" path="res://scripts/characters/fighter_silver_male_blade.gd" id="1_qrqbn"]
 [ext_resource type="Texture2D" uid="uid://p7878usybc04" path="res://assets/Characters/fighter_silver_male_blade/Attack-01/Attack-01-Sheet.png" id="2_6x602"]
 [ext_resource type="Texture2D" uid="uid://qq2ppliyyfeh" path="res://assets/Characters/fighter_silver_male_blade/Dead/Dead-Sheet.png" id="3_8y6r1"]
 [ext_resource type="Texture2D" uid="uid://dflkghl8m83ei" path="res://assets/Characters/fighter_silver_male_blade/Idle/Idle-Sheet.png" id="4_wkp65"]
 [ext_resource type="Texture2D" uid="uid://catt6h0cr0a80" path="res://assets/Characters/fighter_silver_male_blade/Jumlp-All/Jump-All-Sheet.png" id="5_1g1uy"]
 [ext_resource type="Texture2D" uid="uid://g7gd86jhebyv" path="res://assets/Characters/fighter_silver_male_blade/Run/Run-Sheet.png" id="6_sfend"]
+
+[sub_resource type="GDScript" id="GDScript_opml6"]
+script/source = "extends \"res://scripts/base_character.gd\"
+
+func _ready():
+	walk_speed = 200	
+	run_speed = 350
+	health = 100
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2f1kp"]
 atlas = ExtResource("2_6x602")
@@ -383,7 +391,7 @@ size = Vector2(32, 62)
 size = Vector2(19.222, 28.341)
 
 [node name="Fighter" type="CharacterBody2D"]
-script = ExtResource("1_qrqbn")
+script = SubResource("GDScript_opml6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(14, -28)

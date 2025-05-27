@@ -1,6 +1,5 @@
-[gd_scene load_steps=63 format=3 uid="uid://cmuwdu7b3wclf"]
+[gd_scene load_steps=63 format=3 uid="uid://c1tye5h3ar8dr"]
 
-[ext_resource type="Script" uid="uid://dwnkjuf4kw60h" path="res://scripts/knight.gd" id="1_jg4sg"]
 [ext_resource type="Texture2D" uid="uid://cexttlfebt4q1" path="res://assets/Characters/knight/ATTACK 1.png" id="2_t4aln"]
 [ext_resource type="Texture2D" uid="uid://d0wh6qestyaeo" path="res://assets/Characters/knight/DEATH.png" id="5_vms05"]
 [ext_resource type="Texture2D" uid="uid://dya2vvtj7wv34" path="res://assets/Characters/knight/DEFEND.png" id="6_c5fs1"]
@@ -8,6 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://fkeceg8m4xce" path="res://assets/Characters/knight/IDLE.png" id="8_ahdxj"]
 [ext_resource type="Texture2D" uid="uid://bodtsj6qi65i1" path="res://assets/Characters/knight/RUN.png" id="9_s7sxb"]
 [ext_resource type="Texture2D" uid="uid://bsaxuue5y7045" path="res://assets/Characters/knight/WALK.png" id="10_6jeeq"]
+
+[sub_resource type="GDScript" id="GDScript_k2txo"]
+script/source = "extends \"res://scripts/base_character.gd\"
+
+func _ready():
+	walk_speed = 200
+	run_speed = 350
+	health = 120
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jg4sg"]
 size = Vector2(43.5, 61.5)
@@ -411,7 +419,7 @@ animations = [{
 size = Vector2(49, 62.0313)
 
 [node name="Knight" type="CharacterBody2D"]
-script = ExtResource("1_jg4sg")
+script = SubResource("GDScript_k2txo")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(21, -30)
