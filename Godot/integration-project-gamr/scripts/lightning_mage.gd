@@ -23,13 +23,13 @@ func _ready():
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox_shape.disabled = true
 	hitbox.monitoring = false
-	
+
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
 	set_process_unhandled_input(false)
 
-func _process(_delta):
+func _process(delta):
 	if is_attacking:
 		return
 
@@ -40,7 +40,7 @@ func _process(_delta):
 	if Input.is_action_pressed("walk_down"):  dir.y += 1
 	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	var is_running := Input.is_action_pressed("run")  # Just Shift
+	var is_running := Input.is_action_pressed("run")
 
 	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
@@ -48,7 +48,12 @@ func _process(_delta):
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	move_and_slide()
+	var collision_result = move_and_collide(velocity * delta)
+	if collision_result:
+		var collider = collision_result.get_collider()
+		if collider is RigidBody2D:
+			var push_force = velocity.normalized() * 1000
+			collider.apply_central_force(push_force)
 
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
@@ -58,7 +63,6 @@ func _process(_delta):
 		sprite.play("attack")
 
 	handle_animation()
-
 
 func handle_animation():
 	if is_attacking:

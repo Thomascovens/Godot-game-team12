@@ -23,7 +23,7 @@ func _process(delta):
 	handle_input(delta)
 	handle_animation()
 
-func handle_input(_delta):
+func handle_input(delta):
 	if is_attacking:
 		return
 
@@ -42,14 +42,18 @@ func handle_input(_delta):
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	move_and_slide()
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		var collider = collision.get_collider()
+		if collider is RigidBody2D:
+			var push_force = velocity.normalized() * 1000
+			collider.apply_central_force(push_force)
 
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
 		var aim_direction = (get_global_mouse_position() - global_position).normalized()
 		$AnimatedSprite2D.flip_h = aim_direction.x < 0
 		$AnimatedSprite2D.play("attack")
-
 
 func handle_animation():
 	if is_attacking:

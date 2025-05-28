@@ -23,11 +23,14 @@ func _ready():
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox_shape.disabled = true
 
-
-func _process(_delta):
+func _process(delta):
 	if is_attacking:
 		return
 
+	handle_input(delta)
+	handle_animation()
+
+func handle_input(delta):
 	var dir := Vector2.ZERO
 
 	if Input.is_action_pressed("walk_right"): dir.x += 1
@@ -35,15 +38,20 @@ func _process(_delta):
 	if Input.is_action_pressed("walk_down"):  dir.y += 1
 	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	var is_running := Input.is_action_pressed("run")  # Just Shift
-
+	var is_running := Input.is_action_pressed("run")
 	velocity = Vector2.ZERO
+
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	move_and_slide()
+	var collision_result = move_and_collide(velocity * delta)
+	if collision_result:
+		var collider = collision_result.get_collider()
+		if collider is RigidBody2D:
+			var push_force = velocity.normalized() * 1000
+			collider.apply_central_force(push_force)
 
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
@@ -52,12 +60,9 @@ func _process(_delta):
 		$Hitbox.rotation = dir_to_mouse.angle()
 		sprite.play("attack")
 
-	handle_animation()
-
-
 func handle_animation():
 	if is_attacking:
-		return  # niet veranderen tijdens attack
+		return
 
 	if velocity != Vector2.ZERO:
 		sprite.animation = "run" if velocity.length() > walk_speed else "walk"
@@ -66,7 +71,6 @@ func handle_animation():
 
 	sprite.flip_h = velocity.x < 0
 	sprite.play()
-
 
 func _on_frame_changed():
 	if sprite.animation == "attack" and sprite.frame == attack_frame:
@@ -86,7 +90,7 @@ func _on_hitbox_body_entered(body):
 		return
 	if body.is_in_group("Mobs") and body.has_method("take_damage"):
 		body.take_damage(attack_damage)
-		
+
 func apply_melee_damage():
 	for body in hitbox.get_overlapping_bodies():
 		if body.is_in_group("Mobs") and body.has_method("take_damage"):
