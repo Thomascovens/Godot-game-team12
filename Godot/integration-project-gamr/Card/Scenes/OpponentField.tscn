@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxlh6xocuj65"]
+[gd_scene load_steps=8 format=3 uid="uid://bxlh6xocuj65"]
 
 [ext_resource type="Script" uid="uid://300pn8j4qpk" path="res://Card/Scripts/OpponentHand.gd" id="1_gpfu4"]
 [ext_resource type="Script" uid="uid://c64ywqgbtf00w" path="res://Card/Scripts/OpponentDeck.gd" id="2_m6mue"]
 [ext_resource type="Texture2D" uid="uid://dw3mmuyhxxjyl" path="res://Card/Assets/Cards/BackOfCard.png" id="3_nxnwm"]
 [ext_resource type="PackedScene" uid="uid://dc634hqn22010" path="res://Card/Scenes/cardSlot.tscn" id="5_xpmqk"]
 [ext_resource type="Script" uid="uid://delv184a62mle" path="res://Card/Scripts/MagicCardSlot.gd" id="6_61nt0"]
+[ext_resource type="Script" uid="uid://csbvnpgmbauf3" path="res://Card/Scripts/opponentHealth.gd" id="6_gpfu4"]
 [ext_resource type="Texture2D" uid="uid://blu18nl6kxprl" path="res://Card/Assets/Cards/AddCard.png" id="7_n0wy1"]
 
 [node name="OpponentField" type="Node2D"]
@@ -35,27 +36,7 @@ text = "0"
 [node name="CardSlots" type="Node2D" parent="."]
 
 [node name="CardSlot1" parent="CardSlots" instance=ExtResource("5_xpmqk")]
-position = Vector2(960, 180)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("6_61nt0")
-
-[node name="CardSlot2" parent="CardSlots" instance=ExtResource("5_xpmqk")]
-position = Vector2(1100, 180)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("6_61nt0")
-
-[node name="CardSlot3" parent="CardSlots" instance=ExtResource("5_xpmqk")]
-position = Vector2(1240, 180)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("6_61nt0")
-
-[node name="CardSlot4" parent="CardSlots" instance=ExtResource("5_xpmqk")]
-position = Vector2(820, 180)
-scale = Vector2(0.4, 0.4)
-script = ExtResource("6_61nt0")
-
-[node name="CardSlot5" parent="CardSlots" instance=ExtResource("5_xpmqk")]
-position = Vector2(680, 180)
+position = Vector2(1241, 178)
 scale = Vector2(0.4, 0.4)
 script = ExtResource("6_61nt0")
 
@@ -86,6 +67,7 @@ offset_right = 170.0
 offset_bottom = 270.0
 scale = Vector2(2, 2)
 text = "0"
+script = ExtResource("6_gpfu4")
 
 [node name="OpponentDiscard" type="Node2D" parent="."]
 position = Vector2(400, 270)

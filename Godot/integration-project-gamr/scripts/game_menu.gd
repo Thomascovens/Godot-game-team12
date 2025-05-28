@@ -1,6 +1,6 @@
 extends Control
 const HOST = "wss://itip-team12-backend-itip-project12.apps.okd.ucll.cloud/"
-const DEFAULT_CHARACTER = "res://scenes/Characters/magician.tscn"
+const DEFAULT_CHARACTER = "res://Card/Scenes/Characters/magician.tscn"
 
 var websocket = WebSocketPeer.new()
 var connected = false
@@ -41,16 +41,17 @@ func get_username():
 	print(username)
 	if username:
 		Global.username = username
-	$Username.text = Global.username
+	current_character_scene.get_node("username").text = Global.username
 
 func create_character_node(path):
 	if current_character_scene:
 		remove_child(current_character_scene)
 	var character_scene = load(path).instantiate()
 	add_child(character_scene)
-	character_scene.position = Vector2(-600,500)
-	character_scene.scale = Vector2(10,10)
+	character_scene.position = Vector2(-600,300)
+	character_scene.scale = Vector2(2,2)
 	current_character_scene = character_scene
+	get_username()
 	
 	
 func _on_game_1_pressed() -> void:
@@ -134,7 +135,7 @@ func handle_message(message):
 func change_character(cardUid):
 	var character_name = character_database_reference.CHARACTERS.find_key(cardUid)
 	if character_name:
-		create_character_node("res://scenes/Characters/"+ character_name +".tscn")
+		create_character_node("res://Card/Scenes/Characters/"+ character_name +".tscn")
 		Global.character = character_name
 		$StatusMessage.text = ""
 	else:
