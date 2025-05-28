@@ -382,7 +382,7 @@ size = Vector2(32, 62)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrqbn"]
 size = Vector2(19.222, 28.341)
 
-[node name="Fighter" type="CharacterBody2D"]
+[node name="Fighter" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_kg3n1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -393,13 +393,14 @@ animation = &"attack"
 frame = 4
 frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
 position = Vector2(16, -31)
 shape = SubResource("RectangleShape2D_qumep")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(18, -32)
 collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(32, 1)

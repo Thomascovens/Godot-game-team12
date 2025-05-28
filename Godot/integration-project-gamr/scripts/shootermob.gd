@@ -28,9 +28,6 @@ func _ready() -> void:
 		push_error("Ghost Wizard: No player found in Global.")
 		return
 
-	collision_layer = 0
-	collision_mask = 0
-
 	sprite.animation = "run"
 	sprite.play()
 
@@ -80,6 +77,7 @@ func _on_animation_finished() -> void:
 			queue_free()
 
 func take_damage(amount: int) -> void:
+	print("Ghost Wizard taking damage:", amount)  # 🪵 Debug log
 	if is_dead:
 		return
 	health = clamp(health - amount, 0, max_health)

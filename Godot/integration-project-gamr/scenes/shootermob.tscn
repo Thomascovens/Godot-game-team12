@@ -221,7 +221,7 @@ max_health = 120
 shoot_cooldown = 1.5
 attack_range = 600.0
 
-[node name="HealthBarMob" parent="." index="0" instance=ExtResource("3_npm8x")]
+[node name="HealthBarMob" parent="." index="0" groups=["Mobs"] instance=ExtResource("3_npm8x")]
 offset_left = -34.0
 offset_top = -73.0
 offset_right = 25.0
@@ -229,12 +229,15 @@ offset_bottom = -65.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_qm2nw")
 script = ExtResource("4_qm2nw")
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1" groups=["Mobs"]]
 sprite_frames = SubResource("SpriteFrames_og82q")
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="2" groups=["Mobs"]]
 position = Vector2(-4.91, -0.135)
 shape = SubResource("CapsuleShape2D_xrj1y")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(-4, 0)
 
 [node name="shootlocation" type="Marker2D" parent="." index="4"]
 position = Vector2(-34, 9)

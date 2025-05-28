@@ -88,7 +88,7 @@
 [ext_resource type="Texture2D" uid="uid://604gbvr8wh6y" path="res://assets/Characters/element-bow/run/run_10.png" id="120_xc8lv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mnk3v"]
-size = Vector2(18, 66)
+size = Vector2(38, 67)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nny6h"]
 animations = [{
@@ -414,25 +414,28 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lx27s"]
-size = Vector2(39.5, 70)
+size = Vector2(33, 63)
 
-[node name="Archer_bow" type="CharacterBody2D"]
+[node name="Archer_bow" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_mnk3v")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 3
+collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-3, 31)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Player"]]
+position = Vector2(-31, 16.5)
 shape = SubResource("RectangleShape2D_mnk3v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(22, -88)
+position = Vector2(-29, -41)
 scale = Vector2(1.15799, 1.40039)
 sprite_frames = SubResource("SpriteFrames_nny6h")
 animation = &"attack"
+frame = 14
+frame_progress = 1.0
 speed_scale = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20.25, -35)
+position = Vector2(-30.5, 15.5)
 shape = SubResource("RectangleShape2D_lx27s")

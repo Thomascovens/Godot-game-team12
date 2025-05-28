@@ -4,7 +4,7 @@ signal hit(new_health: int)
 @export var walk_speed := 200
 @export var run_speed := 400
 @export var max_health: int = 100
-@export var projectile_scene: PackedScene = preload("res://scenes/projectile.tscn")
+@export var projectile_scene: PackedScene = preload("res://scenes/Characters/projectiles/lightning_ball.tscn")
 @export var projectile_offset: Vector2 = Vector2(0, -30)
 
 var health: int
@@ -31,39 +31,33 @@ func _process(delta):
 	handle_input(delta)
 	handle_animation()
 
-func handle_input(delta):
+func handle_input(_delta):
 	if is_attacking:
 		return
 
 	var dir := Vector2.ZERO
-	var is_running := false
 
 	if Input.is_action_pressed("walk_right"): dir.x += 1
-	if Input.is_action_pressed("walk_left"): dir.x -= 1
-	if Input.is_action_pressed("walk_down"): dir.y += 1
-	if Input.is_action_pressed("walk_up"): dir.y -= 1
+	if Input.is_action_pressed("walk_left"):  dir.x -= 1
+	if Input.is_action_pressed("walk_down"):  dir.y += 1
+	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	if Input.is_action_pressed("run_right"): dir.x += 1; is_running = true
-	if Input.is_action_pressed("run_left"): dir.x -= 1; is_running = true
-	if Input.is_action_pressed("run_down"): dir.y += 1; is_running = true
-	if Input.is_action_pressed("run_up"): dir.y -= 1; is_running = true
+	var is_running := Input.is_action_pressed("run")
 
+	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
-	else:
-		velocity = Vector2.ZERO
 
-	position += velocity * delta
-	position.x = clamp(position.x, map_bounds_rect.position.x, map_bounds_rect.end.x)
-	position.y = clamp(position.y, map_bounds_rect.position.y, map_bounds_rect.end.y)
+	move_and_slide()
 
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
 		var aim_direction = (get_global_mouse_position() - global_position).normalized()
 		$AnimatedSprite2D.flip_h = aim_direction.x < 0
 		$AnimatedSprite2D.play("attack")
+
 
 func handle_animation():
 	if is_attacking:

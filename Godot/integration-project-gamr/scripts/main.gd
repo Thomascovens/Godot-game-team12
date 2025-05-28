@@ -95,6 +95,7 @@ func _on_mob_timer_timeout():
 		var wiz = shootermob_scene.instantiate()
 		add_child(wiz)
 		wiz.global_position = _get_random_spawn_position()
+		print("Spawning ghost wizard at:", wiz.global_position)
 
 func increment_score():
 	score += 1

@@ -2,30 +2,47 @@ extends Area2D
 
 @export var speed: float = 500.0
 var velocity: Vector2 = Vector2.ZERO
-var hit := false
+var impacted := false
 
-@onready var sprite = $AnimatedSprite2D
-@onready var collision = $CollisionShape2D
+func _ready() -> void:
+	# start de vlieg-animatie
+	$AnimatedSprite2D.play("fly")
 
-func _ready():
-	sprite.play("arrow_fly")
+	$VisibilityNotifier2D.screen_exited.connect(Callable(self, "queue_free"))
+	body_entered.connect(Callable(self, "_on_body_entered"))
+	$AnimatedSprite2D.animation_finished.connect(Callable(self, "_on_animation_finished"))
 
-func _process(delta):
-	if hit:
+func _physics_process(delta: float) -> void:
+	if not impacted:
+		position += velocity * delta
+
+func _on_body_entered(body: Node) -> void:
+	if impacted:
 		return
-	position += velocity * delta
 
-func _on_body_entered(body):
-	if hit:
-		return
-	hit = true
+	if body.is_in_group("Mobs"):
+		if body.has_method("take_damage"):
+			body.take_damage(100000)
+		elif body.has_method("die"):
+			body.die()
+		else:
+			body.queue_free()
+
+		var main = get_tree().get_current_scene()
+		if main.has_method("increment_score"):
+			main.increment_score()
+
+		call_deferred("_trigger_impact")
+
+func _trigger_impact() -> void:
+	impacted = true
 	velocity = Vector2.ZERO
 	$CollisionShape2D.set_deferred("disabled", true)
 
-	if body.is_in_group("Mobs") and body.has_method("take_damage"):
-		body.take_damage(15)
+	# impactanimatie instellen
+	$AnimatedSprite2D.sprite_frames.set_animation_loop("impact", false)
+	$AnimatedSprite2D.play("impact")
 
-	queue_free()
-
-func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+func _on_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "impact":
+		queue_free()

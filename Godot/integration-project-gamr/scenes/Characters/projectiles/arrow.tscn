@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://djm8wgly13e3e"]
 
-[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/characters/projectiles/fireball.gd" id="1_idl2s"]
+[ext_resource type="Script" uid="uid://cdy3igjhs4nd2" path="res://scripts/characters/projectiles/arrow.gd" id="1_kdtou"]
 [ext_resource type="Texture2D" uid="uid://dnqerwcmgmbb3" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow/arrow_.png" id="2_dobyl"]
 [ext_resource type="Texture2D" uid="uid://buy5lo0v3y77v" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_1.png" id="3_3mfsx"]
 [ext_resource type="Texture2D" uid="uid://j4a8k5jq6fea" path="res://assets/Characters/element-bow/projectiles_and_effects/arrow_hit/arrow_hit_2.png" id="4_q73uj"]
@@ -24,7 +24,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_uk8qw")
 }],
 "loop": true,
-"name": &"arrow_fly",
+"name": &"fly",
 "speed": 20.0
 }, {
 "frames": [{
@@ -46,13 +46,16 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("8_1yend")
 }],
-"loop": true,
-"name": &"arrow_hit",
+"loop": false,
+"name": &"impact",
 "speed": 5.0
 }]
 
 [node name="projectile" type="Area2D"]
-script = ExtResource("1_idl2s")
+collision_layer = 3
+collision_mask = 3
+priority = 1
+script = ExtResource("1_kdtou")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -62,7 +65,9 @@ shape = SubResource("CapsuleShape2D_q3m7n")
 position = Vector2(7, 2)
 scale = Vector2(1.09473, 2.71094)
 sprite_frames = SubResource("SpriteFrames_l47rv")
-animation = &"arrow_fly"
+animation = &"impact"
+frame = 5
+frame_progress = 1.0
 
 [node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1, -0.5)

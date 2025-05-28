@@ -419,18 +419,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvquw"]
 size = Vector2(23, 64)
 
-[node name="Character" type="CharacterBody2D"]
+
+[node name="Mage" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(44, -132)
-scale = Vector2(4, 4)
+position = Vector2(8, -29)
 sprite_frames = SubResource("SpriteFrames_gvquw")
 animation = &"attack1"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.625, -1)
-scale = Vector2(4, 4)
+
+position = Vector2(-1, 4)
 shape = SubResource("RectangleShape2D_gvquw")
 disabled = true
 
