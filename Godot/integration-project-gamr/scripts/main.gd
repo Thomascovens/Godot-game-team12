@@ -1,4 +1,5 @@
 extends Node
+@onready var pause_menu = $Archer_bow/Camera2D/PauseMenu
 
 @export var mob_scene: PackedScene
 @export var shootermob_scene: PackedScene
@@ -10,7 +11,7 @@ var score: int
 var _soldier_spawn_count: int = 0
 var active_player: NodePath
 var spawn_ghost_wizard := true
-
+var paused = false
 
 var map_bounds_rect: Rect2  # Store world bounds rectangle here
 
@@ -20,7 +21,6 @@ func new_game():
 
 	$StartTimer.start()
 	$HUD.update_score(score)
-
 
 func hide_all_characters():
 	for path in character_nodes:
@@ -155,7 +155,7 @@ func _get_random_camera_corner() -> Vector2:
 	var vp_size : Vector2 = get_viewport().get_visible_rect().size
 	# half‐extents in world units (accounting for zoom)
 	var half_extents := (vp_size * 0.5) * cam.zoom
-	# camera center in world space
+	# camera center in world 
 	var center := cam.global_position
 	# build the four corners
 	var corners = [
@@ -166,3 +166,21 @@ func _get_random_camera_corner() -> Vector2:
 	]
 	# return one at random
 	return corners[randi() % corners.size()]
+
+func _process(delta):
+	if Input.is_action_just_pressed("pause"):
+		pauseMenu()
+
+func pauseMenu():
+	if paused:
+		pause_menu.hide()
+		Engine.time_scale = 1
+	else:
+		pause_menu.show()
+		Engine.time_scale = 0
+	
+	paused = !paused
+		
+		
+		
+		
