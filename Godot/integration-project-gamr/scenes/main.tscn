@@ -344,8 +344,8 @@ collision_mask = 3
 [node name="soldier mob" parent="." instance=ExtResource("3_o6xl0")]
 physics_interpolation_mode = 1
 position = Vector2(296, 2496)
-collision_layer = 2
-collision_mask = 1
+collision_layer = 1
+collision_mask = 2
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
 position = Vector2(404, 2483)
@@ -375,7 +375,6 @@ visibility_layer = 3
 navigation_polygon = SubResource("NavigationPolygon_jbj1t")
 
 [node name="Archer_bow" parent="." instance=ExtResource("8_trceg")]
-collision_mask = 1
 
 [node name="Camera2D" type="Camera2D" parent="Archer_bow"]
 
