@@ -115,9 +115,13 @@ func take_damage(amount: int):
 	$AnimatedSprite2D.modulate.a = 1.0
 
 func start(pos: Vector2):
-	position = pos
 	show()
+	$CollisionShape2D.disabled = true
+	set_deferred("global_position", pos)
+	await get_tree().process_frame
 	$CollisionShape2D.disabled = false
+
+
 	
 func _on_frame_changed():
 	if $AnimatedSprite2D.animation == "attack":

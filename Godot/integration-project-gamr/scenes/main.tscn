@@ -347,6 +347,8 @@ collision_mask = 3
 [node name="soldier mob" parent="." instance=ExtResource("3_o6xl0")]
 physics_interpolation_mode = 1
 position = Vector2(296, 2496)
+collision_layer = 2
+collision_mask = 1
 
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
 position = Vector2(404, 2483)
@@ -366,7 +368,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(830, 588)
+position = Vector2(1111.69, 318.285)
 
 [node name="Navigations" type="Node2D" parent="."]
 
@@ -376,39 +378,43 @@ visibility_layer = 3
 navigation_polygon = SubResource("NavigationPolygon_jbj1t")
 
 [node name="Mapbounds" type="StaticBody2D" parent="."]
-collision_layer = 2
 collision_mask = 2
 
 [node name="Shape" type="CollisionShape2D" parent="Mapbounds"]
-light_mask = 2
-visibility_layer = 2
+light_mask = 0
+visibility_layer = 0
 position = Vector2(2182, -272)
 shape = SubResource("RectangleShape2D_tipki")
 
 [node name="Archer_bow" parent="." instance=ExtResource("8_trceg")]
-physics_interpolation_mode = 1
+collision_mask = 1
 
 [node name="Camera2D" type="Camera2D" parent="Archer_bow"]
 
 [node name="Fighter" parent="." instance=ExtResource("9_a8y0u")]
+collision_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="Fighter"]
 
 [node name="Knight" parent="." instance=ExtResource("11_jbj1t")]
 position = Vector2(11, 58)
+collision_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="Knight"]
 
 [node name="Mage" parent="." instance=ExtResource("12_muem4")]
 position = Vector2(14, 204)
+collision_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="Mage"]
 
 [node name="Magician" parent="." instance=ExtResource("13_dp3eg")]
+collision_layer = 2
 
 [node name="Camera2D" type="Camera2D" parent="Magician"]
 
 [node name="Fire wizard" parent="." instance=ExtResource("12_yc10j")]
+collision_layer = 2
 projectile_scene = ExtResource("13_jscy8")
 
 [node name="Camera2D" type="Camera2D" parent="Fire wizard"]

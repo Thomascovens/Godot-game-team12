@@ -58,25 +58,40 @@ func switch_character(index: int):
 	active_player = character_nodes[index]
 	var new := get_node(active_player)
 
-	# ✅ now that "new" exists, we can safely use it
 	var sprite := new.get_node_or_null("AnimatedSprite2D")
 	if sprite:
 		sprite.visible = true
 
 	new.show()
+
+	# -- FIX: Set position BEFORE enabling physics processing
+	var safe_pos = _clamp_spawn_to_bounds($StartPosition.global_position)
+	new.global_position = safe_pos
+
 	new.set_physics_process(true)
 	new.set_process(true)
 	new.set_process_input(true)
 	new.set_process_unhandled_input(true)
 
+	# If your character has a 'start' method, call it AFTER setting position and enabling processes
 	if new.has_method("start"):
-		new.start($StartPosition.position)
+		new.start(safe_pos)
 
 	var cam := new.get_node("Camera2D")
 	cam.enabled = true
 
 	Global.set_player(new)
 	print("Activated character: ", new.name)
+
+# Updated clamp function with margin inside the map bounds
+const SPAWN_MARGIN = 16
+
+func _clamp_spawn_to_bounds(pos: Vector2) -> Vector2:
+	return Vector2(
+		clamp(pos.x, map_bounds_rect.position.x + SPAWN_MARGIN, map_bounds_rect.end.x - SPAWN_MARGIN),
+		clamp(pos.y, map_bounds_rect.position.y + SPAWN_MARGIN, map_bounds_rect.end.y - SPAWN_MARGIN)
+	)
+
 
 
 
@@ -110,22 +125,23 @@ func _ready():
 	randomize()
 
 	hide_all_characters()
-	switch_character(start_character_index)  # ✅ Must come first
-	Global.set_player(get_node(active_player))  # 🔒 Redundant but safe if switch_character doesn't work
+	switch_character(start_character_index)
+	Global.set_player(get_node(active_player))
 
-	# ✅ Now it's safe to begin spawning enemies
 	new_game()
 
-	# World bounds setup
-	var shape = get_node("Mapbounds/Shape")
-	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
-		var rect_shape = shape.shape as RectangleShape2D
-		var center = shape.global_position
-		var size = rect_shape.extents * 2
-		map_bounds_rect = Rect2(center - rect_shape.extents, size)
+	# ✅ Correct world bounds setup
+	var shape_node = get_node("Mapbounds/Shape")
+	if shape_node is CollisionShape2D and shape_node.shape is RectangleShape2D:
+		var rect_shape = shape_node.shape as RectangleShape2D
+		var extents = rect_shape.extents
+		var global_origin = shape_node.global_transform.origin
+		# This is the center of the rect in world space
+		var top_left = global_origin - extents
+		var size = extents * 2
+		map_bounds_rect = Rect2(top_left, size)
 	else:
 		push_error("Mapbounds/Shape must be a RectangleShape2D!")
-
 
 # Helper function to pick a random spawn position inside the map bounds
 func _get_random_spawn_position() -> Vector2:
