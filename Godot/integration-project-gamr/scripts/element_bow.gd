@@ -3,7 +3,7 @@ signal hit(new_health: int)
 
 @export var walk_speed := 180
 @export var run_speed := 300
-@export var max_health: int = 100
+@export var max_health: int = 80
 @export var projectile_scene: PackedScene = preload("res://scenes/Characters/projectiles/arrow.tscn")
 @export var projectile_offset: Vector2 = Vector2(0, -30)
 
@@ -19,7 +19,6 @@ func _ready():
 	if not $AnimatedSprite2D.frame_changed.is_connected(Callable(self, "_on_frame_changed")):
 		$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
 
-
 func _process(delta):
 	handle_input(delta)
 	handle_animation()
@@ -29,27 +28,32 @@ func handle_input(_delta):
 		return
 
 	var dir := Vector2.ZERO
-
 	if Input.is_action_pressed("walk_right"): dir.x += 1
 	if Input.is_action_pressed("walk_left"):  dir.x -= 1
 	if Input.is_action_pressed("walk_down"):  dir.y += 1
 	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
 	var is_running := Input.is_action_pressed("run")
-
 	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
 		dir = dir.normalized()
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	move_and_slide()
-
+	# Instead of move_and_slide, use move_and_collide
+	var collision := move_and_collide(velocity * _delta)
+	if collision:
+		var body := collision.get_collider() as RigidBody2D
+		if body:
+			var push_force = velocity.normalized() * 1000
+			body.apply_central_force(push_force)
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
 		var aim_direction = (get_global_mouse_position() - global_position).normalized()
 		$AnimatedSprite2D.flip_h = aim_direction.x < 0
 		$AnimatedSprite2D.play("attack")
+
+
 		
 func handle_animation():
 	if is_attacking:
@@ -103,6 +107,10 @@ func take_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
 
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
+
 	if health == 0:
 		die()
 		if get_parent().has_method("game_over"):
@@ -114,10 +122,20 @@ func take_damage(amount: int):
 	is_invincible = false
 	$AnimatedSprite2D.modulate.a = 1.0
 
+
 func start(pos: Vector2):
-	position = pos
 	show()
+	$CollisionShape2D.disabled = true
+	set_deferred("global_position", pos)
+	await get_tree().process_frame
 	$CollisionShape2D.disabled = false
+	
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
+
+
 	
 func _on_frame_changed():
 	if $AnimatedSprite2D.animation == "attack":

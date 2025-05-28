@@ -23,13 +23,19 @@ func _ready():
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox_shape.disabled = true
 	hitbox.monitoring = false
-	
+
 	set_process(false)
 	set_physics_process(false)
 	set_process_input(false)
 	set_process_unhandled_input(false)
+	
+	
+	# ✅ Initialize the health bar on startup
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
 
-func _process(_delta):
+func _process(delta):
 	if is_attacking:
 		return
 
@@ -40,7 +46,7 @@ func _process(_delta):
 	if Input.is_action_pressed("walk_down"):  dir.y += 1
 	if Input.is_action_pressed("walk_up"):    dir.y -= 1
 
-	var is_running := Input.is_action_pressed("run")  # Just Shift
+	var is_running := Input.is_action_pressed("run")
 
 	velocity = Vector2.ZERO
 	if dir != Vector2.ZERO:
@@ -48,7 +54,12 @@ func _process(_delta):
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	move_and_slide()
+	var collision_result = move_and_collide(velocity * delta)
+	if collision_result:
+		var collider = collision_result.get_collider()
+		if collider is RigidBody2D:
+			var push_force = velocity.normalized() * 1000
+			collider.apply_central_force(push_force)
 
 	if Input.is_action_just_pressed("attack") and not is_attacking:
 		is_attacking = true
@@ -58,7 +69,6 @@ func _process(_delta):
 		sprite.play("attack")
 
 	handle_animation()
-
 
 func handle_animation():
 	if is_attacking:
@@ -96,8 +106,13 @@ func take_damage(amount: int):
 	if is_invincible:
 		return
 
-	health -= amount
+	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
+
+	# ✅ Update the HealthBar node
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
 
 	if health <= 0:
 		die()
@@ -107,6 +122,7 @@ func take_damage(amount: int):
 		await get_tree().create_timer(1.5).timeout
 		is_invincible = false
 		sprite.modulate.a = 1.0
+
 
 func die():
 	is_attacking = false
@@ -120,3 +136,8 @@ func start(pos: Vector2):
 	position = pos
 	show()
 	collision.disabled = false
+
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
