@@ -10,7 +10,6 @@ signal hit(new_health: int)
 var health: int
 var is_attacking: bool = false
 var is_invincible: bool = false
-var map_bounds_rect: Rect2
 
 func _ready():
 	health = max_health
@@ -20,15 +19,6 @@ func _ready():
 	set_physics_process(false)
 	set_process_input(false)
 	set_process_unhandled_input(false)
-	
-	var shape = get_node("../Mapbounds/Shape")
-	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
-		var rect_shape = shape.shape as RectangleShape2D
-		var center = shape.global_position
-		var size = rect_shape.extents * 2
-		map_bounds_rect = Rect2(center - rect_shape.extents, size)
-	else:
-		push_error("Mapbounds/Shape must be a RectangleShape2D!")
 
 func _process(delta):
 	handle_input(delta)

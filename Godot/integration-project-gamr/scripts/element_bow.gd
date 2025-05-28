@@ -19,7 +19,6 @@ func _ready():
 	if not $AnimatedSprite2D.frame_changed.is_connected(Callable(self, "_on_frame_changed")):
 		$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
 
-
 func _process(delta):
 	handle_input(delta)
 	handle_animation()

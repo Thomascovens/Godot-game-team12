@@ -10,7 +10,6 @@ signal hit(new_health: int)
 var health: int
 var is_attacking: bool = false
 var is_invincible: bool = false
-var map_bounds_rect: Rect2
 
 func _ready():
 	health = max_health
@@ -19,13 +18,6 @@ func _ready():
 		$AnimatedSprite2D.animation_finished.connect(Callable(self, "_on_animation_finished"))
 	if not $AnimatedSprite2D.frame_changed.is_connected(Callable(self, "_on_frame_changed")):
 		$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
-
-	var shape = get_node("../Mapbounds/Shape")
-	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
-		var rect_shape = shape.shape as RectangleShape2D
-		var center = shape.global_position
-		var size = rect_shape.extents * 2
-		map_bounds_rect = Rect2(center - rect_shape.extents, size)
 
 func _process(delta):
 	handle_input(delta)
