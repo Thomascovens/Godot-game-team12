@@ -332,6 +332,7 @@ script = ExtResource("1_o5qli")
 mob_scene = ExtResource("3_o6xl0")
 shootermob_scene = ExtResource("6_85g3d")
 character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow"), NodePath("Fighter"), NodePath("Knight"), NodePath("Mage"), NodePath("Magician")])
+start_character_index = 5
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 

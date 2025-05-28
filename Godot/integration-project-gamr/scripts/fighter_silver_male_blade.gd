@@ -5,7 +5,7 @@ signal hit(new_health: int)
 @export var run_speed := 350
 @export var max_health: int = 100
 @export var attack_damage: int = 30
-@export var attack_frame: int = 3  # het frame waarop hitbox actief wordt
+@export var attack_frame: int = 3  # Frame at which hitbox activates
 
 var health: int
 var is_attacking := false
@@ -23,8 +23,6 @@ func _ready():
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox_shape.disabled = true
 	
-	
-	# ✅ Initialize the health bar on startup
 	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
 	if health_bar:
 		health_bar.init_health(max_health)
@@ -98,9 +96,11 @@ func _on_hitbox_body_entered(body):
 		body.take_damage(attack_damage)
 
 func apply_melee_damage():
-	for body in hitbox.get_overlapping_bodies():
+	var overlapping = hitbox.get_overlapping_bodies()
+	for body in overlapping:
 		if body.is_in_group("Mobs") and body.has_method("take_damage"):
 			body.take_damage(attack_damage)
+		
 
 func take_damage(amount: int):
 	if is_invincible:
@@ -109,7 +109,6 @@ func take_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
 
-	# ✅ Update the HealthBar node
 	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
 	if health_bar:
 		health_bar.health = health
@@ -122,7 +121,6 @@ func take_damage(amount: int):
 		await get_tree().create_timer(1.5).timeout
 		is_invincible = false
 		sprite.modulate.a = 1.0
-
 
 func die():
 	is_attacking = false
