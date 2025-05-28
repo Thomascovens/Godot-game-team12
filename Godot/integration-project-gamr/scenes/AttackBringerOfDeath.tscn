@@ -1,0 +1,145 @@
+[gd_scene load_steps=21 format=3 uid="uid://bk2p0alk6fptw"]
+
+[ext_resource type="Texture2D" uid="uid://cdarjs81mg1qe" path="res://assets/Characters/mobs/Bringer-Of-Death/Bringer-Of-Death/SpriteSheet/Bringer-of-Death-SpritSheet.png" id="1_cd2vg"]
+[ext_resource type="Script" uid="uid://10tiebss3g16" path="res://scripts/attack_bringer_of_death.gd" id="1_cul8m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cul8m"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(0, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ph2d"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(140, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0s6m"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(280, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfn2w"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(420, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or3sd"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(700, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcdqt"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(840, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbmcr"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(980, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5cj3s"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(560, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roh6i"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(700, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ngp0"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(840, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fhxf"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(980, 558, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_np6ph"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(0, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcbh4"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(140, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weqh8"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(280, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f65fy"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(420, 651, 140, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkwma"]
+atlas = ExtResource("1_cd2vg")
+region = Rect2(560, 651, 140, 93)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mfbn6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cul8m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ph2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0s6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfn2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or3sd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcdqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbmcr")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5cj3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_roh6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ngp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fhxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_np6ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcbh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weqh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f65fy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkwma")
+}],
+"loop": true,
+"name": &"impact",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g1rm"]
+size = Vector2(24, 46)
+
+[node name="Attack bringer of death" type="Area2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_cul8m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mfbn6")
+animation = &"impact"
+frame_progress = 0.573638
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 22)
+shape = SubResource("RectangleShape2D_0g1rm")
