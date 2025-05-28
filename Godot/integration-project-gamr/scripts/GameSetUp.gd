@@ -29,6 +29,11 @@ func host_set_up():
 	$InputManager.inputs_disabled = false
 
 func client_set_up():
+	if multiplayer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		print("Not connected yet, waiting...")
+		await get_tree().create_timer(0.5).timeout
+		client_set_up()  # Try again after a short delay
+		return
 	$PlayerHealth.text = str(STARTING_HEALTH)
 	get_parent().get_node("OpponentField/OpponentHealth").text = str(STARTING_HEALTH)
 	$BattleManager.player_health = STARTING_HEALTH
