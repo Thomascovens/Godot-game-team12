@@ -47,7 +47,11 @@ func handle_input(_delta):
 		if body:
 			var push_force = velocity.normalized() * 1000
 			body.apply_central_force(push_force)
-
+	if Input.is_action_just_pressed("attack"):
+		is_attacking = true
+		var aim_direction = (get_global_mouse_position() - global_position).normalized()
+		$AnimatedSprite2D.flip_h = aim_direction.x < 0
+		$AnimatedSprite2D.play("attack")
 
 
 		
