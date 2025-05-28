@@ -134,3 +134,26 @@ func draw_card(card_drawn_name):
 
 func reset_draw():
 	drawn_card_this_turn = false
+
+# Add this new function to handle drawing from a character deck when scanning
+func draw_card_from_character_deck(character_name):
+	# Get the deck for the selected character
+	var character_deck = []
+	
+	if character_decks_reference.CHARACTER_DECKS.has(character_name):
+		character_deck = character_decks_reference.CHARACTER_DECKS[character_name].duplicate()
+	else:
+		# Fallback to a default deck if character not found
+		character_deck = character_decks_reference.CHARACTER_DECKS["knight"].duplicate()
+	
+	# Randomize the seed to ensure a random card
+	randomize()
+	character_deck.shuffle()
+	
+	# Get a random card from the deck
+	var random_card = character_deck[0]
+	
+	# Synchronize this card draw with all clients
+	var player_id = multiplayer.get_unique_id()
+	draw_here_and_for_clients_opponent(player_id, random_card)
+	rpc("draw_here_and_for_clients_opponent", player_id, random_card)
