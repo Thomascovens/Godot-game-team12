@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://b1ne12tgvllrx" path="res://Card/Scripts/InputManager.gd" id="7_yn2xr"]
 [ext_resource type="Script" uid="uid://drwe5fvs4r0v3" path="res://Card/Scripts/BattleManager.gd" id="8_6gxx7"]
 [ext_resource type="Texture2D" uid="uid://blu18nl6kxprl" path="res://Card/Assets/Cards/AddCard.png" id="9_ga3lq"]
-[ext_resource type="Script" path="res://Card/Scripts/playerHealth.gd" id="10_ckasl"]
-[ext_resource type="Script" path="res://Card/Scripts/playerEnergy.gd" id="10_t8fev"]
+[ext_resource type="Script" uid="uid://di5hkpjmclxrx" path="res://Card/Scripts/playerHealth.gd" id="10_ckasl"]
+[ext_resource type="Script" uid="uid://ci4i4ho6l3ahw" path="res://Card/Scripts/playerEnergy.gd" id="10_t8fev"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jb6x5"]
 size = Vector2(314, 395)
