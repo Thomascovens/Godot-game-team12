@@ -16,6 +16,7 @@ func _ready():
 func _process(delta):
 	# Keep the connection alive
 	websocket.poll()
+
 	
 	var state = websocket.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN and not connected:
