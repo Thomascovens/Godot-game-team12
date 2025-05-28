@@ -22,6 +22,12 @@ func _ready():
 	sprite.animation_finished.connect(_on_animation_finished)
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox_shape.disabled = true
+	
+	
+	# ✅ Initialize the health bar on startup
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
 
 func _process(delta):
 	if is_attacking:
@@ -100,8 +106,13 @@ func take_damage(amount: int):
 	if is_invincible:
 		return
 
-	health -= amount
+	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
+
+	# ✅ Update the HealthBar node
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
 
 	if health <= 0:
 		die()
@@ -111,6 +122,7 @@ func take_damage(amount: int):
 		await get_tree().create_timer(1.5).timeout
 		is_invincible = false
 		sprite.modulate.a = 1.0
+
 
 func die():
 	is_attacking = false

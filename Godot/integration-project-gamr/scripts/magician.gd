@@ -18,6 +18,11 @@ func _ready():
 		$AnimatedSprite2D.animation_finished.connect(Callable(self, "_on_animation_finished"))
 	if not $AnimatedSprite2D.frame_changed.is_connected(Callable(self, "_on_frame_changed")):
 		$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
+		
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
+
 
 func _process(delta):
 	handle_input(delta)
@@ -108,10 +113,22 @@ func take_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
 
+	# ✅ Update HealthBar node if it exists
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
+
 	if health == 0:
 		die()
 		if get_parent().has_method("game_over"):
 			get_parent().game_over()
+
+	is_invincible = true
+	$AnimatedSprite2D.modulate.a = 0.3
+	await get_tree().create_timer(2.0).timeout
+	is_invincible = false
+	$AnimatedSprite2D.modulate.a = 1.0
+
 
 	is_invincible = true
 	$AnimatedSprite2D.modulate.a = 0.3

@@ -332,7 +332,6 @@ script = ExtResource("1_o5qli")
 mob_scene = ExtResource("3_o6xl0")
 shootermob_scene = ExtResource("6_85g3d")
 character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow"), NodePath("Fighter"), NodePath("Knight"), NodePath("Mage"), NodePath("Magician")])
-start_character_index = 5
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 
@@ -492,19 +491,19 @@ polygon = PackedVector2Array(1832, -1838, 1846, -1821, 1847, -1834, 1868, -1846,
 
 [node name="CollisionPolygon2D28" type="CollisionPolygon2D" parent="Boundaries"]
 position = Vector2(1, 0)
-polygon = PackedVector2Array(4824, 1494, -464, 1487, 2192, 1944)
+polygon = PackedVector2Array(-476, 1482, 5189, 1470, 5244, 3189, -467, 3168)
 
 [node name="CollisionPolygon2D29" type="CollisionPolygon2D" parent="Boundaries"]
 position = Vector2(1, 0)
-polygon = PackedVector2Array(-464, 1488, -1061, -368, -480, -1996)
+polygon = PackedVector2Array(-494, -2031, -473, 3170, -2986, 3181, -2943, -1988)
 
 [node name="CollisionPolygon2D30" type="CollisionPolygon2D" parent="Boundaries"]
 position = Vector2(1, 0)
-polygon = PackedVector2Array(4824, 1488, 5369, -205, 4828, -1993)
+polygon = PackedVector2Array(4811, 3150, 6706, 3150, 6634, -2106, 4823, -2046)
 
 [node name="CollisionPolygon2D31" type="CollisionPolygon2D" parent="Boundaries"]
 position = Vector2(1, 0)
-polygon = PackedVector2Array(-475, -1999, 4811, -2000, 1980, -2535)
+polygon = PackedVector2Array(-2965, -1999, -2961, -3385, 6282, -3443, 6305, -1996)
 
 [node name="map" type="Node2D" parent="."]
 script = ExtResource("8_eb6dy")

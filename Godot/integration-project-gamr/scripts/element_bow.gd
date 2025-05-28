@@ -107,6 +107,10 @@ func take_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
 
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
+
 	if health == 0:
 		die()
 		if get_parent().has_method("game_over"):
@@ -117,6 +121,7 @@ func take_damage(amount: int):
 	await get_tree().create_timer(2.0).timeout
 	is_invincible = false
 	$AnimatedSprite2D.modulate.a = 1.0
+
 
 func start(pos: Vector2):
 	show()
