@@ -426,6 +426,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Player"]]
+
 position = Vector2(-16, -12)
 shape = SubResource("RectangleShape2D_mnk3v")
 

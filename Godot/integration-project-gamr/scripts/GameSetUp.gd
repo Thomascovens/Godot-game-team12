@@ -2,6 +2,9 @@ extends Node2D
 
 const STARTING_HEALTH = 20
 
+func _ready() -> void:
+	$ScanDeck.connect("draw_character_card", $Deck.draw_card_from_character_deck)
+
 func host_set_up():
 	$PlayerHealth.text = str(STARTING_HEALTH)
 	get_parent().get_node("OpponentField/OpponentHealth").text = str(STARTING_HEALTH)
@@ -26,6 +29,15 @@ func host_set_up():
 	$InputManager.inputs_disabled = false
 
 func client_set_up():
+	var peer = multiplayer.multiplayer_peer
+
+	# Check if peer exists and is connected
+	if peer == null or peer.get_connection_status() != MultiplayerPeer.CONNECTION_CONNECTED:
+		print("Not connected yet, waiting...")
+		await get_tree().create_timer(0.5).timeout
+		client_set_up()  # Try again after a short delay
+		return
+
 	$PlayerHealth.text = str(STARTING_HEALTH)
 	get_parent().get_node("OpponentField/OpponentHealth").text = str(STARTING_HEALTH)
 	$BattleManager.player_health = STARTING_HEALTH
@@ -59,7 +71,3 @@ func create_character_node(path, player_id):
 		character_scene.z_index = -4
 		character_scene.scale = Vector2(1.5,1.5)
 		character_scene.get_node("AnimatedSprite2D").flip_h = true
-
-
-func _on_scan_deck_pressed() -> void:
-	pass

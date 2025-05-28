@@ -22,7 +22,7 @@ func _on_body_entered(body: Node) -> void:
 
 	if body.is_in_group("Mobs"):
 		if body.has_method("take_damage"):
-			body.take_damage(100000)
+			body.take_damage(30)
 		elif body.has_method("die"):
 			body.die()
 		else:

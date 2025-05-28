@@ -1,11 +1,13 @@
-[gd_scene load_steps=65 format=4 uid="uid://c0yuhomr0g8mc"]
+[gd_scene load_steps=68 format=4 uid="uid://c0yuhomr0g8mc"]
 
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b8xlut11rss36" path="res://scenes/hud.tscn" id="3_tipki"]
 [ext_resource type="PackedScene" uid="uid://dd6jcbovgilp3" path="res://scenes/shootermob.tscn" id="6_85g3d"]
 [ext_resource type="PackedScene" uid="uid://des2diql21446" path="res://scenes/projectile_mob_ghost_wizard.tscn" id="7_choun"]
+[ext_resource type="PackedScene" uid="uid://fbajriiaupph" path="res://scenes/Bringer_of_death.tscn" id="7_pm3ni"]
 [ext_resource type="Script" uid="uid://dcp5rwecniiru" path="res://scripts/map.gd" id="8_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://bk2p0alk6fptw" path="res://scenes/AttackBringerOfDeath.tscn" id="8_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://4qkq5avv8xe7" path="res://scenes/element_bow.tscn" id="8_trceg"]
 [ext_resource type="PackedScene" uid="uid://cgj0u3ahbburo" path="res://scenes/Characters/fighter_silver_male_blade.tscn" id="9_a8y0u"]
 [ext_resource type="TileSet" uid="uid://cbe4alg58qe53" path="res://tilesets/main_tileset_dp3eg.tres" id="9_ya4ey"]
@@ -331,6 +333,7 @@ animations = [{
 script = ExtResource("1_o5qli")
 mob_scene = ExtResource("3_o6xl0")
 shootermob_scene = ExtResource("6_85g3d")
+Bringer_of_death_scene = ExtResource("7_pm3ni")
 character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow"), NodePath("Fighter"), NodePath("Knight"), NodePath("Mage"), NodePath("Magician")])
 start_character_index = 4
 
@@ -350,10 +353,20 @@ collision_mask = 2
 [node name="Ghost wizard mob" parent="." instance=ExtResource("6_85g3d")]
 position = Vector2(404, 2483)
 physics_material_override = null
+sleeping = true
+freeze = true
 
 [node name="Projectile mob ghost wizard" parent="." instance=ExtResource("7_choun")]
 position = Vector2(359, 2488)
 scale = Vector2(0.06, 0.06)
+
+[node name="Bringer of death" parent="." instance=ExtResource("7_pm3ni")]
+position = Vector2(615, 2453)
+sleeping = true
+freeze = true
+
+[node name="Attack bringer of death" parent="." instance=ExtResource("8_pm3ni")]
+position = Vector2(892, 2449)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 2.0
