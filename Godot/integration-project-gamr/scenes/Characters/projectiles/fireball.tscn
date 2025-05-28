@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://4ul3cj2g2asn"]
 
-[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/characters/projectiles/fireball.gd" id="1_lx5m5"]
+[ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/projectile.gd" id="1_lx5m5"]
 [ext_resource type="Texture2D" uid="uid://oghq6jk0tv2y" path="res://assets/Characters/Fire wizard/Charge.png" id="2_crjjh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3m7n"]

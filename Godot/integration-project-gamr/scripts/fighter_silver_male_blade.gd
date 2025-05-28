@@ -134,3 +134,8 @@ func start(pos: Vector2):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+	
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)

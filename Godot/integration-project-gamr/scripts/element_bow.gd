@@ -3,7 +3,7 @@ signal hit(new_health: int)
 
 @export var walk_speed := 180
 @export var run_speed := 300
-@export var max_health: int = 100
+@export var max_health: int = 80
 @export var projectile_scene: PackedScene = preload("res://scenes/Characters/projectiles/arrow.tscn")
 @export var projectile_offset: Vector2 = Vector2(0, -30)
 
@@ -129,6 +129,11 @@ func start(pos: Vector2):
 	set_deferred("global_position", pos)
 	await get_tree().process_frame
 	$CollisionShape2D.disabled = false
+	
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
 
 
 	

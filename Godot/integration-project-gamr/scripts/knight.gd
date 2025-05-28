@@ -3,7 +3,7 @@ signal hit(new_health: int)
 
 @export var walk_speed := 200
 @export var run_speed := 350
-@export var max_health: int = 100
+@export var max_health: int = 150
 @export var attack_damage: int = 30
 @export var attack_frame: int = 3  # het frame waarop hitbox actief wordt
 
@@ -136,3 +136,8 @@ func start(pos: Vector2):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+	
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
