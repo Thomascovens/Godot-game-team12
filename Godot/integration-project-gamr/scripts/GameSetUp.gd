@@ -15,8 +15,8 @@ func host_set_up():
 	
 	var player_id = multiplayer.get_unique_id()
 	
-	await create_character_node("res://scenes/Characters/"+ Global.character +".tscn", player_id)
-	rpc("create_character_node","res://scenes/Characters/"+ Global.character +".tscn", player_id)
+	await create_character_node("res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
+	rpc("create_character_node","res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
 	
 	await $Deck.draw_initial_hand()
 	
@@ -37,9 +37,9 @@ func client_set_up():
 	get_parent().get_node("OpponentField/OpponentDeck/RichTextLabel").text = "8"
 	
 	var player_id = multiplayer.get_unique_id()
-	await create_character_node("res://scenes/Characters/"+ Global.character +".tscn", player_id)
+	await create_character_node("res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
 	await get_tree().create_timer(0.1).timeout
-	rpc("create_character_node","res://scenes/Characters/"+ Global.character +".tscn", player_id)
+	rpc("create_character_node","res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
 
 	await $Deck.draw_initial_hand()
 
@@ -59,3 +59,7 @@ func create_character_node(path, player_id):
 		character_scene.z_index = -4
 		character_scene.scale = Vector2(1.5,1.5)
 		character_scene.get_node("AnimatedSprite2D").flip_h = true
+
+
+func _on_scan_deck_pressed() -> void:
+	pass

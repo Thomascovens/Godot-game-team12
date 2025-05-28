@@ -92,6 +92,14 @@ offset_bottom = 771.0
 disabled = true
 text = "End Turn"
 
+[node name="ScanDeck" type="Button" parent="."]
+offset_left = 78.0
+offset_top = 1047.0
+offset_right = 197.0
+offset_bottom = 1078.0
+disabled = true
+text = "ScanDeckCard"
+
 [node name="BattleManager" type="Node" parent="."]
 script = ExtResource("8_6gxx7")
 
@@ -123,3 +131,4 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("9_ga3lq")
 
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="ScanDeck" to="." method="_on_scan_deck_pressed"]

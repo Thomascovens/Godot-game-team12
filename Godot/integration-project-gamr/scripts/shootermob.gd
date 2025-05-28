@@ -7,7 +7,7 @@ signal hit(new_health: int)
 @export var shoot_cooldown: float = 1.5
 @export var attack_range: float = 600
 
-const ProjectileScene: PackedScene = preload("res://scenes/Projectile_mob_ghost_wizard.tscn")
+const ProjectileScene: PackedScene = preload("res://scenes/projectile_mob_ghost_wizard.tscn")
 
 var player: Node2D = null
 var health: int

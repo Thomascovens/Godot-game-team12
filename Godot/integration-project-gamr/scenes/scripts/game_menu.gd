@@ -1,6 +1,6 @@
 extends Control
 const HOST = "wss://itip-team12-backend-itip-project12.apps.okd.ucll.cloud/"
-const DEFAULT_CHARACTER = "res://Card/Scenes/Characters/magician.tscn"
+const DEFAULT_CHARACTER = "res://scenes/Characters/magician.tscn"
 
 var websocket = WebSocketPeer.new()
 var connected = false
@@ -135,7 +135,7 @@ func handle_message(message):
 func change_character(cardUid):
 	var character_name = character_database_reference.CHARACTERS.find_key(cardUid)
 	if character_name:
-		create_character_node("res://Card/Scenes/Characters/"+ character_name +".tscn")
+		create_character_node("res://scenes/Characters/"+ character_name +".tscn")
 		Global.character = character_name
 		$StatusMessage.text = ""
 	else:

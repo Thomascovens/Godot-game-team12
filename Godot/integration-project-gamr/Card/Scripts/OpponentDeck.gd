@@ -5,13 +5,17 @@ const CARD_DRAW_SPEED = 0.2
 const STARTING_HAND_SIZE = 4
 
 var card_database_reference
-var deck_size
+var character_decks_reference
+var deck_size = 0
+var deck_seed = 0
+var player_deck = []
 
 
 func _ready() -> void:
 
 	#$RichTextLabel.text = str(opponent_deck.size())
 	card_database_reference = preload("res://Card/Scripts/CardDatabase.gd")
+	character_decks_reference = preload("res://Card/Scripts/CharacterDecks.gd")
 	#for i in range(STARTING_HAND_SIZE):
 		#draw_card()
 	
@@ -55,3 +59,20 @@ func draw_card(card_drawn_name):
 	$"../CardManager".add_child(new_card)
 	new_card.name = "Card"
 	$"../OpponentHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+
+func initialize_deck(character_name, shared_seed):
+	# Use the deck for the selected character
+	if character_decks_reference.CHARACTER_DECKS.has(character_name):
+		player_deck = character_decks_reference.CHARACTER_DECKS[character_name].duplicate()
+	else:
+		# Fallback to a default deck
+		player_deck = character_decks_reference.CHARACTER_DECKS["Warrior"].duplicate()
+	
+	# Use the shared seed for deterministic shuffling
+	seed(shared_seed)
+	deck_seed = shared_seed
+	
+	# Shuffle the deck with this seed
+	player_deck.shuffle()
+	deck_size = player_deck.size()
+	$RichTextLabel.text = str(deck_size)
