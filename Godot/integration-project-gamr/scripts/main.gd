@@ -2,12 +2,15 @@ extends Node
 
 @export var mob_scene: PackedScene
 @export var shootermob_scene: PackedScene
+@export var Bringer_of_death_scene: PackedScene
 @export var character_nodes: Array[NodePath]
 @export var start_character_index: int = 0
 
 var score: int
 var _soldier_spawn_count: int = 0
 var active_player: NodePath
+var spawn_ghost_wizard := true
+
 
 var map_bounds_rect: Rect2  # Store world bounds rectangle here
 
@@ -90,11 +93,21 @@ func _on_mob_timer_timeout():
 	# 2) Increment our soldier counter
 	_soldier_spawn_count += 1
 
-	# 3) Every 10th soldier, also spawn a ghost wizard
-	if _soldier_spawn_count % 10 == 0:
-		var wiz = shootermob_scene.instantiate()
-		add_child(wiz)
-		wiz.global_position = _get_random_spawn_position()
+	# 3) Every 5 soldiers, spawn a special enemy
+	if _soldier_spawn_count % 5 == 0:
+		var special
+		if spawn_ghost_wizard:
+			special = shootermob_scene.instantiate()
+			print("Spawning Ghost Wizard at:")
+		else:
+			special = Bringer_of_death_scene.instantiate()
+			print("Spawning Bringer of Death at:")
+
+		add_child(special)
+		special.global_position = _get_random_spawn_position()
+
+		# Alternate for next time
+		spawn_ghost_wizard = !spawn_ghost_wizard
 
 func increment_score():
 	score += 1

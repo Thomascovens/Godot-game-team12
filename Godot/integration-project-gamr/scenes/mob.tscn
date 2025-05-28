@@ -157,6 +157,8 @@ animations = [{
 radius = 11.8124
 
 [node name="soldier" type="RigidBody2D" groups=["Mobs"]]
+collision_layer = 3
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_71rcx")
 gravity_scale = 0.0
 lock_rotation = true
@@ -168,7 +170,7 @@ script = ExtResource("1_d4cuo")
 position = Vector2(0, -1)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_mq56s")
-animation = &"run"
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.255, -3.385)

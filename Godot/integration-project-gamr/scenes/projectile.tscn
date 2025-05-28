@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://4ul3cj2g2asn"]
 
-[ext_resource type="Texture2D" uid="uid://oghq6jk0tv2y" path="res://assets/Characters/Fire vizard/Charge.png" id="1_c8fcr"]
+[ext_resource type="Texture2D" uid="uid://oghq6jk0tv2y" path="res://assets/Characters/Fire wizard/Charge.png" id="1_c8fcr"]
 [ext_resource type="Script" uid="uid://bthpr50trrn8f" path="res://scripts/projectile.gd" id="1_q3m7n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3m7n"]
@@ -116,6 +116,6 @@ shape = SubResource("CapsuleShape2D_q3m7n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-20, -1)
 sprite_frames = SubResource("SpriteFrames_l47rv")
-animation = &"fireball_fly"
+animation = &"fireball_on_impact"
 
 [node name="VisibilityNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

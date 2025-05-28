@@ -499,15 +499,15 @@ size = Vector2(23.7188, 38.2344)
 position = Vector2(-104, 216)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(109, -234)
-scale = Vector2(4, 4)
+position = Vector2(-2, -2)
+scale = Vector2(1.44792, 1.51786)
 sprite_frames = SubResource("SpriteFrames_14u3r")
 animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(103.625, -215.688)
-scale = Vector2(4, 4)
+position = Vector2(-1, 2)
+scale = Vector(4, 4)
 shape = SubResource("RectangleShape2D_3cm67")
 disabled = true
 

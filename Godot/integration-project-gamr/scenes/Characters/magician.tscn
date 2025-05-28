@@ -306,27 +306,27 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i58of"]
 size = Vector2(38, 74)
 
-[node name="Magician" type="CharacterBody2D"]
+[node name="Magician" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_3diiu")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-3, 31)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Player"]]
+position = Vector2(-36, 27)
 shape = SubResource("RectangleShape2D_57s53")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(15.125, -129.5)
-scale = Vector2(4, 4)
+position = Vector2(-17, -9)
+scale = Vector2(1.05469, 1.0625)
 sprite_frames = SubResource("SpriteFrames_i58of")
 animation = &"attack"
-frame_progress = 0.279615
+frame = 5
+frame_progress = 1.0
 speed_scale = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.5, -0.25)
-scale = Vector2(4, 4)
+position = Vector2(-36, 26)
 shape = SubResource("RectangleShape2D_i58of")
 disabled = true
 
