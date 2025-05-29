@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dihqo5fihwuhr"]
 
-[ext_resource type="Script" uid="uid://bapx0maf7vrh0" path="res://scenes/scripts/post_game.gd" id="1_gvwey"]
+[ext_resource type="Script" uid="uid://bapx0maf7vrh0" path="res://scripts/post_game.gd" id="1_gvwey"]
 [ext_resource type="Texture2D" uid="uid://qac1yr7khtxw" path="res://assets/BackGrounds/menuBackground.png" id="2_viewa"]
 [ext_resource type="Theme" uid="uid://dkphpbtrhf53i" path="res://assets/themes/buttonThemeBlue.tres" id="3_y064s"]
 
@@ -46,6 +46,7 @@ texture = ExtResource("2_viewa")
 [node name="MainMenuButton" type="Button" parent="."]
 custom_minimum_size = Vector2(350, 75)
 layout_direction = 2
+layout_mode = 0
 offset_left = 779.0
 offset_top = 549.0
 offset_right = 1129.0

@@ -1,14 +1,14 @@
 [gd_scene load_steps=73 format=3 uid="uid://muix21gegqre"]
 
-[ext_resource type="Texture2D" uid="uid://c7cnek5ffpgv2" path="res://assets/Characters/Wanderer Magican/Attack_1.png" id="1_0q54t"]
-[ext_resource type="Texture2D" uid="uid://wiwabndw61ks" path="res://assets/Characters/Wanderer Magican/Attack_2.png" id="2_csg5h"]
-[ext_resource type="Texture2D" uid="uid://pp7wfnw0oj20" path="res://assets/Characters/Wanderer Magican/Dead.png" id="3_iv0f0"]
-[ext_resource type="Texture2D" uid="uid://bss5kf3l2krci" path="res://assets/Characters/Wanderer Magican/Hurt.png" id="4_7638m"]
-[ext_resource type="Texture2D" uid="uid://btfrtae5hk7f2" path="res://assets/Characters/Wanderer Magican/Idle.png" id="5_qqmga"]
-[ext_resource type="Texture2D" uid="uid://bocaubyhv6mbs" path="res://assets/Characters/Wanderer Magican/Jump.png" id="6_3djew"]
-[ext_resource type="Texture2D" uid="uid://d0rdyq8iaymb2" path="res://assets/Characters/Wanderer Magican/Run.png" id="7_svq8m"]
-[ext_resource type="Texture2D" uid="uid://b3odtpf06wddu" path="res://assets/Characters/Wanderer Magican/Magic_arrow.png" id="8_q5a0l"]
-[ext_resource type="Texture2D" uid="uid://ovav0qyfeme" path="res://assets/Characters/Wanderer Magican/Walk.png" id="9_t65m1"]
+[ext_resource type="Texture2D" uid="uid://c7cnek5ffpgv2" path="res://assets/Characters/Magican/Attack_1.png" id="1_0q54t"]
+[ext_resource type="Texture2D" uid="uid://wiwabndw61ks" path="res://assets/Characters/Magican/Attack_2.png" id="2_csg5h"]
+[ext_resource type="Texture2D" uid="uid://pp7wfnw0oj20" path="res://assets/Characters/Magican/Dead.png" id="3_iv0f0"]
+[ext_resource type="Texture2D" uid="uid://bss5kf3l2krci" path="res://assets/Characters/Magican/Hurt.png" id="4_7638m"]
+[ext_resource type="Texture2D" uid="uid://btfrtae5hk7f2" path="res://assets/Characters/Magican/Idle.png" id="5_qqmga"]
+[ext_resource type="Texture2D" uid="uid://bocaubyhv6mbs" path="res://assets/Characters/Magican/Jump.png" id="6_3djew"]
+[ext_resource type="Texture2D" uid="uid://d0rdyq8iaymb2" path="res://assets/Characters/Magican/Run.png" id="7_svq8m"]
+[ext_resource type="Texture2D" uid="uid://b3odtpf06wddu" path="res://assets/Characters/Magican/Magic_arrow.png" id="8_q5a0l"]
+[ext_resource type="Texture2D" uid="uid://ovav0qyfeme" path="res://assets/Characters/Magican/Walk.png" id="9_t65m1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_02nhm"]
 atlas = ExtResource("1_0q54t")

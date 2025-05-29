@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://chqgq3261bgco"]
 
-[ext_resource type="Script" uid="uid://dt4yycqwb5k4x" path="res://Card/Multiplayer.gd" id="1_w8sj2"]
+[ext_resource type="Script" uid="uid://dt4yycqwb5k4x" path="res://Card/Scripts/Multiplayer.gd" id="1_w8sj2"]
 [ext_resource type="PackedScene" uid="uid://bn455ati1nc51" path="res://Card/Scenes/PlayerField.tscn" id="2_gicbm"]
 [ext_resource type="PackedScene" uid="uid://bxlh6xocuj65" path="res://Card/Scenes/OpponentField.tscn" id="3_187s6"]
 [ext_resource type="Texture2D" uid="uid://bkg40qbb0ahdk" path="res://assets/battleback10.png" id="4_losid"]
@@ -34,7 +34,7 @@ text = "localhost"
 
 [node name="Battleback10" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(965, 537)
+position = Vector2(962, 537)
 scale = Vector2(1.74457, 1.73833)
 texture = ExtResource("4_losid")
 

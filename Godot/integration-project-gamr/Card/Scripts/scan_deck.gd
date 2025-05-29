@@ -12,6 +12,13 @@ func _ready():
 	var error = websocket.connect_to_url("wss://itip-team12-backend-itip-project12.apps.okd.ucll.cloud/deck")
 	if error != OK:
 		print("Error connecting to WebSocket server: ", error)
+		
+	# Connect to the Deck node
+	var deck_node = get_node("../Deck")  # Adjust the path as needed
+	if deck_node:
+		connect("draw_character_card", Callable(deck_node, "draw_card_from_character_deck"))
+	else:
+		print("Error: Couldn't find Deck node to connect signal")
 
 func _process(delta):
 	# Keep the connection alive
@@ -44,8 +51,13 @@ func _process(delta):
 					print("Card scanned successfully: ", card_uid)
 					
 					# Look up character in database
-					if character_database_reference.CHARACTERS.has(card_uid):
-						var character_name = character_database_reference.CHARACTERS[card_uid]
+					var character_name = null
+					for char_name in character_database_reference.CHARACTERS:
+						if character_database_reference.CHARACTERS[char_name] == card_uid:
+							character_name = char_name
+							break
+
+					if character_name:
 						print("Character found: ", character_name)
 						emit_signal("character_selected", character_name)
 						

@@ -135,8 +135,14 @@ func draw_card(card_drawn_name):
 func reset_draw():
 	drawn_card_this_turn = false
 
-# Add this new function to handle drawing from a character deck when scanning
+# Modified function to include energy cost
 func draw_card_from_character_deck(character_name):
+	# Check if player has enough energy
+	var battle_manager = $"../BattleManager"
+	if battle_manager.energy < 2:
+		print("Not enough energy to draw a character card (requires 2 energy)")
+		return
+	
 	# Get the deck for the selected character
 	var character_deck = []
 	
@@ -152,6 +158,9 @@ func draw_card_from_character_deck(character_name):
 	
 	# Get a random card from the deck
 	var random_card = character_deck[0]
+	
+	# Reduce energy ONLY when we're successfully drawing the card
+	battle_manager.reduce_energy(2)
 	
 	# Synchronize this card draw with all clients
 	var player_id = multiplayer.get_unique_id()

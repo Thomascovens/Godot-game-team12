@@ -39,6 +39,7 @@ func change_turn():
 	$"../Deck".reset_draw()
 	enable_end_turn_button(true)
 	$"../InputManager".inputs_disabled = false
+	
 	energy = 5
 
 func reduce_energy(cost):
@@ -271,9 +272,13 @@ func enable_end_turn_button(is_enabled):
 	if is_enabled:
 		$"../EndTurnButton".disabled = false
 		$"../EndTurnButton".visible = true
+		$"../ScanDeck".disabled = false
+		$"../ScanDeck".visible = true
 	else:
 		$"../EndTurnButton".disabled = true
 		$"../EndTurnButton".visible = false
+		$"../ScanDeck".disabled = true
+		$"../ScanDeck".visible = false
 
 # Add this new function that checks for game over conditions
 func check_game_over():

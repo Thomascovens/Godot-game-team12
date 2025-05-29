@@ -24,7 +24,10 @@ func host_set_up():
 	await $Deck.draw_initial_hand()
 	
 	$EndTurnButton.visible = true
+	$"ScanDeck".visible = true
 	$EndTurnButton.disabled = false
+	$"ScanDeck".disabled = false
+	
 	
 	$InputManager.inputs_disabled = false
 

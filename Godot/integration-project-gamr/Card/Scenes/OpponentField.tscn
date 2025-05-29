@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxlh6xocuj65"]
+[gd_scene load_steps=12 format=3 uid="uid://bxlh6xocuj65"]
 
 [ext_resource type="Script" uid="uid://300pn8j4qpk" path="res://Card/Scripts/OpponentHand.gd" id="1_gpfu4"]
 [ext_resource type="Script" uid="uid://c64ywqgbtf00w" path="res://Card/Scripts/OpponentDeck.gd" id="2_m6mue"]
@@ -7,6 +7,17 @@
 [ext_resource type="Script" uid="uid://delv184a62mle" path="res://Card/Scripts/MagicCardSlot.gd" id="6_61nt0"]
 [ext_resource type="Script" uid="uid://csbvnpgmbauf3" path="res://Card/Scripts/opponentHealth.gd" id="6_gpfu4"]
 [ext_resource type="Texture2D" uid="uid://blu18nl6kxprl" path="res://Card/Assets/Cards/AddCard.png" id="7_n0wy1"]
+[ext_resource type="Script" uid="uid://bo2cem461sm7x" path="res://Card/Scripts/opponent_health_bar.gd" id="8_m6mue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6gxx7"]
+bg_color = Color(0.739951, 0.705968, 0.721386, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ga3lq"]
+bg_color = Color(0.6, 0.153957, 0.168759, 1)
+
+[sub_resource type="Theme" id="Theme_nxnwm"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_6gxx7")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ga3lq")
 
 [node name="OpponentField" type="Node2D"]
 
@@ -23,11 +34,11 @@ script = ExtResource("2_m6mue")
 texture = ExtResource("3_nxnwm")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="OpponentDeck"]
-z_index = -2
-offset_left = -10.0
-offset_top = 200.0
-offset_right = 30.0
-offset_bottom = 240.0
+z_index = 10
+offset_left = -24.0
+offset_top = 116.0
+offset_right = 16.0
+offset_bottom = 156.0
 scale = Vector2(2, 2)
 text = "0"
 
@@ -61,12 +72,15 @@ position = Vector2(680, 360)
 scale = Vector2(0.4, 0.4)
 
 [node name="OpponentHealth" type="RichTextLabel" parent="."]
-offset_left = 130.0
-offset_top = 230.0
-offset_right = 170.0
-offset_bottom = 270.0
+offset_left = 1666.0
+offset_top = 239.0
+offset_right = 1775.0
+offset_bottom = 260.0
 scale = Vector2(2, 2)
 text = "0"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("6_gpfu4")
 
 [node name="OpponentDiscard" type="Node2D" parent="."]
@@ -75,3 +89,15 @@ scale = Vector2(0.4, 0.4)
 
 [node name="Sprite2D" type="Sprite2D" parent="OpponentDiscard"]
 texture = ExtResource("7_n0wy1")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+z_index = -1
+offset_left = 1666.0
+offset_top = 239.0
+offset_right = 1883.0
+offset_bottom = 282.0
+theme = SubResource("Theme_nxnwm")
+max_value = 20.0
+value = 20.0
+show_percentage = false
+script = ExtResource("8_m6mue")
