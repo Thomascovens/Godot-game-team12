@@ -10,7 +10,6 @@ signal hit(new_health: int)
 var health: int
 var is_attacking: bool = false
 var is_invincible: bool = false
-var map_bounds_rect: Rect2
 
 func _ready():
 	health = max_health
@@ -19,19 +18,17 @@ func _ready():
 		$AnimatedSprite2D.animation_finished.connect(Callable(self, "_on_animation_finished"))
 	if not $AnimatedSprite2D.frame_changed.is_connected(Callable(self, "_on_frame_changed")):
 		$AnimatedSprite2D.frame_changed.connect(Callable(self, "_on_frame_changed"))
+		
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
 
-	var shape = get_node("../Mapbounds/Shape")
-	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
-		var rect_shape = shape.shape as RectangleShape2D
-		var center = shape.global_position
-		var size = rect_shape.extents * 2
-		map_bounds_rect = Rect2(center - rect_shape.extents, size)
 
 func _process(delta):
 	handle_input(delta)
 	handle_animation()
 
-func handle_input(_delta):
+func handle_input(delta):
 	if is_attacking:
 		return
 
@@ -50,14 +47,18 @@ func handle_input(_delta):
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	move_and_slide()
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		var collider = collision.get_collider()
+		if collider is RigidBody2D:
+			var push_force = velocity.normalized() * 1000
+			collider.apply_central_force(push_force)
 
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
 		var aim_direction = (get_global_mouse_position() - global_position).normalized()
 		$AnimatedSprite2D.flip_h = aim_direction.x < 0
 		$AnimatedSprite2D.play("attack")
-
 
 func handle_animation():
 	if is_attacking:
@@ -112,10 +113,22 @@ func take_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	emit_signal("hit", health)
 
+	# ✅ Update HealthBar node if it exists
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.health = health
+
 	if health == 0:
 		die()
 		if get_parent().has_method("game_over"):
 			get_parent().game_over()
+
+	is_invincible = true
+	$AnimatedSprite2D.modulate.a = 0.3
+	await get_tree().create_timer(2.0).timeout
+	is_invincible = false
+	$AnimatedSprite2D.modulate.a = 1.0
+
 
 	is_invincible = true
 	$AnimatedSprite2D.modulate.a = 0.3
@@ -135,3 +148,8 @@ func start(pos: Vector2):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)

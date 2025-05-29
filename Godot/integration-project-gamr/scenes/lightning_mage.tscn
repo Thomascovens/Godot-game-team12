@@ -322,8 +322,9 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvquw"]
-size = Vector2(23, 64)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0wcqb"]
+radius = 14.5
+height = 66.0
 
 [node name="Mage" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_0wcqb")
@@ -345,4 +346,4 @@ frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(11.5, -32)
-shape = SubResource("RectangleShape2D_gvquw")
+shape = SubResource("CapsuleShape2D_0wcqb")

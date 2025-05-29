@@ -3,14 +3,13 @@ signal hit(new_health: int)
 
 @export var walk_speed := 200
 @export var run_speed := 400
-@export var max_health: int = 100
+@export var max_health: int = 80
 @export var projectile_scene: PackedScene = preload("res://scenes/Characters/projectiles/fireball.tscn")
 @export var projectile_offset: Vector2 = Vector2(0, -30)
 
 var health: int
 var is_attacking: bool = false
 var is_invincible: bool = false
-var map_bounds_rect: Rect2
 
 func _ready():
 	health = max_health
@@ -20,21 +19,12 @@ func _ready():
 	set_physics_process(false)
 	set_process_input(false)
 	set_process_unhandled_input(false)
-	
-	var shape = get_node("../Mapbounds/Shape")
-	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
-		var rect_shape = shape.shape as RectangleShape2D
-		var center = shape.global_position
-		var size = rect_shape.extents * 2
-		map_bounds_rect = Rect2(center - rect_shape.extents, size)
-	else:
-		push_error("Mapbounds/Shape must be a RectangleShape2D!")
 
 func _process(delta):
 	handle_input(delta)
 	handle_animation()
 
-func handle_input(_delta):
+func handle_input(delta):
 	if is_attacking:
 		return
 
@@ -53,15 +43,18 @@ func handle_input(_delta):
 		var speed = run_speed if is_running else walk_speed
 		velocity = dir * speed
 
-	#position += velocity * delta
-	# In _physics_process:
-	move_and_slide()
+	var collision = move_and_collide(velocity * delta)
+	if collision:
+		var collider = collision.get_collider()
+		if collider is RigidBody2D:
+			var push_force = velocity.normalized() * 1000
+			collider.apply_central_force(push_force)
+
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
 		var aim_direction = (get_global_mouse_position() - global_position).normalized()
 		$AnimatedSprite2D.flip_h = aim_direction.x < 0
 		$AnimatedSprite2D.play("attack")
-
 
 func handle_animation():
 	if is_attacking:
@@ -69,12 +62,9 @@ func handle_animation():
 
 	if velocity != Vector2.ZERO:
 		$AnimatedSprite2D.animation = "run" if velocity.length() > walk_speed else "walk"
-		$AnimatedSprite2D.flip_h = velocity.x < 0
-		$AnimatedSprite2D.flip_v = false
-		$AnimatedSprite2D.play()
 	else:
 		$AnimatedSprite2D.animation = "idle"
-	
+
 	$AnimatedSprite2D.flip_h = velocity.x < 0
 	$AnimatedSprite2D.flip_v = false
 	$AnimatedSprite2D.play()
@@ -83,10 +73,8 @@ func shoot_fireball():
 	var proj = projectile_scene.instantiate()
 	var dir = (get_global_mouse_position() - global_position).normalized()
 
-	# sprite flippen op basis van richtingsvector
 	$AnimatedSprite2D.flip_h = dir.x < 0
 
-	# positie van de pijl
 	var offset = projectile_offset
 	if $AnimatedSprite2D.flip_h:
 		offset.x *= -1
@@ -141,6 +129,11 @@ func start(pos: Vector2):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+	
+	# ✅ Initialize the health bar here instead of _ready
+	var health_bar = get_node_or_null("/root/Main/HUD/HealthBar")
+	if health_bar:
+		health_bar.init_health(max_health)
 	
 func die():
 	is_attacking = false

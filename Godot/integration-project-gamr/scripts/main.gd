@@ -12,7 +12,7 @@ var active_player: NodePath
 var spawn_ghost_wizard := true
 
 
-var map_bounds_rect: Rect2  # Store world bounds rectangle here
+const SPAWN_MARGIN = 16  # Keep margin for spawning
 
 func new_game():
 	score = 0
@@ -42,6 +42,7 @@ func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 
+
 func switch_character(index: int):
 	if index < 0 or index >= character_nodes.size():
 		return
@@ -61,19 +62,24 @@ func switch_character(index: int):
 	active_player = character_nodes[index]
 	var new := get_node(active_player)
 
-	# ✅ now that "new" exists, we can safely use it
 	var sprite := new.get_node_or_null("AnimatedSprite2D")
 	if sprite:
 		sprite.visible = true
 
 	new.show()
+
+	# Position without mapbounds, so just spawn at StartPosition with margin clamp if needed
+	var safe_pos = $StartPosition.global_position
+	# Optionally clamp here if you keep map bounds in some variable, but now we assume no clamp
+	new.global_position = safe_pos
+
 	new.set_physics_process(true)
 	new.set_process(true)
 	new.set_process_input(true)
 	new.set_process_unhandled_input(true)
 
 	if new.has_method("start"):
-		new.start($StartPosition.position)
+		new.start(safe_pos)
 
 	var cam := new.get_node("Camera2D")
 	cam.enabled = true
@@ -82,16 +88,14 @@ func switch_character(index: int):
 	print("Activated character: ", new.name)
 
 
-
-
 func _on_mob_timer_timeout():
-	# 1) Spawn the soldier
 	var mob = mob_scene.instantiate()
 	add_child(mob)
+	# Without map bounds, spawn anywhere or implement your own logic
 	mob.global_position = _get_random_spawn_position()
 
-	# 2) Increment our soldier counter
 	_soldier_spawn_count += 1
+
 
 	# 3) Every 5 soldiers, spawn a special enemy
 	if _soldier_spawn_count % 5 == 0:
@@ -109,60 +113,49 @@ func _on_mob_timer_timeout():
 		# Alternate for next time
 		spawn_ghost_wizard = !spawn_ghost_wizard
 
+
 func increment_score():
 	score += 1
 	$HUD/ScoreLabel.text = str(score)
+
 
 func _on_start_timer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
 	$HUD.update_score(score)
 
+
 func _ready():
 	randomize()
 
 	hide_all_characters()
-	switch_character(start_character_index)  # ✅ Must come first
-	Global.set_player(get_node(active_player))  # 🔒 Redundant but safe if switch_character doesn't work
+	switch_character(start_character_index)
+	Global.set_player(get_node(active_player))
 
-	# ✅ Now it's safe to begin spawning enemies
 	new_game()
 
-	# World bounds setup
-	var shape = get_node("Mapbounds/Shape")
-	if shape is CollisionShape2D and shape.shape is RectangleShape2D:
-		var rect_shape = shape.shape as RectangleShape2D
-		var center = shape.global_position
-		var size = rect_shape.extents * 2
-		map_bounds_rect = Rect2(center - rect_shape.extents, size)
-	else:
-		push_error("Mapbounds/Shape must be a RectangleShape2D!")
+	# Removed Mapbounds detection and rect calculation
 
 
-# Helper function to pick a random spawn position inside the map bounds
 func _get_random_spawn_position() -> Vector2:
-	var x = randf_range(map_bounds_rect.position.x, map_bounds_rect.position.x + map_bounds_rect.size.x)
-	var y = randf_range(map_bounds_rect.position.y, map_bounds_rect.position.y + map_bounds_rect.size.y)
-	return Vector2(x, y)
+	# Since Mapbounds is gone, spawn randomly in some area you define here manually
+	# Example: spawn anywhere inside 0,0 to 1024,768 - adjust to your game world size
+	return Vector2(
+		randf_range(0 + SPAWN_MARGIN, 1024 - SPAWN_MARGIN),
+		randf_range(0 + SPAWN_MARGIN, 768 - SPAWN_MARGIN)
+	)
 
 
-# — helper to pick one of the four view‐corners in world space —
 func _get_random_camera_corner() -> Vector2:
-	# find your player‐camera
 	var player := get_node(active_player)
 	var cam: Camera2D = player.get_node("Camera2D")
-	# get the current visible viewport size in pixels
 	var vp_size : Vector2 = get_viewport().get_visible_rect().size
-	# half‐extents in world units (accounting for zoom)
 	var half_extents := (vp_size * 0.5) * cam.zoom
-	# camera center in world space
 	var center := cam.global_position
-	# build the four corners
 	var corners = [
-		center + Vector2(-half_extents.x, -half_extents.y),  # top‐left
-		center + Vector2( half_extents.x, -half_extents.y),  # top‐right
-		center + Vector2( half_extents.x,  half_extents.y),  # bottom‐right
-		center + Vector2(-half_extents.x,  half_extents.y)   # bottom‐left
+		center + Vector2(-half_extents.x, -half_extents.y),  # top-left
+		center + Vector2( half_extents.x, -half_extents.y),  # top-right
+		center + Vector2( half_extents.x,  half_extents.y),  # bottom-right
+		center + Vector2(-half_extents.x,  half_extents.y)   # bottom-left
 	]
-	# return one at random
 	return corners[randi() % corners.size()]
