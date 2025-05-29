@@ -48,6 +48,7 @@ func _on_join_button_pressed() -> void:
 	player_scene.client_set_up()
 
 func disable_buttons():
+	$CanvasLayer.visible = false
 	$CanvasLayer/UI/VBoxContainer/HostButton.disabled = true
 	$CanvasLayer/UI/VBoxContainer/JoinButton.disabled = true
 	$CanvasLayer/UI/VBoxContainer/HostButton.visible = false

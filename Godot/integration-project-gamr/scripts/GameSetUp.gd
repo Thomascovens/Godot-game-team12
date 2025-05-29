@@ -3,7 +3,7 @@ extends Node2D
 const STARTING_HEALTH = 20
 
 func _ready() -> void:
-	$ScanDeck.connect("draw_character_card", $Deck.draw_card_from_character_deck)
+	$username.text = Global.username
 
 func host_set_up():
 	$PlayerHealth.text = str(STARTING_HEALTH)
@@ -18,8 +18,8 @@ func host_set_up():
 	
 	var player_id = multiplayer.get_unique_id()
 	
-	await create_character_node("res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
-	rpc("create_character_node","res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
+	await create_character_node("res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id,Global.username)
+	rpc("create_character_node","res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id,Global.username)
 	
 	await $Deck.draw_initial_hand()
 	
@@ -52,14 +52,14 @@ func client_set_up():
 	get_parent().get_node("OpponentField/OpponentDeck/RichTextLabel").text = "8"
 	
 	var player_id = multiplayer.get_unique_id()
-	await create_character_node("res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
+	await create_character_node("res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id, Global.username)
 	await get_tree().create_timer(0.1).timeout
-	rpc("create_character_node","res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id)
+	rpc("create_character_node","res://Card/Scenes/Characters/"+ Global.character +".tscn", player_id, Global.username)
 
 	await $Deck.draw_initial_hand()
 
 @rpc("any_peer")
-func create_character_node(path, player_id):
+func create_character_node(path, player_id, username):
 	if multiplayer.get_unique_id() == player_id:
 		var character_scene = load(path).instantiate()
 		add_child(character_scene)
@@ -74,3 +74,5 @@ func create_character_node(path, player_id):
 		character_scene.z_index = -4
 		character_scene.scale = Vector2(1.5,1.5)
 		character_scene.get_node("AnimatedSprite2D").flip_h = true
+		Global.opponent_username = username
+		opponentField.get_node("username").text = Global.opponent_username

@@ -16,7 +16,7 @@ const CHARACTER_DECKS = {
 	],
 	"magician": [
 		"Mage", "Mage", "Mage", 
-		"Knight", "Knight", "Knight", "Knight",
+		"Knight", "Knight", "MageSoldier", "MageSoldier",
 		"Mage", "Mage", "Mage", 
 		"MageSoldier", "MageSoldier", "MageSoldier", "MageSoldier",
 		"Mage", "Mage", "Mage", "Tornado", "Tornado", 

@@ -1,6 +1,7 @@
 extends Node
 
 var username = "player"
+var opponent_username = ""
 var character = "magician"
 var loggedin = false
 var victor = ""

@@ -101,3 +101,13 @@ max_value = 20.0
 value = 20.0
 show_percentage = false
 script = ExtResource("8_m6mue")
+
+[node name="username" type="RichTextLabel" parent="."]
+offset_left = 1627.0
+offset_top = 289.0
+offset_right = 1774.0
+offset_bottom = 319.0
+scale = Vector2(2, 2)
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

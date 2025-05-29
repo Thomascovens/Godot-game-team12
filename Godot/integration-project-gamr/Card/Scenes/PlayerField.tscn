@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bn455ati1nc51"]
+[gd_scene load_steps=25 format=3 uid="uid://bn455ati1nc51"]
 
 [ext_resource type="Script" uid="uid://nnt3ot06ory1" path="res://Card/Scripts/card_manager.gd" id="1_8g701"]
 [ext_resource type="Script" uid="uid://332io6l006y" path="res://scripts/GameSetUp.gd" id="1_mt3dj"]
@@ -18,6 +18,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jb6x5"]
 size = Vector2(314, 395)
+
+[sub_resource type="InputEventKey" id="InputEventKey_yn2xr"]
+keycode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_6gxx7"]
+events = [SubResource("InputEventKey_yn2xr")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8by1c"]
 
@@ -76,7 +82,7 @@ script = ExtResource("4_ckasl")
 
 [node name="Deck" type="Node2D" parent="."]
 z_index = -2
-position = Vector2(143, 566)
+position = Vector2(132, 636)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("5_8by1c")
 
@@ -100,6 +106,7 @@ offset_right = 25.0
 offset_bottom = 153.333
 scale = Vector2(2, 2)
 text = "0"
+metadata/_edit_use_anchors_ = true
 
 [node name="DeckTimer" type="Timer" parent="Deck"]
 
@@ -107,18 +114,19 @@ text = "0"
 script = ExtResource("7_yn2xr")
 
 [node name="EndTurnButton" type="Button" parent="."]
-offset_left = 158.0
-offset_top = 714.0
-offset_right = 236.0
-offset_bottom = 745.0
+offset_left = 147.0
+offset_top = 784.0
+offset_right = 225.0
+offset_bottom = 815.0
 disabled = true
+shortcut = SubResource("Shortcut_6gxx7")
 text = "End Turn"
 
 [node name="ScanDeck" type="Button" parent="."]
-offset_left = 30.0
-offset_top = 714.0
-offset_right = 149.0
-offset_bottom = 745.0
+offset_left = 19.0
+offset_top = 784.0
+offset_right = 138.0
+offset_bottom = 815.0
 disabled = true
 text = "ScanDeckCard"
 script = ExtResource("9_8by1c")
@@ -129,10 +137,10 @@ script = ExtResource("8_6gxx7")
 [node name="BattleTimer" type="Timer" parent="."]
 
 [node name="PlayerHealth" type="RichTextLabel" parent="."]
-offset_left = 26.0
-offset_top = 766.0
-offset_right = 134.0
-offset_bottom = 788.0
+offset_left = 25.0
+offset_top = 400.0
+offset_right = 133.0
+offset_bottom = 422.0
 scale = Vector2(2, 2)
 text = "0"
 scroll_active = false
@@ -141,10 +149,10 @@ vertical_alignment = 1
 script = ExtResource("10_ckasl")
 
 [node name="PlayerEnergy" type="RichTextLabel" parent="."]
-offset_left = 26.0
-offset_top = 818.0
-offset_right = 135.0
-offset_bottom = 840.0
+offset_left = 25.0
+offset_top = 452.0
+offset_right = 134.0
+offset_bottom = 474.0
 scale = Vector2(2, 2)
 text = "0"
 scroll_active = false
@@ -161,10 +169,10 @@ texture = ExtResource("9_ga3lq")
 
 [node name="EnergyBar" type="ProgressBar" parent="."]
 z_index = -1
-offset_left = 26.0
-offset_top = 818.0
-offset_right = 243.0
-offset_bottom = 861.0
+offset_left = 25.0
+offset_top = 452.0
+offset_right = 242.0
+offset_bottom = 495.0
 theme = SubResource("Theme_yn2xr")
 max_value = 5.0
 value = 5.0
@@ -173,15 +181,25 @@ script = ExtResource("14_7g47n")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 z_index = -1
-offset_left = 26.0
-offset_top = 766.0
-offset_right = 243.0
-offset_bottom = 809.0
+offset_left = 25.0
+offset_top = 400.0
+offset_right = 242.0
+offset_bottom = 443.0
 theme = SubResource("Theme_jb6x5")
 max_value = 20.0
 value = 20.0
 show_percentage = false
 script = ExtResource("15_yn2xr")
+
+[node name="username" type="RichTextLabel" parent="."]
+offset_left = 2.0
+offset_top = 327.0
+offset_right = 136.0
+offset_bottom = 358.0
+scale = Vector2(2, 2)
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="ScanDeck" to="ScanDeck" method="_on_pressed"]

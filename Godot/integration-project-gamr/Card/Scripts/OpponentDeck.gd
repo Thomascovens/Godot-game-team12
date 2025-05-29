@@ -18,7 +18,7 @@ func _ready() -> void:
 	character_decks_reference = preload("res://Card/Scripts/CharacterDecks.gd")
 	#for i in range(STARTING_HAND_SIZE):
 		#draw_card()
-	
+	$"../username".text = Global.opponent_username
 	
 func draw_card(card_drawn_name):	
 	if deck_size -1 == 0:
