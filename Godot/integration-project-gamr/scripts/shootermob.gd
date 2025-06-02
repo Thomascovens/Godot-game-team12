@@ -37,6 +37,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if is_dead or player == null:
 		linear_velocity = Vector2.ZERO
+		collision_shape.disabled = false
 		return
 
 	var to_player = player.global_position - global_position
@@ -45,8 +46,10 @@ func _physics_process(_delta: float) -> void:
 	if dist > attack_range:
 		var dir = to_player.normalized()
 		linear_velocity = dir * speed
+		collision_shape.disabled = true  # Disable shape during movement
 	else:
 		linear_velocity = Vector2.ZERO
+		collision_shape.disabled = false  # Enable it when idle/shooting
 		if can_shoot:
 			_shoot_at(player.global_position)
 
