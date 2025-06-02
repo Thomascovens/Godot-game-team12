@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://c0yuhomr0g8mc"]
+[gd_scene load_steps=67 format=4 uid="uid://c0yuhomr0g8mc"]
 
 [ext_resource type="Script" uid="uid://bsw8r463eb4vh" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://wu2i20axn6bm" path="res://scenes/mob.tscn" id="3_o6xl0"]
@@ -335,7 +335,7 @@ mob_scene = ExtResource("3_o6xl0")
 shootermob_scene = ExtResource("6_85g3d")
 Bringer_of_death_scene = ExtResource("7_pm3ni")
 character_nodes = Array[NodePath]([NodePath("Fire wizard"), NodePath("Archer_bow"), NodePath("Fighter"), NodePath("Knight"), NodePath("Mage"), NodePath("Magician")])
-start_character_index = 4
+start_character_index = 1
 
 [node name="HUD" parent="." instance=ExtResource("3_tipki")]
 

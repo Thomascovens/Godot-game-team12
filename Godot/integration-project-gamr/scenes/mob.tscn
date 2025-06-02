@@ -184,4 +184,3 @@ path_desired_distance = 70.5
 path_max_distance = 410.0
 avoidance_enabled = true
 radius = 196.87
-debug_enabled = true
