@@ -4,7 +4,7 @@ const PORT = 1234
 var server_address
 
 func _on_address_field_text_changed() -> void:
-	server_address = $AddressField.text
+	server_address = $CanvasLayer/UI/VBoxContainer/AddressField.text
 	
 
 var peer = ENetMultiplayerPeer.new()
